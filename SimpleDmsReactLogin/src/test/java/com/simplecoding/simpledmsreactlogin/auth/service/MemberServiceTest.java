@@ -1,6 +1,5 @@
 package com.simplecoding.simpledmsreactlogin.auth.service;
 
-import com.simplecoding.simpledmsreactlogin.auth.dto.JwtResponseDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MemberDto;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -35,7 +34,8 @@ class MemberServiceTest {
         memberDto.setPassword("123456");
 
 //        2) 실행:
-        JwtResponseDto jwtResponseDto= memberService.login(memberDto);
+        String  jwt= memberService.login(memberDto);
 //        3) 검증:
+        log.info("jwt:{}",jwt);
     }
 }

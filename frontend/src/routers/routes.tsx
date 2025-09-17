@@ -23,6 +23,8 @@ import AddNotice from "../pages/notice/AddNotice";
 import EventNoticeList from "../pages/eventnotice/EventNoticeList";
 import AddEventNotice from "../pages/eventnotice/AddEventNotice";
 import EventNoticeDetail from "../pages/eventnotice/EventNoticeDetail";
+import LoginView from "../pages/auth/LoginView";
+import RegisterView from "../pages/auth/RegisterView";
 
 const router = createBrowserRouter([
   {
@@ -47,11 +49,13 @@ const router = createBrowserRouter([
       { path: "notice-detail/:nid", element: <NoticeDetail /> },
       { path: "event-notice", element: <EventNoticeList /> },
       { path: "add-event-notice", element: <AddEventNotice /> },
-      { path: "event-notice-detail/:nid", element: <EventNoticeDetail /> },
+      { path: "event-notice-detail/:eid", element: <EventNoticeDetail /> },
       { path: "fileDb", element: <FiledbList /> },
       { path: "add-fileDb", element: <AddFileDb /> },
       { path: "gallery", element: <GalleryList /> },
       { path: "add-gallery", element: <AddGallery /> },
+      { path: "login", element: <LoginView /> },
+      { path: "register", element: <RegisterView /> },
     ],
   },
 ]);
