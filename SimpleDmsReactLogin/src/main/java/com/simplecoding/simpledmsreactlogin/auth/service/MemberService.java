@@ -1,7 +1,6 @@
 package com.simplecoding.simpledmsreactlogin.auth.service;
 
 
-import com.simplecoding.simpledmsreactlogin.auth.dto.JwtResponseDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MemberDto;
 import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
 import com.simplecoding.simpledmsreactlogin.auth.repository.MemberRepository;
@@ -15,8 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 
 @Service
@@ -44,7 +41,7 @@ public class MemberService {
     }
 
 //    TODO: 로그인 , DTO 필요(택배상자)
-    public JwtResponseDto login(MemberDto memberDto) {
+    public String login(MemberDto memberDto) {
 //        (1) id/pwd 인증(확인) : 통과
 //        TODO: (참고) .authenticate() => UserDetailsServiceImple 상세조회 함수가 실행됨
 //              (참고) Authentication 객체 == 인증된객체 (유저)
@@ -56,16 +53,9 @@ public class MemberService {
 //        (2) 통과된 유저들 => 필통(홀더)에 보관 : 인증완료
         SecurityContextHolder.getContext().setAuthentication(authentication);
 //        (3) 웹토큰 발급(벡엔드) : 카드패스(호텔카드키)
-        String jwt = jwtUtils.generateJwtToken(authentication);
-//        (4) 혹시 권한정보가 있으면 그것도 정의(생략) : ROLE_ADMIN,ROLE_USER
-        String codeName = new ArrayList(authentication.getAuthorities()).get(0).toString();
+        String accessToken = jwtUtils.generateJwtToken(authentication);
 //        (5) 택배상자(DTO)에 담기 : 1) 웹토큰, 2) 유저정보
-//                => 프론트로 전송
-        return new JwtResponseDto(
-                jwt,                   // 웹토큰
-                memberDto.getEmail(),  // 이메일(로그인 ID)
-                codeName               // 권한명
-        );
+        return accessToken;
     }
 
 }

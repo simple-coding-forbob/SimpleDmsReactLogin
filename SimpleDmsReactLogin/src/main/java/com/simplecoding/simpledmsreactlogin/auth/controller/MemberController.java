@@ -1,8 +1,8 @@
 package com.simplecoding.simpledmsreactlogin.auth.controller;
 
-import com.simplecoding.simpledmsreactlogin.auth.dto.JwtResponseDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MemberDto;
 import com.simplecoding.simpledmsreactlogin.auth.service.MemberService;
+import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -25,9 +25,11 @@ public class MemberController {
     public ResponseEntity<?> login(
             @RequestBody MemberDto memberDto) {
 //        클래스위에 커서 두고 : CTRL + B
-        JwtResponseDto jwtResponseDto = memberService.login(memberDto);
+        String accessToken = memberService.login(memberDto);
+        ApiResponse<String> response = new ApiResponse<>(true,
+                "토큰 발급", accessToken, 0, 0);
 
-        return new ResponseEntity<>(jwtResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/auth/register")

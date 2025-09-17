@@ -9,23 +9,23 @@ const common = axios.create({
   }
 });
 
-// // 공통 요청 인터셉터 (옵션)
-// common.interceptors.request.use((config) => {
-//   // 토큰 있으면 자동으로 넣기
-//   const token = localStorage.getItem("token");
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   }
-//   return config;
-// });
+// 공통 요청 인터셉터 (옵션)
+common.interceptors.request.use((config) => {
+  // 토큰 있으면 자동으로 넣기
+  const accessToken = JSON.parse(localStorage.getItem("accessToken")?? "");
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+  return config;
+});
 
-// // 공통 응답 인터셉터 (옵션)
-// common.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     console.error("API Error:", error);
-//     return Promise.reject(error);
-//   }
-// );
+// 공통 응답 인터셉터 (옵션)
+common.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error("API Error:", error);
+    return Promise.reject(error);
+  }
+);
 
 export default common;

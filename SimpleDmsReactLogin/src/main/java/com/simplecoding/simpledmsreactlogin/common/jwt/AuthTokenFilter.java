@@ -1,5 +1,6 @@
 package com.simplecoding.simpledmsreactlogin.common.jwt;
 
+import com.simplecoding.simpledmsreactlogin.auth.service.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -31,7 +31,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtils; // JWT 처리 유틸리티
 
     @Autowired
-    private UserDetailsService userDetailsService; // DB에서 사용자 상세조회용 서비스
+    private UserDetailsServiceImpl userDetailsService; // DB에서 사용자 상세조회용 서비스
 
     /**
      * 실제 필터 처리 로직
