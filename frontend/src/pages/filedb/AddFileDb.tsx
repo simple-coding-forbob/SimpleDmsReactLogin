@@ -4,27 +4,22 @@ import { useNavigate } from "react-router-dom";
 import FileDbService from "../../services/FileDbService";
 
 import type IFileDb from "../../types/IFileDb";
-import fileDbValidation from "../../utils/fileDbValidation";
+import fileDbValidation from "../../validation/fileDbValidation";
 
 function AddFileDb() {
   const nav = useNavigate();
 
   const insert = async (data: IFileDb) => {
-    try {
-      await FileDbService.insert(data);
-      alert("저장되었습니다");
-      nav("/fileDb"); // 업로드 성공 시 강제 이동
-    } catch (e) {
-      console.error(e);
-      alert("오류가 발생했습니다.");
-    }
+    await FileDbService.insert(data);
+    alert("저장되었습니다");
+    nav("/fileDb"); // 업로드 성공 시 강제 이동
   };
 
   const formik = useFormik({
     initialValues: {
       fileTitle: "",
       fileContent: "",
-      fileData: null as File | null
+      fileData: null as File | null,
     },
     validationSchema: fileDbValidation,
     onSubmit: (values) => {

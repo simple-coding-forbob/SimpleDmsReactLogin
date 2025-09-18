@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import type INotice from "../../types/INotice";
 import NoticeService from "../../services/NoticeService";
-import noticeValidation from "../../utils/noticeValidation";
+import noticeValidation from "../../validation/noticeValidation";
 
 function NoticeDetail() {
   const params = useParams<{ nid: string }>();
@@ -18,38 +18,24 @@ function NoticeDetail() {
   }, [nid]);
 
   const get = async (nid: number) => {
-    try {
-      const response = await NoticeService.get(nid);
-      const { result } = response.data;
-      setNotice(result); // 서버 데이터 저장
-      console.log(result);
-    } catch (e) {
-      console.error(e);
-    }
+    const response = await NoticeService.get(nid);
+    const { result } = response.data;
+    setNotice(result); // 서버 데이터 저장
+    console.log(result);
   };
 
   // 수정
   const update = async (data: INotice) => {
-    try {
-      await NoticeService.update(nid, data);
-      alert("수정되었습니다");
-      nav("/notice");
-    } catch (e) {
-      console.error(e);
-      alert("오류: " + e);
-    }
+    await NoticeService.update(nid, data);
+    alert("수정되었습니다");
+    nav("/notice");
   };
 
   // 삭제
   const remove = async () => {
-    try {
-      await NoticeService.remove(nid);
-      alert("삭제되었습니다");
-      nav("/notice");
-    } catch (e) {
-      console.error(e);
-      alert("오류: " + e);
-    }
+    await NoticeService.remove(nid);
+    alert("삭제되었습니다");
+    nav("/notice");
   };
 
   // 서버 데이터가 준비되었을 때만 Formik 초기화
@@ -140,7 +126,7 @@ function NoticeDetail() {
             id="startDate"
             name="startDate"
             className="w-full border border-gray-300 rounded p-2"
-            value={formik.values.startDate??""}
+            value={formik.values.startDate ?? ""}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
@@ -156,7 +142,7 @@ function NoticeDetail() {
             id="endDate"
             name="endDate"
             className="w-full border border-gray-300 rounded p-2"
-            value={formik.values.endDate??""}
+            value={formik.values.endDate ?? ""}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />

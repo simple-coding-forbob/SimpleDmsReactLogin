@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import type IFaq from "../../types/IFaq";
 import FaqService from "../../services/FaqService";
-import faqValidation from "../../utils/faqValidation";
+import faqValidation from "../../validation/faqValidation";
 
 function FaqDetail() {
   const params = useParams<{ fno: string }>();
   const fno = Number(params.fno);
   const nav = useNavigate();
 
-  const [faq, setFaq] = useState<IFaq|null>(null); // null로 초기화 -> 로딩 상태 판단
+  const [faq, setFaq] = useState<IFaq | null>(null); // null로 초기화 -> 로딩 상태 판단
 
   // 상세조회
   useEffect(() => {
@@ -18,38 +18,24 @@ function FaqDetail() {
   }, [fno]);
 
   const get = async (fno: number) => {
-    try {
-      const response = await FaqService.get(fno);
-      const { result } = response.data;
-      setFaq(result); // 서버 데이터 저장
-      console.log(result);
-    } catch (e) {
-      console.error(e);
-    }
+    const response = await FaqService.get(fno);
+    const { result } = response.data;
+    setFaq(result); // 서버 데이터 저장
+    console.log(result);
   };
 
   // 수정
   const update = async (data: IFaq) => {
-    try {
-      await FaqService.update(fno, data);
-      alert("수정되었습니다");
-      nav("/faq");
-    } catch (e) {
-      console.error(e);
-      alert("오류: "+e);
-    }
+    await FaqService.update(fno, data);
+    alert("수정되었습니다");
+    nav("/faq");
   };
 
   // 삭제
   const remove = async () => {
-    try {
-      await FaqService.remove(fno);
-      alert("삭제되었습니다");
-      nav("/faq");
-    } catch (e) {
-      console.error(e);
-      alert("오류: "+e);
-    }
+    await FaqService.remove(fno);
+    alert("삭제되었습니다");
+    nav("/faq");
   };
 
   // 서버 데이터가 준비되었을 때만 Formik 초기화
@@ -58,7 +44,7 @@ function FaqDetail() {
       title: faq?.title ?? "",
       content: faq?.content ?? "",
     },
-    enableReinitialize: true,              // 값이 바뀌면 재갱신: 최초 null -> 서버데이터
+    enableReinitialize: true, // 값이 바뀌면 재갱신: 최초 null -> 서버데이터
     validationSchema: faqValidation,
     onSubmit: (data: IFaq) => {
       update(data);
@@ -73,7 +59,9 @@ function FaqDetail() {
 
       <form onSubmit={formik.handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="title" className="block mb-1">title</label>
+          <label htmlFor="title" className="block mb-1">
+            title
+          </label>
           <input
             type="text"
             id="title"
@@ -89,7 +77,9 @@ function FaqDetail() {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="content" className="block mb-1">content</label>
+          <label htmlFor="content" className="block mb-1">
+            content
+          </label>
           <input
             type="text"
             id="content"
@@ -105,8 +95,19 @@ function FaqDetail() {
         </div>
 
         <div className="mb-4 flex gap-2">
-          <button type="submit" className="flex-1 bg-green-700 text-white p-2 rounded hover:bg-green-800">수정</button>
-          <button type="button" onClick={remove} className="flex-1 bg-red-600 text-white p-2 rounded hover:bg-red-700">삭제</button>
+          <button
+            type="submit"
+            className="flex-1 bg-green-700 text-white p-2 rounded hover:bg-green-800"
+          >
+            수정
+          </button>
+          <button
+            type="button"
+            onClick={remove}
+            className="flex-1 bg-red-600 text-white p-2 rounded hover:bg-red-700"
+          >
+            삭제
+          </button>
         </div>
       </form>
     </>

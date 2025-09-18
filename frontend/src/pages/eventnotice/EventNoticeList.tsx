@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import type IEventNotice from "../../types/IEventNotice";
 import EventNoticeService from "../../services/EventNoticeService";
 
-
 const EventNoticeList = () => {
   const [eventNotices, setEventNotice] = useState<IEventNotice[]>([]);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
@@ -23,15 +22,15 @@ const EventNoticeList = () => {
   };
 
   const selectList = async () => {
-    try {
-      const response = await EventNoticeService.getAll(searchKeyword, page - 1, size);
-      const { result, totalNumber } = response.data;
-      setEventNotice(result);
-      setTotalNumber(totalNumber);
-      console.log(response.data);
-    } catch (e) {
-      console.log(e);
-    }
+    const response = await EventNoticeService.getAll(
+      searchKeyword,
+      page - 1,
+      size
+    );
+    const { result, totalNumber } = response.data;
+    setEventNotice(result);
+    setTotalNumber(totalNumber);
+    console.log(response.data);
   };
 
   useEffect(() => {
@@ -73,7 +72,9 @@ const EventNoticeList = () => {
             {eventNotices.map((data) => (
               <tr key={data.eid} className="hover:bg-gray-50">
                 <td className="px-4 py-2 border-b">
-                  <Link to={`/event-notice-detail/${data.eid}`}>{data.subject}</Link>
+                  <Link to={`/event-notice-detail/${data.eid}`}>
+                    {data.subject}
+                  </Link>
                 </td>
                 <td className="px-4 py-2 border-b">{data.text}</td>
                 <td className="px-4 py-2 border-b">{data.isVisible}</td>

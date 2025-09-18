@@ -2,20 +2,15 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import type IEventNotice from "../../types/IEventNotice";
 import EventNoticeService from "../../services/EventNoticeService";
-import eventNoticeValidation from "../../utils/eventNoticeValidation";
+import eventNoticeValidation from "../../validation/eventNoticeValidation";
 
 function AddEventNotice() {
   const nav = useNavigate();
 
   const save = async (data: IEventNotice) => {
-    try {
-      await EventNoticeService.insert(data);
-      alert("저장되었습니다");
-      nav("/event-notice");
-    } catch (e) {
-      console.error(e);
-      alert("오류 :" + e);
-    }
+    await EventNoticeService.insert(data);
+    alert("저장되었습니다");
+    nav("/event-notice");
   };
 
   const formik = useFormik({
@@ -107,7 +102,7 @@ function AddEventNotice() {
             id="startDate"
             name="startDate"
             className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring focus:ring-blue-500"
-            value={formik.values.startDate??""}
+            value={formik.values.startDate ?? ""}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
@@ -126,7 +121,7 @@ function AddEventNotice() {
             id="endDate"
             name="endDate"
             className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring focus:ring-blue-500"
-            value={formik.values.endDate??""}
+            value={formik.values.endDate ?? ""}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />

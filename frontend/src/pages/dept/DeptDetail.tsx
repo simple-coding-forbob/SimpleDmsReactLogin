@@ -4,14 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import DeptService from "../../services/DeptService";
 
 import type IDept from "../../types/IDept";
-import deptValidation from "../../utils/deptValidation";
+import deptValidation from "../../validation/deptValidation";
 
 function DeptDetail() {
   const params = useParams<{ dno: string }>();
   const dno = Number(params.dno);
   const nav = useNavigate();
 
-  const [dept, setDept] = useState<IDept|null>(null); // null로 초기화 -> 로딩 상태 판단
+  const [dept, setDept] = useState<IDept | null>(null); // null로 초기화 -> 로딩 상태 판단
 
   // 상세조회
   useEffect(() => {
@@ -19,38 +19,24 @@ function DeptDetail() {
   }, [dno]);
 
   const get = async (dno: number) => {
-    try {
-      const response = await DeptService.get(dno);
-      const { result } = response.data;
-      setDept(result); // 서버 데이터 저장
-      console.log(result);
-    } catch (e) {
-      console.error(e);
-    }
+    const response = await DeptService.get(dno);
+    const { result } = response.data;
+    setDept(result); // 서버 데이터 저장
+    console.log(result);
   };
 
   // 수정
   const update = async (data: IDept) => {
-    try {
-      await DeptService.update(dno, data);
-      alert("수정되었습니다");
-      nav("/dept");
-    } catch (e) {
-      console.error(e);
-      alert("오류: "+e);
-    }
+    await DeptService.update(dno, data);
+    alert("수정되었습니다");
+    nav("/dept");
   };
 
   // 삭제
   const remove = async () => {
-    try {
-      await DeptService.remove(dno);
-      alert("삭제되었습니다");
-      nav("/dept");
-    } catch (e) {
-      console.error(e);
-      alert("오류: "+e);
-    }
+    await DeptService.remove(dno);
+    alert("삭제되었습니다");
+    nav("/dept");
   };
 
   // 서버 데이터가 준비되었을 때만 Formik 초기화
@@ -59,7 +45,7 @@ function DeptDetail() {
       dname: dept?.dname ?? "",
       loc: dept?.loc ?? "",
     },
-    enableReinitialize: true,              // 값이 바뀌면 재갱신: 최초 null -> 서버데이터
+    enableReinitialize: true, // 값이 바뀌면 재갱신: 최초 null -> 서버데이터
     validationSchema: deptValidation,
     onSubmit: (data: IDept) => {
       update(data);
@@ -74,7 +60,9 @@ function DeptDetail() {
 
       <form onSubmit={formik.handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="dname" className="block mb-1">dname</label>
+          <label htmlFor="dname" className="block mb-1">
+            dname
+          </label>
           <input
             type="text"
             id="dname"
@@ -90,7 +78,9 @@ function DeptDetail() {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="loc" className="block mb-1">loc</label>
+          <label htmlFor="loc" className="block mb-1">
+            loc
+          </label>
           <input
             type="text"
             id="loc"
@@ -106,8 +96,19 @@ function DeptDetail() {
         </div>
 
         <div className="mb-4 flex gap-2">
-          <button type="submit" className="flex-1 bg-green-700 text-white p-2 rounded hover:bg-green-800">수정</button>
-          <button type="button" onClick={remove} className="flex-1 bg-red-600 text-white p-2 rounded hover:bg-red-700">삭제</button>
+          <button
+            type="submit"
+            className="flex-1 bg-green-700 text-white p-2 rounded hover:bg-green-800"
+          >
+            수정
+          </button>
+          <button
+            type="button"
+            onClick={remove}
+            className="flex-1 bg-red-600 text-white p-2 rounded hover:bg-red-700"
+          >
+            삭제
+          </button>
         </div>
       </form>
     </>

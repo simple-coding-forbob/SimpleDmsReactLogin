@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import DeptService from "../../services/DeptService";
 import type IDept from "../../types/IDept";
 
-
 const DeptList = () => {
   const [depts, setDepts] = useState<IDept[]>([]);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
@@ -23,15 +22,11 @@ const DeptList = () => {
   };
 
   const selectList = async () => {
-    try {
-      const response = await DeptService.getAll(searchKeyword, page - 1, size);
-      const { result, totalNumber } = response.data;
-      setDepts(result);
-      setTotalNumber(totalNumber);
-      console.log(response.data);
-    } catch (e) {
-      console.log(e);
-    }
+    const response = await DeptService.getAll(searchKeyword, page - 1, size);
+    const { result, totalNumber } = response.data;
+    setDepts(result);
+    setTotalNumber(totalNumber);
+    console.log(response.data);
   };
 
   useEffect(() => {

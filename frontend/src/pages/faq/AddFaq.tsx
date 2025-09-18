@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 
-import faqValidation from "../../utils/faqValidation";
+import faqValidation from "../../validation/faqValidation";
 import type IFaq from "../../types/IFaq";
 import FaqService from "../../services/FaqService";
 
@@ -9,14 +9,9 @@ function AddFaq() {
   const nav = useNavigate();
 
   const save = async (data: IFaq) => {
-    try {
-      await FaqService.insert(data);
-      alert("저장되었습니다");
-      nav("/faq");
-    } catch (e) {
-      console.error(e);
-      alert("오류 :"+e);
-    }
+    await FaqService.insert(data);
+    alert("저장되었습니다");
+    nav("/faq");
   };
 
   const formik = useFormik({

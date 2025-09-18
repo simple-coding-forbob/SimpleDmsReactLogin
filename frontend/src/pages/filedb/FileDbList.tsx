@@ -25,26 +25,21 @@ const FiledbList = () => {
 
   // 전체 조회
   const selectList = async () => {
-    try {
-      const response = await FileDbService.getAll(searchKeyword, page - 1, pageSize);
-      const { result, totalNumber } = response.data;
-      setFileDbs(result);
-      setTotalNumber(totalNumber); // rc-pagination total은 전체 아이템 수
-    } catch (e) {
-      console.log(e);
-    }
+    const response = await FileDbService.getAll(
+      searchKeyword,
+      page - 1,
+      pageSize
+    );
+    const { result, totalNumber } = response.data;
+    setFileDbs(result);
+    setTotalNumber(totalNumber); // rc-pagination total은 전체 아이템 수
   };
 
   // 삭제
   const remove = async (uuid: number) => {
-    try {
-      await FileDbService.remove(uuid);
-      alert("삭제되었습니다");
-      selectList();
-    } catch (e) {
-      console.error(e);
-      alert("오류가 발생했습니다.");
-    }
+    await FileDbService.remove(uuid);
+    alert("삭제되었습니다");
+    selectList();
   };
 
   useEffect(() => {
@@ -75,9 +70,16 @@ const FiledbList = () => {
       {/* 카드 리스트 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {fileDbs.map((data) => (
-          <div key={data.uuid} className="border rounded shadow hover:shadow-md overflow-hidden">
+          <div
+            key={data.uuid}
+            className="border rounded shadow hover:shadow-md overflow-hidden"
+          >
             {/* data.fileUrl! : 절대 null 이 아님을 개발자가 보장 */}
-            <img src={data.fileUrl?? ""} alt={data.fileTitle} className="w-full h-48 object-cover" />
+            <img
+              src={data.fileUrl ?? ""}
+              alt={data.fileTitle}
+              className="w-full h-48 object-cover"
+            />
             <div className="p-4">
               <h5 className="font-bold text-lg">{data.fileTitle}</h5>
               <p className="text-gray-600">{data.fileContent}</p>

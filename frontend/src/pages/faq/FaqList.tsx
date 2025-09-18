@@ -22,15 +22,11 @@ const FaqList = () => {
   };
 
   const selectList = async () => {
-    try {
-      const response = await FaqService.getAll(searchKeyword, page - 1, size);
-      const { result, totalNumber } = response.data;
-      setFaqs(result);
-      setTotalNumber(totalNumber);
-      console.log(response.data);
-    } catch (e) {
-      console.log(e);
-    }
+    const response = await FaqService.getAll(searchKeyword, page - 1, size);
+    const { result, totalNumber } = response.data;
+    setFaqs(result);
+    setTotalNumber(totalNumber);
+    console.log(response.data);
   };
 
   useEffect(() => {

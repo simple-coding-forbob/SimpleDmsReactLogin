@@ -3,20 +3,15 @@ import { useNavigate } from "react-router-dom";
 import DeptService from "../../services/DeptService";
 
 import type IDept from "../../types/IDept";
-import deptValidation from "../../utils/deptValidation";
+import deptValidation from "../../validation/deptValidation";
 
 function AddDept() {
   const nav = useNavigate();
 
   const save = async (data: IDept) => {
-    try {
-      await DeptService.insert(data);
-      alert("저장되었습니다");
-      nav("/dept");
-    } catch (e) {
-      console.error(e);
-      alert("오류 :"+e);
-    }
+    await DeptService.insert(data);
+    alert("저장되었습니다");
+    nav("/dept");
   };
 
   const formik = useFormik({

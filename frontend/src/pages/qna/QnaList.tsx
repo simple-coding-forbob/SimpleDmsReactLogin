@@ -22,15 +22,11 @@ const QnaList = () => {
   };
 
   const selectList = async () => {
-    try {
-      const response = await QnaService.getAll(searchKeyword, page - 1, size);
-      const { result, totalNumber } = response.data;
-      setQnas(result);
-      setTotalNumber(totalNumber);
-      console.log(response.data);
-    } catch (e) {
-      console.log(e);
-    }
+    const response = await QnaService.getAll(searchKeyword, page - 1, size);
+    const { result, totalNumber } = response.data;
+    setQnas(result);
+    setTotalNumber(totalNumber);
+    console.log(response.data);
   };
 
   useEffect(() => {
