@@ -72,7 +72,7 @@ public class FileDbController {
 
     // 다운로드
     @Operation(summary = "FileDb 다운로드", description = "UUID로 첨부파일을 다운로드합니다.")
-    @GetMapping("/fileDb/download/{uuid}")
+    @GetMapping("/download/fileDb/{uuid}")
     public ResponseEntity<byte[]> fileDownload(@PathVariable String uuid) {
         FileDb fileDb = fileDbService.findById(uuid);
 

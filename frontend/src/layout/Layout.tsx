@@ -1,18 +1,18 @@
-import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
 
 function Layout() {
-  const navigate = useNavigate();
+  const loc = useLocation();
+  const jwt = localStorage.getItem("jwt");
 
-  // TODO: 토큰 없으면 로그인 페이지 강제 이동
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      // 토큰 없으면 로그인 페이지로 이동
-      navigate("/login", { replace: true });
-    }
-  }, [navigate]);
+  // 로그인/회원가입 페이지는 가드 제외
+  const noAuthRequired = ["/login", "/register"];
+  const isNoAuthPage = noAuthRequired.includes(loc.pathname);
+
+  if (!jwt && !isNoAuthPage) {
+    // 토큰 없으면 로그인 페이지로 이동
+    return <Navigate to="/login" replace />;
+  }  
 
   return (
     <>
@@ -22,8 +22,6 @@ function Layout() {
       <main className="container mx-auto mt-8">
         <Outlet />
       </main>
-      {/* 꼬리말 */}
-      <footer className="container mx-auto mt-8">forbob@naver.com</footer>
     </>
   );
 }
