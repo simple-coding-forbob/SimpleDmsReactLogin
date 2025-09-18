@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import type INotice from "../../types/INotice";
 import NoticeService from "../../services/NoticeService";
 
-
 const NoticeList = () => {
   const [notices, setNotice] = useState<INotice[]>([]);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
@@ -23,15 +22,11 @@ const NoticeList = () => {
   };
 
   const selectList = async () => {
-    try {
-      const response = await NoticeService.getAll(searchKeyword, page - 1, size);
-      const { result, totalNumber } = response.data;
-      setNotice(result);
-      setTotalNumber(totalNumber);
-      console.log(response.data);
-    } catch (e) {
-      console.log(e);
-    }
+    const response = await NoticeService.getAll(searchKeyword, page - 1, size);
+    const { result, totalNumber } = response.data;
+    setNotice(result);
+    setTotalNumber(totalNumber);
+    console.log(response.data);
   };
 
   useEffect(() => {

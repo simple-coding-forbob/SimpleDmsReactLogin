@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import EmpService from "../../services/EmpService";
 
 import type IEmp from "../../types/IEmp";
-import empValidation from "../../utils/empValidation";
+import empValidation from "../../validation/empValidation";
 
 function EmpDetail() {
   const params = useParams<{ eno: string }>();
@@ -19,38 +19,24 @@ function EmpDetail() {
   }, [eno]);
 
   const get = async (eno: number) => {
-    try {
-      const response = await EmpService.get(eno);
-      const { result } = response.data;
-      setEmp(result);
-      console.log(result);
-    } catch (e) {
-      console.error(e);
-    }
+    const response = await EmpService.get(eno);
+    const { result } = response.data;
+    setEmp(result);
+    console.log(result);
   };
 
   // 수정
   const update = async (data: IEmp) => {
-    try {
-      await EmpService.update(eno, data);
-      alert("수정되었습니다");
-      nav("/emp");
-    } catch (e) {
-      console.error(e);
-      alert("오류: " + e);
-    }
+    await EmpService.update(eno, data);
+    alert("수정되었습니다");
+    nav("/emp");
   };
 
   // 삭제
   const remove = async () => {
-    try {
-      await EmpService.remove(eno);
-      alert("삭제되었습니다");
-      nav("/emp");
-    } catch (e) {
-      console.error(e);
-      alert("오류: " + e);
-    }
+    await EmpService.remove(eno);
+    alert("삭제되었습니다");
+    nav("/emp");
   };
 
   const formik = useFormik({
@@ -63,7 +49,7 @@ function EmpDetail() {
       commission: emp?.commission ?? "",
       dno: emp?.dno ?? "",
     },
-    enableReinitialize: true,            // 값이 바뀌면 재갱신: 최초 null -> 서버데이터
+    enableReinitialize: true, // 값이 바뀌면 재갱신: 최초 null -> 서버데이터
     validationSchema: empValidation,
     onSubmit: (data: IEmp) => {
       update(data);
@@ -173,7 +159,7 @@ function EmpDetail() {
             id="commission"
             name="commission"
             className="w-full border border-gray-300 rounded p-2"
-            value={formik.values.commission?? ""}
+            value={formik.values.commission ?? ""}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />

@@ -25,27 +25,21 @@ const GalleryList = () => {
 
   // 전체 조회
   const selectList = async () => {
-    try {
-      const response = await GalleryService.getAll(searchKeyword, page - 1, pageSize);
-      const { result, totalNumber } = response.data;
-      setGallerys(result);
-      setTotalNumber(totalNumber); // rc-pagination total은 전체 아이템 수
-    } catch (e) {
-      console.error(e);
-      alert("오류가 발생했습니다.");
-    }
+    const response = await GalleryService.getAll(
+      searchKeyword,
+      page - 1,
+      pageSize
+    );
+    const { result, totalNumber } = response.data;
+    setGallerys(result);
+    setTotalNumber(totalNumber); // rc-pagination total은 전체 아이템 수
   };
 
   // 삭제
   const remove = async (uuid: number) => {
-    try {
-      await GalleryService.remove(uuid);
-      alert("삭제되었습니다");
-      selectList();
-    } catch (e) {
-      console.error(e);
-      alert("오류가 발생했습니다.");
-    }
+    await GalleryService.remove(uuid);
+    alert("삭제되었습니다");
+    selectList();
   };
 
   useEffect(() => {
@@ -76,9 +70,16 @@ const GalleryList = () => {
       {/* 카드 리스트 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {gallerys.map((data) => (
-          <div key={data.uuid} className="border rounded shadow hover:shadow-md overflow-hidden">
+          <div
+            key={data.uuid}
+            className="border rounded shadow hover:shadow-md overflow-hidden"
+          >
             {/* data.fileUrl! : 절대 null 이 아님을 개발자가 보장 */}
-            <img src={data.galleryFileUrl?? ""} alt={data.galleryTitle} className="w-full h-48 object-cover" />
+            <img
+              src={data.galleryFileUrl ?? ""}
+              alt={data.galleryTitle}
+              className="w-full h-48 object-cover"
+            />
             <div className="p-4">
               <h5 className="font-bold text-lg">{data.galleryTitle}</h5>
               <div className="mt-2 flex space-x-2">

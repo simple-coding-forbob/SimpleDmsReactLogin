@@ -2,20 +2,15 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import EmpService from "../../services/EmpService";
 import type IEmp from "../../types/IEmp";
-import empValidation from "../../utils/empValidation";
+import empValidation from "../../validation/empValidation";
 
 function AddEmp() {
   const nav = useNavigate();
 
   const save = async (data: IEmp) => {
-    try {
-      await EmpService.insert(data);
-      alert("저장되었습니다");
-      nav("/emp");
-    } catch (e) {
-      console.error(e);
-      alert("오류 :" + e);
-    }
+    await EmpService.insert(data);
+    alert("저장되었습니다");
+    nav("/emp");
   };
 
   const formik = useFormik({

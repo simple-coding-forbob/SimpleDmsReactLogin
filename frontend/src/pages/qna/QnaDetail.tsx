@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import type IQna from "../../types/IQna";
 import QnaService from "../../services/QnaService";
-import qnaValidation from "../../utils/qnaValidation";
+import qnaValidation from "../../validation/qnaValidation";
 
 function QnaDetail() {
   const params = useParams<{ qno: string }>();
@@ -18,38 +18,24 @@ function QnaDetail() {
   }, [qno]);
 
   const get = async (qno: number) => {
-    try {
-      const response = await QnaService.get(qno);
-      const { result } = response.data;
-      setQna(result); // 서버 데이터 저장
-      console.log(result);
-    } catch (e) {
-      console.error(e);
-    }
+    const response = await QnaService.get(qno);
+    const { result } = response.data;
+    setQna(result); // 서버 데이터 저장
+    console.log(result);
   };
 
   // 수정
   const update = async (data: IQna) => {
-    try {
-      await QnaService.update(qno, data);
-      alert("수정되었습니다");
-      nav("/qna");
-    } catch (e) {
-      console.error(e);
-      alert("오류: " + e);
-    }
+    await QnaService.update(qno, data);
+    alert("수정되었습니다");
+    nav("/qna");
   };
 
   // 삭제
   const remove = async () => {
-    try {
-      await QnaService.remove(qno);
-      alert("삭제되었습니다");
-      nav("/qna");
-    } catch (e) {
-      console.error(e);
-      alert("오류: " + e);
-    }
+    await QnaService.remove(qno);
+    alert("삭제되었습니다");
+    nav("/qna");
   };
 
   // 서버 데이터가 준비되었을 때만 Formik 초기화
@@ -119,7 +105,7 @@ function QnaDetail() {
             id="answerer"
             name="answerer"
             className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring focus:ring-blue-500"
-            value={formik.values.answerer??""}
+            value={formik.values.answerer ?? ""}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
@@ -137,7 +123,7 @@ function QnaDetail() {
             id="answer"
             name="answer"
             className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring focus:ring-blue-500"
-            value={formik.values.answer??""}
+            value={formik.values.answer ?? ""}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />

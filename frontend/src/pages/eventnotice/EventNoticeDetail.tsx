@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import type IEventNotice from "../../types/IEventNotice";
-import eventNoticeValidation from "../../utils/eventNoticeValidation";
+import eventNoticeValidation from "../../validation/eventNoticeValidation";
 import EventNoticeService from "../../services/EventNoticeService";
 
 function EventNoticeDetail() {
@@ -18,38 +18,24 @@ function EventNoticeDetail() {
   }, [eid]);
 
   const get = async (eid: number) => {
-    try {
-      const response = await EventNoticeService.get(eid);
-      const { result } = response.data;
-      setEventNotice(result); // 서버 데이터 저장
-      console.log(result);
-    } catch (e) {
-      console.error(e);
-    }
+    const response = await EventNoticeService.get(eid);
+    const { result } = response.data;
+    setEventNotice(result); // 서버 데이터 저장
+    console.log(result);
   };
 
   // 수정
   const update = async (data: IEventNotice) => {
-    try {
-      await EventNoticeService.update(eid, data);
-      alert("수정되었습니다");
-      nav("/event-notice");
-    } catch (e) {
-      console.error(e);
-      alert("오류: " + e);
-    }
+    await EventNoticeService.update(eid, data);
+    alert("수정되었습니다");
+    nav("/event-notice");
   };
 
   // 삭제
   const remove = async () => {
-    try {
-      await EventNoticeService.remove(eid);
-      alert("삭제되었습니다");
-      nav("/event-notice");
-    } catch (e) {
-      console.error(e);
-      alert("오류: " + e);
-    }
+    await EventNoticeService.remove(eid);
+    alert("삭제되었습니다");
+    nav("/event-notice");
   };
 
   // 서버 데이터가 준비되었을 때만 Formik 초기화
@@ -140,7 +126,7 @@ function EventNoticeDetail() {
             id="startDate"
             name="startDate"
             className="w-full border border-gray-300 rounded p-2"
-            value={formik.values.startDate??""}
+            value={formik.values.startDate ?? ""}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
@@ -156,7 +142,7 @@ function EventNoticeDetail() {
             id="endDate"
             name="endDate"
             className="w-full border border-gray-300 rounded p-2"
-            value={formik.values.endDate??""}
+            value={formik.values.endDate ?? ""}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />

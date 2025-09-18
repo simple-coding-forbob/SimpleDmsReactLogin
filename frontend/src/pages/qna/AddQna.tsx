@@ -2,20 +2,15 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import type IQna from "../../types/IQna";
 import QnaService from "../../services/QnaService";
-import qnaValidation from "../../utils/qnaValidation";
+import qnaValidation from "../../validation/qnaValidation";
 
 function AddQna() {
   const nav = useNavigate();
 
   const save = async (data: IQna) => {
-    try {
-      await QnaService.insert(data);
-      alert("저장되었습니다");
-      nav("/qna");
-    } catch (e) {
-      console.error(e);
-      alert("오류 :" + e);
-    }
+    await QnaService.insert(data);
+    alert("저장되었습니다");
+    nav("/qna");
   };
 
   const formik = useFormik({
@@ -86,7 +81,7 @@ function AddQna() {
             name="answerer"
             placeholder="answerer"
             className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring focus:ring-blue-500"
-            value={formik.values.answerer?? ""}
+            value={formik.values.answerer ?? ""}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
@@ -105,7 +100,7 @@ function AddQna() {
             name="answer"
             placeholder="answer"
             className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring focus:ring-blue-500"
-            value={formik.values.answer?? ""}
+            value={formik.values.answer ?? ""}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
@@ -113,7 +108,7 @@ function AddQna() {
             <div className="text-red-500">{formik.errors.answer}</div>
           )}
         </div>
-        
+
         {/* 버튼 */}
         <button
           type="submit"

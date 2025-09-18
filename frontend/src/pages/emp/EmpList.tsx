@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import EmpService from "../../services/EmpService";
 import type IEmp from "../../types/IEmp";
 
-
 const EmpList = () => {
   const [emps, setEmp] = useState<IEmp[]>([]);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
@@ -23,15 +22,12 @@ const EmpList = () => {
     setPage(1);
   };
 
-  const selectList = () => {
-    EmpService.getAll(searchKeyword, page - 1, size)
-      .then((response) => {
-        const { result, totalNumber } = response.data;
-        setEmp(result);
-        setTotalNumber(totalNumber);
-        console.log(response.data);
-      })
-      .catch((e: Error) => console.log(e));
+  const selectList = async () => {
+    const response = await EmpService.getAll(searchKeyword, page - 1, size);
+    const { result, totalNumber } = response.data;
+    setEmp(result);
+    setTotalNumber(totalNumber);
+    console.log(response.data);
   };
 
   useEffect(() => {

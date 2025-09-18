@@ -3,20 +3,15 @@ import type { ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import GalleryService from "../../services/GalleryService";
 import type IGallery from "../../types/IGallery";
-import galleryValidation from "../../utils/galleryValidation";
+import galleryValidation from "../../validation/galleryValidation";
 
 function AddGallery() {
   const nav = useNavigate();
 
   const insert = async (data: IGallery) => {
-    try {
-      await GalleryService.insert(data);
-      alert("저장되었습니다");
-      nav("/gallery"); // 업로드 성공 시 강제 이동
-    } catch (e) {
-      console.error(e);
-      alert("오류가 발생했습니다.");
-    }
+    await GalleryService.insert(data);
+    alert("저장되었습니다");
+    nav("/gallery"); // 업로드 성공 시 강제 이동
   };
 
   const formik = useFormik({
