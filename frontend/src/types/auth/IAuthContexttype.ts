@@ -1,8 +1,10 @@
 // src/contexts/AuthTypes.ts
 
+import type IJwt from "./IJwt";
+
 export interface AuthContextType {
-  accessToken: string | null;
-  loggedIn: boolean;
-  login: (accessToken: string) => void;
-  logout: () => void;
+  jwt: IJwt | null,
+  loggedIn: boolean,
+  login: (jwt: IJwt) => void,
+  logout: () => void
 }

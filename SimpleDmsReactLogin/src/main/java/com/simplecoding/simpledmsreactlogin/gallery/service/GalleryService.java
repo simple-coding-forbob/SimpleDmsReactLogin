@@ -54,7 +54,7 @@ public class GalleryService {
 //		URL 만드는 클래스      : ServletUriComponentsBuilder
         return ServletUriComponentsBuilder
                 .fromCurrentContextPath()    // 기본주소 : http://localhost:8080
-                .path("/api/gallery/download/{uuid}")    // 경로    : /gallery/download
+                .path("/api/download/gallery/{uuid}")    // 경로    : /gallery/download
                 .buildAndExpand(uuid)         // 파라메터방식: uuid
                 .toUriString();               // 위에꺼조합:
         // http://localhost:8080/gallery/download?uuid=uuid값

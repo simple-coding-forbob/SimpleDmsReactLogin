@@ -54,7 +54,7 @@ public class FileDbService {
 //		URL 만드는 클래스      : ServletUriComponentsBuilder
         return ServletUriComponentsBuilder
                 .fromCurrentContextPath()             // 기본주소 : http://localhost:8080
-                .path("/api/fileDb/download/{uuid}")  // 경로    : /fileDb/download/
+                .path("/api/download/fileDb/{uuid}")  // 경로    : /fileDb/download/
                 .buildAndExpand(uuid)                 // 파라메터방식: uuid
                 .toUriString();                       // 위에꺼조합:
         // http://localhost:8080/fileDb/download?uuid=uuid값

@@ -1,22 +1,21 @@
 // src/contexts/AuthProvider.tsx
 import React, { useState } from "react";
-import type { ReactNode } from "react";
+import type { PropsWithChildren } from "react";
 import { authContext } from "./authContext";
+import type IJwt from "../types/auth/IJwt";
 
-interface AuthProviderProps { children: ReactNode }
-
-export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [accessToken, setAccessToken] = useState<string | null>(
+export const AuthProvider = ({ children }: PropsWithChildren) => {
+  const [jwt, setJwt] = useState<IJwt | null>(
     JSON.parse(localStorage.getItem("accessToken") || "null")
   );
 
   // user가 존재하면 true, 없으면 false
-  const loggedIn = !!accessToken;
-  const login = (accessToken: string) => { localStorage.setItem("accessToken", JSON.stringify(accessToken)); setAccessToken(accessToken); }
-  const logout = () => { localStorage.removeItem("accessToken"); setAccessToken(null); }
+  const loggedIn = !!jwt;
+  const login = (jwt: IJwt) => { localStorage.setItem("jwt", JSON.stringify(jwt)); setJwt(jwt); }
+  const logout = () => { localStorage.removeItem("jwt"); setJwt(null); }
 
   return (
-    <authContext.Provider value={{ accessToken, loggedIn, login, logout }}>
+    <authContext.Provider value={{ jwt, loggedIn, login, logout }}>
       {children}
     </authContext.Provider>
   );

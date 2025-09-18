@@ -76,7 +76,7 @@ public class GalleryController {
 
     // 다운로드
     @Operation(summary = "갤러리 이미지 다운로드", description = "UUID로 갤러리 이미지를 다운로드합니다.")
-    @GetMapping("/gallery/download/{uuid}")
+    @GetMapping("/download/gallery/{uuid}")
     public ResponseEntity<byte[]> fileDownload(
             @Parameter(description = "다운로드할 갤러리 UUID") @PathVariable String uuid) {
 
