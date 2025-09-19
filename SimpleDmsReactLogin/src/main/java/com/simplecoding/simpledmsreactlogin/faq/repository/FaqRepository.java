@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FaqRepository extends JpaRepository<Faq,Long> {
     @Query(value = "select f from Faq f\n" +
-            "where f.title like %:searchKeyword%")
+            "where f.title like %:searchKeyword% order by f.insertTime")
     Page<Faq> selectFaqList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

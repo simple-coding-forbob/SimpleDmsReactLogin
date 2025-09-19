@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QnaRepository extends JpaRepository<Qna,Long> {
     @Query(value = "select q from Qna q\n" +
-            "where q.question like %:searchKeyword%")
+            "where q.question like %:searchKeyword% order by q.insertTime")
     Page<Qna> selectQnaList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

@@ -57,7 +57,7 @@ class FreeBoardServiceTest {
 
     @Test
     void selectFreeBoardList() {
-        Pageable pageable= PageRequest.of(1, 3);
+        Pageable pageable= PageRequest.of(0, 3);
         String searchKeyword="";
         Page<FreeBoardDto> page=freeBoardService.selectFreeBoardList(searchKeyword, pageable);
         log.info(page.getContent());

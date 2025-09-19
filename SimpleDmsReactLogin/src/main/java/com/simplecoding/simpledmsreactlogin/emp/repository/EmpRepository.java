@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface EmpRepository extends JpaRepository<Emp,Long> {
     @EntityGraph(attributePaths = {"dept"})
     @Query(value = "select e from Emp e\n" +
-            "where e.ename like %:searchKeyword%")
+            "where e.ename like %:searchKeyword% order by e.insertTime")
     Page<Emp> selectEmpList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

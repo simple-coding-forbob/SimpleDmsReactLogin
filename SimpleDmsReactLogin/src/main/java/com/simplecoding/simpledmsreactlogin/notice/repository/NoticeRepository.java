@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
     @Query(value = "select n from Notice n\n" +
-            "where n.title like %:searchKeyword%")
+            "where n.title like %:searchKeyword% order by n.insertTime")
     Page<Notice> selectNoticeList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

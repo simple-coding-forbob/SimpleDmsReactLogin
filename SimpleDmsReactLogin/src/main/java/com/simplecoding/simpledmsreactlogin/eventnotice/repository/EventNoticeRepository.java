@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EventNoticeRepository extends JpaRepository<EventNotice, Long> {
     @Query(value = "select n from EventNotice n\n" +
-            "where n.subject like %:searchKeyword%")
+            "where n.subject like %:searchKeyword% order by n.insertTime")
     Page<EventNotice> selectEventNoticeList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable
