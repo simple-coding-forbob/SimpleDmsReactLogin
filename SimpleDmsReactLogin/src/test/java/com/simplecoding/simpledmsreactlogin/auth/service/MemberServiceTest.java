@@ -2,6 +2,7 @@ package com.simplecoding.simpledmsreactlogin.auth.service;
 
 import com.simplecoding.simpledmsreactlogin.auth.dto.JwtDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MemberDto;
+import com.simplecoding.simpledmsreactlogin.auth.dto.MypageDto;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,16 @@ class MemberServiceTest {
         JwtDto jwtDto= memberService.login(memberDto);
 //        3) 검증:
         log.info("jwt:{}",jwtDto);
+    }
+
+    @Test
+    void findByEmail() {
+//        1) 조건:
+        String email="forbob@naver.com";
+
+//        2) 실행:
+        MypageDto mypageDto= memberService.findById(email);
+//        3) 검증:
+        log.info("mypageDto:{}",mypageDto);
     }
 }

@@ -25,6 +25,10 @@ import AddEventNotice from "../pages/eventnotice/AddEventNotice";
 import EventNoticeDetail from "../pages/eventnotice/EventNoticeDetail";
 import LoginView from "../pages/auth/LoginView";
 import RegisterView from "../pages/auth/RegisterView";
+import FreeBoardList from "../pages/freeboard/FreeBoardList";
+import AddFreeBoard from "../pages/freeboard/AddFreeBoard";
+import FreeBoardDetail from "../pages/freeboard/FreeBoardDetail";
+import Mypage from "../pages/Mypage";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +60,10 @@ const router = createBrowserRouter([
       { path: "add-gallery", element: <AddGallery /> },
       { path: "login", element: <LoginView /> },
       { path: "register", element: <RegisterView /> },
+      { path: "mypage", element: <Mypage /> },
+      { path: "free-board", element: <FreeBoardList /> },
+      { path: "add-free-board", element: <AddFreeBoard /> },
+      { path: "free-board-detail/:dno", element: <FreeBoardDetail /> },
     ],
   },
 ]);

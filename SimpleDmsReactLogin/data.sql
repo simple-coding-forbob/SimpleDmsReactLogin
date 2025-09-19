@@ -1,0 +1,126 @@
+-- ======================================================
+-- TB_DEPT 샘플 데이터
+-- ======================================================
+INSERT INTO TB_DEPT VALUES (SQ_DEPT.nextval, 'ACCOUNTING', 'NEW YORK', SYSTIMESTAMP, NULL);
+INSERT INTO TB_DEPT VALUES (SQ_DEPT.nextval, 'RESEARCH', 'DALLAS', SYSTIMESTAMP, NULL);
+INSERT INTO TB_DEPT VALUES (SQ_DEPT.nextval, 'SALES', 'CHICAGO', SYSTIMESTAMP, NULL);
+INSERT INTO TB_DEPT VALUES (SQ_DEPT.nextval, 'OPERATIONS', 'BOSTON', SYSTIMESTAMP, NULL);
+
+-- ======================================================
+-- TB_EMP 샘플 데이터
+-- ======================================================
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'SMITH', 'CLERK', 7902, TO_TIMESTAMP('17-12-1980','DD-MM-YYYY'), 800, NULL, 10, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'ALLEN', 'SALESMAN', 7698, TO_TIMESTAMP('20-2-1981','DD-MM-YYYY'), 1600, 300, 30, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'WARD', 'SALESMAN', 7698, TO_TIMESTAMP('22-2-1981','DD-MM-YYYY'), 1250, 500, 30, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'JONES', 'MANAGER', 7839, TO_TIMESTAMP('2-4-1981','DD-MM-YYYY'), 2975, NULL, 20, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'MARTIN', 'SALESMAN', 7698, TO_TIMESTAMP('28-9-1981','DD-MM-YYYY'), 1250, 1400, 30, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'BLAKE', 'MANAGER', 7839, TO_TIMESTAMP('1-5-1981','DD-MM-YYYY'), 2850, NULL, 30, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'CLARK', 'MANAGER', 7839, TO_TIMESTAMP('9-6-1981','DD-MM-YYYY'), 2450, NULL, 10, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'SCOTT', 'ANALYST', 7566, TO_TIMESTAMP('13-07-1987','DD-MM-YYYY'), 3000, NULL, 20, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'KING', 'PRESIDENT', NULL, TO_TIMESTAMP('17-11-1981','DD-MM-YYYY'), 5000, NULL, 10, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'TURNER', 'SALESMAN', 7698, TO_TIMESTAMP('8-9-1981','DD-MM-YYYY'), 1500, 0, 30, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'ADAMS', 'CLERK', 7788, TO_TIMESTAMP('13-07-1987','DD-MM-YYYY'), 1100, NULL, 20, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'JAMES', 'CLERK', 7698, TO_TIMESTAMP('3-12-1981','DD-MM-YYYY'), 950, NULL, 30, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'FORD', 'ANALYST', 7566, TO_TIMESTAMP('3-12-1981','DD-MM-YYYY'), 3000, NULL, 20, SYSTIMESTAMP, NULL);
+INSERT INTO TB_EMP VALUES (SQ_EMP.nextval, 'MILLER', 'CLERK', 7782, TO_TIMESTAMP('23-1-1982','DD-MM-YYYY'), 1300, NULL, 10, SYSTIMESTAMP, NULL);
+
+-- ======================================================
+-- TB_FAQ 샘플 데이터
+-- ======================================================
+INSERT INTO TB_FAQ VALUES (SQ_FAQ.nextval, '서버 오류 해결 방법', '서버 재시작 후 정상화 됩니다.', SYSTIMESTAMP ,NULL);
+INSERT INTO TB_FAQ VALUES (SQ_FAQ.nextval, 'DB 접속 문제', 'DB 계정 권한을 확인하세요.', SYSTIMESTAMP ,NULL);
+INSERT INTO TB_FAQ VALUES (SQ_FAQ.nextval, '로그인 실패 시', '비밀번호 재설정 후 시도.', SYSTIMESTAMP ,NULL);
+INSERT INTO TB_FAQ VALUES (SQ_FAQ.nextval, '페이지 로딩 오류', '캐시를 지우고 새로고침.', SYSTIMESTAMP ,NULL);
+
+-- ======================================================
+-- TB_QNA 샘플 데이터
+-- ======================================================
+INSERT INTO TB_QNA VALUES (SQ_QNA.nextval, '홍길동', '서비스 신청 방법이 궁금합니다.', '홈페이지에서 신청 가능합니다.','관리자',SYSTIMESTAMP ,NULL);
+INSERT INTO TB_QNA VALUES (SQ_QNA.nextval, '장길산', '비밀번호를 잊어버렸어요.', '비밀번호 재설정 페이지를 이용하세요.','관리자',SYSTIMESTAMP ,NULL);
+INSERT INTO TB_QNA VALUES (SQ_QNA.nextval, '임꺽정', '문의 답변은 얼마나 걸리나요?', NULL,'관리자',SYSTIMESTAMP ,NULL);
+INSERT INTO TB_QNA VALUES (SQ_QNA.nextval, '전우치', '이벤트 참여 조건이 어떻게 되나요?', '회원 가입 후 첫 구매 시 자동 참여됩니다.','관리자',SYSTIMESTAMP ,NULL);
+
+-- ======================================================
+-- TB_NOTICE 샘플 데이터 4개
+-- ======================================================
+INSERT INTO TB_NOTICE (NID, TITLE, CONTENT, IS_VISIBLE, START_DATE, END_DATE, INSERT_TIME, UPDATE_TIME)
+VALUES (SQ_NOTICE.nextval, '서버 점검 안내', '서버 점검으로 서비스가 일시 중단됩니다.', 'Y', TO_TIMESTAMP('2025-09-20','YYYY-MM-DD'), TO_TIMESTAMP('2025-09-21','YYYY-MM-DD'), SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO TB_NOTICE (NID, TITLE, CONTENT, IS_VISIBLE, START_DATE, END_DATE, INSERT_TIME, UPDATE_TIME)
+VALUES (SQ_NOTICE.nextval, '신규 기능 안내', '새로운 기능이 추가되었습니다.', 'Y', TO_TIMESTAMP('2025-09-16','YYYY-MM-DD'), TO_TIMESTAMP('2025-12-31','YYYY-MM-DD'), SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO TB_NOTICE (NID, TITLE, CONTENT, IS_VISIBLE, START_DATE, END_DATE, INSERT_TIME, UPDATE_TIME)
+VALUES (SQ_NOTICE.nextval, '휴일 안내', '추석 연휴로 인한 공휴일 안내입니다.', 'N', TO_TIMESTAMP('2025-09-28','YYYY-MM-DD'), TO_TIMESTAMP('2025-09-30','YYYY-MM-DD'), SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO TB_NOTICE (NID, TITLE, CONTENT, IS_VISIBLE, START_DATE, END_DATE, INSERT_TIME, UPDATE_TIME)
+VALUES (SQ_NOTICE.nextval, '보안 점검 안내', '보안 패치 적용으로 서비스 점검이 진행됩니다.', 'Y', TO_TIMESTAMP('2025-10-05','YYYY-MM-DD'), TO_TIMESTAMP('2025-10-05','YYYY-MM-DD'), SYSTIMESTAMP, SYSTIMESTAMP);
+
+-- ======================================================
+-- TB_EVENT_NOTICE 샘플 데이터 4개
+-- ======================================================
+INSERT INTO TB_EVENT_NOTICE (EID, SUBJECT, TEXT, IS_VISIBLE, START_DATE, END_DATE, INSERT_TIME, UPDATE_TIME)
+VALUES (SQ_EVENT_NOTICE.nextval, '이벤트 1', '가을맞이 할인 이벤트 진행 중', 'Y', TO_TIMESTAMP('2025-09-15','YYYY-MM-DD'), TO_TIMESTAMP('2025-09-25','YYYY-MM-DD'), SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO TB_EVENT_NOTICE (EID, SUBJECT, TEXT, IS_VISIBLE, START_DATE, END_DATE, INSERT_TIME, UPDATE_TIME)
+VALUES (SQ_EVENT_NOTICE.nextval, '이벤트 2', '신규 가입 고객 대상 혜택', 'N', TO_TIMESTAMP('2025-10-01','YYYY-MM-DD'), TO_TIMESTAMP('2025-10-10','YYYY-MM-DD'), SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO TB_EVENT_NOTICE (EID, SUBJECT, TEXT, IS_VISIBLE, START_DATE, END_DATE, INSERT_TIME, UPDATE_TIME)
+VALUES (SQ_EVENT_NOTICE.nextval, '이벤트 3', '추석 맞이 경품 이벤트', 'Y', TO_TIMESTAMP('2025-09-20','YYYY-MM-DD'), TO_TIMESTAMP('2025-09-30','YYYY-MM-DD'), SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO TB_EVENT_NOTICE (EID, SUBJECT, TEXT, IS_VISIBLE, START_DATE, END_DATE, INSERT_TIME, UPDATE_TIME)
+VALUES (SQ_EVENT_NOTICE.nextval, '이벤트 4', '블랙프라이데이 특별 세일', 'Y', TO_TIMESTAMP('2025-11-25','YYYY-MM-DD'), TO_TIMESTAMP('2025-11-29','YYYY-MM-DD'), SYSTIMESTAMP, SYSTIMESTAMP);
+
+-- ======================================================
+-- TB_FILE_DB 샘플 데이터 4개
+-- ======================================================
+INSERT INTO TB_FILE_DB(UUID, FILE_TITLE, FILE_CONTENT, FILE_DATA, FILE_URL, INSERT_TIME)
+VALUES ('12345671', 'Spring Boot 가이드', 'Spring Boot 기초 튜토리얼 자료입니다.', NULL, 'https://placehold.co/600x400', SYSTIMESTAMP);
+INSERT INTO TB_FILE_DB(UUID, FILE_TITLE, FILE_CONTENT, FILE_DATA, FILE_URL, INSERT_TIME)
+VALUES ('12345672', 'React 시작하기', 'React 프로젝트 설정 및 구조 안내.', NULL, 'https://placehold.co/600x400', SYSTIMESTAMP);
+INSERT INTO TB_FILE_DB(UUID, FILE_TITLE, FILE_CONTENT, FILE_DATA, FILE_URL, INSERT_TIME)
+VALUES ('12345673', 'JPA 활용 예제', '엔티티와 DTO 매핑 실습 자료.', NULL, 'https://placehold.co/600x400', SYSTIMESTAMP);
+INSERT INTO TB_FILE_DB(UUID, FILE_TITLE, FILE_CONTENT, FILE_DATA, FILE_URL, INSERT_TIME)
+VALUES ('12345674', 'MyBatis 튜토리얼', 'MyBatis 기반 CRUD 실습 예제.', NULL, 'https://placehold.co/600x400', SYSTIMESTAMP);
+
+-- ======================================================
+-- TB_GALLERY 샘플 데이터 4개
+-- ======================================================
+INSERT INTO TB_GALLERY(UUID, GALLERY_TITLE, GALLERY_DATA, GALLERY_FILE_URL, INSERT_TIME)
+VALUES ('12345671', '강의 자료 이미지 1', NULL, 'https://placehold.co/600x400', SYSTIMESTAMP);
+INSERT INTO TB_GALLERY(UUID, GALLERY_TITLE, GALLERY_DATA, GALLERY_FILE_URL, INSERT_TIME)
+VALUES ('12345672', '강의 자료 이미지 2', NULL, 'https://placehold.co/600x400', SYSTIMESTAMP);
+INSERT INTO TB_GALLERY(UUID, GALLERY_TITLE, GALLERY_DATA, GALLERY_FILE_URL, INSERT_TIME)
+VALUES ('12345673', '강의 자료 이미지 3', NULL, 'https://placehold.co/600x400', SYSTIMESTAMP);
+INSERT INTO TB_GALLERY(UUID, GALLERY_TITLE, GALLERY_DATA, GALLERY_FILE_URL, INSERT_TIME)
+VALUES ('12345674', '강의 자료 이미지 4', NULL, 'https://placehold.co/600x400', SYSTIMESTAMP);
+
+-- ======================================================
+-- TB_MEMBER 샘플 데이터
+-- ======================================================
+INSERT INTO TB_MEMBER VALUES('forbob@naver.com','$2a$10$TG1a5ywSrGNgf7/fFH.m0.EdTzHax8AGYNeAr8aIseF3DKyO0lDti','forbob','ROLE_ADMIN', SYSTIMESTAMP, NULL);
+INSERT INTO TB_MEMBER VALUES('forbob2@naver.com','$2a$10$TG1a5ywSrGNgf7/fFH.m0.EdTzHax8AGYNeAr8aIseF3DKyO0lDti','forbob2','ROLE_USER', SYSTIMESTAMP, NULL);
+
+-- ======================================================
+-- TB_FREE_BOARD 샘플 데이터
+-- ======================================================
+INSERT INTO TB_FREE_BOARD VALUES (SQ_FREE_BOARD.nextval, '자유게시글 1', '내용 예시 1', 'forbob@naver.com', 10, SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO TB_FREE_BOARD VALUES (SQ_FREE_BOARD.nextval, '자유게시글 2', '내용 예시 2', 'forbob2@naver.com', 5, SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO TB_FREE_BOARD VALUES (SQ_FREE_BOARD.nextval, '자유게시글 3', '내용 예시 3', 'forbob@naver.com', 7, SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO TB_FREE_BOARD VALUES (SQ_FREE_BOARD.nextval, '자유게시글 4', '내용 예시 4', 'forbob2@naver.com', 2, SYSTIMESTAMP, SYSTIMESTAMP);
+
+-- ======================================================
+-- TB_NEWS_BOARD 샘플 데이터
+-- ======================================================
+INSERT INTO TB_NEWS_BOARD VALUES (SQ_NEWS_BOARD.nextval, '뉴스 1', '뉴스 내용 1', 'forbob@naver.com', 15, SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO TB_NEWS_BOARD VALUES (SQ_NEWS_BOARD.nextval, '뉴스 2', '뉴스 내용 2', 'forbob2@naver.com', 8, SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO TB_NEWS_BOARD VALUES (SQ_NEWS_BOARD.nextval, '뉴스 3', '뉴스 내용 3', 'forbob@naver.com', 20, SYSTIMESTAMP, SYSTIMESTAMP);
+INSERT INTO TB_NEWS_BOARD VALUES (SQ_NEWS_BOARD.nextval, '뉴스 4', '뉴스 내용 4', 'forbob2@naver.com', 12, SYSTIMESTAMP, SYSTIMESTAMP);
+
+-- ======================================================
+-- TB_FILE_DB_LIKES 샘플 데이터
+-- ======================================================
+INSERT INTO TB_FILE_DB_LIKES VALUES(SQ_FILE_DB_LIKES.nextval, 'forbob@naver.com', '12345671',1,SYSTIMESTAMP, NULL);
+INSERT INTO TB_FILE_DB_LIKES VALUES(SQ_FILE_DB_LIKES.nextval, 'forbob2@naver.com', '12345671',1,SYSTIMESTAMP, NULL);
+INSERT INTO TB_FILE_DB_LIKES VALUES(SQ_FILE_DB_LIKES.nextval, 'forbob2@naver.com', '12345672',1,SYSTIMESTAMP, NULL);
+
+-- ======================================================
+-- TB_GALLERY_LIKES
+INSERT INTO TB_GALLERY_LIKES VALUES(SQ_GALLERY_LIKES.nextval, 'forbob@naver.com', '12345671',1,SYSTIMESTAMP, null);
+INSERT INTO TB_GALLERY_LIKES VALUES(SQ_GALLERY_LIKES.nextval, 'forbob2@naver.com', '12345671',1,SYSTIMESTAMP, null);
+INSERT INTO TB_GALLERY_LIKES VALUES(SQ_GALLERY_LIKES.nextval, 'forbob2@naver.com', '12345673',1,SYSTIMESTAMP, null);
+
+COMMIT;

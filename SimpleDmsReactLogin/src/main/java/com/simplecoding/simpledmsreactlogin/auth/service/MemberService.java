@@ -3,6 +3,7 @@ package com.simplecoding.simpledmsreactlogin.auth.service;
 
 import com.simplecoding.simpledmsreactlogin.auth.dto.JwtDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MemberDto;
+import com.simplecoding.simpledmsreactlogin.auth.dto.MypageDto;
 import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
 import com.simplecoding.simpledmsreactlogin.auth.repository.MemberRepository;
 import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
@@ -59,4 +60,11 @@ public class MemberService {
         return jwtDto;                                                   //        (5) 택배상자(DTO)에 담기 : 1) 웹토큰, 2) 유저정보
     }
 
+    public MypageDto findById(String email) {
+        //        JPA 상세조회 함수 실행
+        Member member = memberRepository.findById(email)
+                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+
+        return mapStruct.toDto2(member);
+    }
 }

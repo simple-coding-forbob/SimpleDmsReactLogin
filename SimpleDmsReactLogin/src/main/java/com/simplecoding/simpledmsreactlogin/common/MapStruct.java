@@ -2,6 +2,7 @@ package com.simplecoding.simpledmsreactlogin.common;
 
 
 import com.simplecoding.simpledmsreactlogin.auth.dto.MemberDto;
+import com.simplecoding.simpledmsreactlogin.auth.dto.MypageDto;
 import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
 import com.simplecoding.simpledmsreactlogin.dept.dto.DeptDto;
 import com.simplecoding.simpledmsreactlogin.dept.entity.Dept;
@@ -72,23 +73,31 @@ public interface MapStruct {
     // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(EventNoticeDto eventNoticeDto, @MappingTarget EventNotice eventNotice);
 
-    // TODO: 7) FreeBoard <-> FreeBoardDto
-    FreeBoardDto toDto(FreeBoard freeBoard);
-    FreeBoard toEntity(FreeBoardDto freeBoardDto);
-    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
-    void updateFromDto(FreeBoardDto freeBoardDto, @MappingTarget FreeBoard freeBoard);
-
-    //    TODO: 9) fileDb <-> fileDto
+    //    TODO: 7) fileDb <-> fileDto
     FileDbDto toDto(FileDb fileDb);
     @Mapping(target = "fileData", ignore = true)
     FileDb toEntity(FileDbDto fileDbDto);
 
-    //    TODO: 10) gallery <-> galleryDto
+    //    TODO: 8) gallery <-> galleryDto
     GalleryDto toDto(Gallery gallery);
     @Mapping(target = "galleryData", ignore = true)
     Gallery toEntity(GalleryDto galleryDto);
 
-    //    TODO: 6) member <-> memberDto
+    //    TODO: 9) member <-> memberDto
     MemberDto toDto(Member member);
     Member toEntity(MemberDto memberDto);
+
+    //    TODO: 10) Member <-> MypageDto
+    MypageDto toDto2(Member member);
+    Member toEntity2(MypageDto mypageDto);
+
+    // TODO: 11) FreeBoard <-> FreeBoardDto
+    @Mapping(source = "member.email", target = "email")
+    @Mapping(source = "member.name", target = "name")
+    FreeBoardDto toDto(FreeBoard freeBoard);
+    @Mapping(source = "email", target = "member.email")
+    @Mapping(source = "name", target = "member.name")
+    FreeBoard toEntity(FreeBoardDto freeBoardDto);
+    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
+    void updateFromDto(FreeBoardDto freeBoardDto, @MappingTarget FreeBoard freeBoard);
 }

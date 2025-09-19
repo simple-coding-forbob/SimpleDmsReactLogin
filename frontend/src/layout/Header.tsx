@@ -52,91 +52,129 @@ export default function Header() {
         >
           {/* PC 메뉴 */}
           <li>
-            <Link to="/" className="hover:underline">홈</Link>
+            <Link to="/" className="hover:underline">
+              홈
+            </Link>
           </li>
           <li></li>
           <li className="group md:relative">
-            <Link to="#" className="hover:underline">부서</Link>
+            <Link to="#" className="hover:underline">
+              부서
+            </Link>
             {/* w-[단위] */}
             <ul
               className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
-            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-32 md:p-2 md:rounded"
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
             >
               <li className="m-2">
-                <Link to="/dept" className="hover:underline">부서조회</Link>
+                <Link to="/dept" className="hover:underline">
+                  부서조회
+                </Link>
               </li>
               <li className="m-2">
-                <Link to="/add-dept" className="hover:underline">부서추가</Link>
+                <Link to="/add-dept" className="hover:underline">
+                  부서추가
+                </Link>
               </li>
             </ul>
           </li>
           <li className="group md:relative">
-            <Link to="#" className="hover:underline">사원</Link>
+            <Link to="#" className="hover:underline">
+              사원
+            </Link>
             <ul
               className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
-            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-32 md:p-2 md:rounded"
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
             >
               <li className="m-2">
-                <Link to="/emp" className="hover:underline">사원조회</Link>
+                <Link to="/emp" className="hover:underline">
+                  사원조회
+                </Link>
               </li>
               <li className="m-2">
-                <Link to="/add-emp" className="hover:underline">사원추가</Link>
+                <Link to="/add-emp" className="hover:underline">
+                  사원추가
+                </Link>
               </li>
             </ul>
           </li>
           <li className="group md:relative">
-            <Link to="#" className="hover:underline">Faq</Link>
+            <Link to="#" className="hover:underline">
+              Faq
+            </Link>
             <ul
               className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
-            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-32 md:p-2 md:rounded"
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
             >
               <li className="m-2">
-                <Link to="/faq" className="hover:underline">Faq조회</Link>
+                <Link to="/faq" className="hover:underline">
+                  Faq조회
+                </Link>
               </li>
               <li className="m-2">
-                <Link to="/add-faq" className="hover:underline">Faq추가</Link>
+                <Link to="/add-faq" className="hover:underline">
+                  Faq추가
+                </Link>
               </li>
             </ul>
           </li>
           <li className="group md:relative">
-            <Link to="#" className="hover:underline">Qna</Link>
+            <Link to="#" className="hover:underline">
+              Qna
+            </Link>
             <ul
               className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
-            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-32 md:p-2 md:rounded"
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
             >
               <li className="m-2">
-                <Link to="/qna" className="hover:underline">Qna조회</Link>
+                <Link to="/qna" className="hover:underline">
+                  Qna조회
+                </Link>
               </li>
               <li className="m-2">
-                <Link to="/add-qna" className="hover:underline">Qna추가</Link>
+                <Link to="/add-qna" className="hover:underline">
+                  Qna추가
+                </Link>
               </li>
             </ul>
           </li>
           <li className="group md:relative">
-            <Link to="#" className="hover:underline">Notice</Link>
+            <Link to="#" className="hover:underline">
+              Notice
+            </Link>
             <ul
               className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
-            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-32 md:p-2 md:rounded"
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
             >
               <li className="m-2">
-                <Link to="/notice" className="hover:underline">Notice조회</Link>
+                <Link to="/notice" className="hover:underline">
+                  Notice조회
+                </Link>
               </li>
               <li className="m-2">
-                <Link to="/add-notice" className="hover:underline">Notice추가</Link>
+                <Link to="/add-notice" className="hover:underline">
+                  Notice추가
+                </Link>
               </li>
             </ul>
           </li>
           <li className="group md:relative">
-            <Link to="#" className="hover:underline">EventNotice</Link>
+            <Link to="#" className="hover:underline">
+              EventNotice
+            </Link>
             <ul
               className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
-            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-32 md:p-2 md:rounded"
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
             >
               <li className="m-2">
-                <Link to="/event-notice" className="hover:underline">EventNotice 조회</Link>
+                <Link to="/event-notice" className="hover:underline">
+                  EventNotice 조회
+                </Link>
               </li>
               <li className="m-2">
-                <Link to="/add-event-notice" className="hover:underline">EventNotice 추가</Link>
+                <Link to="/add-event-notice" className="hover:underline">
+                  EventNotice 추가
+                </Link>
               </li>
             </ul>
           </li>
@@ -146,7 +184,7 @@ export default function Header() {
             </Link>
             <ul
               className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
-            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-32 md:p-2 md:rounded"
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
             >
               <li className="m-2">
                 <Link to="/fileDb" className="hover:underline">
@@ -166,7 +204,7 @@ export default function Header() {
             </Link>
             <ul
               className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
-            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-32 md:p-2 md:rounded"
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
             >
               <li className="m-2">
                 <Link to="/gallery" className="hover:underline">
@@ -176,6 +214,26 @@ export default function Header() {
               <li className="m-2">
                 <Link to="/add-gallery" className="hover:underline">
                   Gallery 추가
+                </Link>
+              </li>
+            </ul>
+          </li>
+          <li className="group md:relative">
+            <Link to="#" className="hover:underline">
+              FreeBoard
+            </Link>
+            <ul
+              className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
+            >
+              <li className="m-2">
+                <Link to="/free-board" className="hover:underline">
+                  FreeBoard 조회
+                </Link>
+              </li>
+              <li className="m-2">
+                <Link to="/add-free-board" className="hover:underline">
+                  FreeBoard 추가
                 </Link>
               </li>
             </ul>

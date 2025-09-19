@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-
+import type IFreeBoard from "../../types/IFreeBoard";
+import FreeBoardService from "../../services/FreeBoardService";
 import Pagination from "rc-pagination";
 import { Link } from "react-router-dom";
-import EmpService from "../../services/EmpService";
-import type IEmp from "../../types/IEmp";
 
-const EmpList = () => {
-  const [emps, setEmp] = useState<IEmp[]>([]);
+function FreeBoardList() {
+  const [freeBoards, setFreeBoards] = useState<IFreeBoard[]>([]);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const [totalNumber, setTotalNumber] = useState<number>(0);
@@ -23,9 +22,9 @@ const EmpList = () => {
   };
 
   const selectList = async () => {
-    const response = await EmpService.getAll(searchKeyword, page - 1, size);
+    const response = await FreeBoardService.getAll(searchKeyword, page - 1, size);
     const { result, totalNumber } = response.data;
-    setEmp(result);
+    setFreeBoards(result);
     setTotalNumber(totalNumber);
     console.log(response.data);
   };
@@ -34,15 +33,14 @@ const EmpList = () => {
     selectList();
   }, [page]);
 
-  return (
-    <>
-      <h1 className="text-2xl font-bold mb-6">사원 조회</h1>
+  return     <>
+      <h1 className="text-2xl font-bold mb-6">자유 게시판 조회</h1>
 
       <div className="flex justify-center mb-4">
         <input
           type="text"
-          className="w-[100%] border border-gray-300 rounded-l px-3 py-2 focus:outline-none"
-          placeholder="사원명 검색"
+          className="w-full border border-gray-300 rounded-l p-2 focus:outline-none focus:ring focus:ring-blue-500"
+          placeholder="제목 검색"
           value={searchKeyword}
           onChange={onChangeSearchKeyword}
         />
@@ -58,27 +56,21 @@ const EmpList = () => {
         <table className="w-[100%] border border-gray-200">
           <thead className="bg-blue-500 text-white">
             <tr>
-              <th className="px-4 py-2 border-b">ename</th>
-              <th className="px-4 py-2 border-b">job</th>
-              <th className="px-4 py-2 border-b">manager</th>
-              <th className="px-4 py-2 border-b">hiredate</th>
-              <th className="px-4 py-2 border-b">salary</th>
-              <th className="px-4 py-2 border-b">commission</th>
-              <th className="px-4 py-2 border-b">dno</th>
+              <th className="px-4 py-2 border-b">title</th>
+              <th className="px-4 py-2 border-b">content</th>
+              <th className="px-4 py-2 border-b">name</th>
+              <th className="px-4 py-2 border-b">viewCount</th>
             </tr>
           </thead>
           <tbody>
-            {emps.map((data) => (
-              <tr key={data.eno} className="hover:bg-gray-50">
+            {freeBoards.map((data) => (
+              <tr key={data.fid} className="hover:bg-gray-50">
                 <td className="px-4 py-2 border-b">
-                  <Link to={`/emp-detail/${data.eno}`}>{data.ename}</Link>
+                  <Link to={`/dept-detail/${data.fid}`}>{data.title}</Link>
                 </td>
-                <td className="px-4 py-2 border-b">{data.job}</td>
-                <td className="px-4 py-2 border-b">{data.manager}</td>
-                <td className="px-4 py-2 border-b">{data.hiredate}</td>
-                <td className="px-4 py-2 border-b">{data.salary}</td>
-                <td className="px-4 py-2 border-b">{data.commission}</td>
-                <td className="px-4 py-2 border-b">{data.dno}</td>
+                <td className="px-4 py-2 border-b">{data.content}</td>
+                <td className="px-4 py-2 border-b text-center">{data.name}</td>
+                <td className="px-4 py-2 border-b text-center">{data.viewCount}</td>
               </tr>
             ))}
           </tbody>
@@ -94,8 +86,7 @@ const EmpList = () => {
           className="flex space-x-2"
         />
       </div>
-    </>
-  );
-};
+    </>;
+}
 
-export default EmpList;
+export default FreeBoardList;

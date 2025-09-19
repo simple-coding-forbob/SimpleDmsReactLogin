@@ -13,16 +13,16 @@ function LoginView() {
   const { loggedIn, login } = useContext<AuthContextType>(authContext);
   const nav = useNavigate();
 
-  // 이미 로그인 상태이면 홈으로 이동
+  // 이미 로그인 상태이면 mypage 로 이동
   useEffect(() => {
-    if (loggedIn) nav("/");
+    if (loggedIn) nav("/mypage");
   }, [loggedIn, nav]);
 
   const handleLogin = async (data: IAuth) => {
     const response = await AuthService.login(data);
     console.log(response.data);
     login(response.data); // Context 상태 업데이트
-    nav("/");
+    nav("/mypage");
   };
 
   const formik = useFormik({

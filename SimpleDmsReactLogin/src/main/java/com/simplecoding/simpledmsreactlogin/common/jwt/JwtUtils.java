@@ -2,6 +2,7 @@ package com.simplecoding.simpledmsreactlogin.common.jwt;
 
 import com.simplecoding.simpledmsreactlogin.auth.dto.SecurityUserDto;
 import io.jsonwebtoken.*;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -44,7 +45,7 @@ public class JwtUtils {
      * @param token JWT
      * @return 이메일(subject)
      */
-    public String getUserNameFromJwtToken(String token) {
+    public String getUserNameFromJwt(String token) {
         return Jwts.parser()
                 .setSigningKey(jwtSecret)         // 비밀키 설정
                 .parseClaimsJws(token)            // JWT 파싱
@@ -73,5 +74,20 @@ public class JwtUtils {
             log.error("JWT 클레임이 비어 있음: {}", e.getMessage());
         }
         return false;
+    }
+
+    /**
+     * 요청 헤더에서 JWT 토큰 추출
+     * Authorization 헤더 예시: "Bearer eyJhbGciOiJIUzUxMiJ9..."
+     */
+    public String parseJwt(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+
+        // null 체크 및 "Bearer " 접두사 확인
+        if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
+            // "Bearer " 이후 문자열(토큰) 반환
+            return headerAuth.substring(7);
+        }
+        return null; // 토큰 없으면 null 반환
     }
 }

@@ -1,6 +1,7 @@
 package com.simplecoding.simpledmsreactlogin.freeboard.entity;
 
 
+import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
 import com.simplecoding.simpledmsreactlogin.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,6 +27,9 @@ public class FreeBoard extends BaseTimeEntity {
     private Long fid;
     private String title;
     private String content;
-    private String author;
-    private Long viewCount;
+    private Long viewCount=(long)0;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "email")           // DB FK 컬럼명 작성
+    private Member member;
 }
