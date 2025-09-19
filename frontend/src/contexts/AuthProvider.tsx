@@ -6,7 +6,7 @@ import type IJwt from "../types/auth/IJwt";
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [jwt, setJwt] = useState<IJwt | null>(
-    JSON.parse(localStorage.getItem("accessToken") || "null")
+    JSON.parse(localStorage.getItem("jwt") || "null")
   );
 
   // user가 존재하면 true, 없으면 false

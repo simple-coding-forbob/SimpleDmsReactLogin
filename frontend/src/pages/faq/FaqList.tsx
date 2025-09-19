@@ -46,10 +46,10 @@ const FaqList = () => {
           onChange={onChangeSearchKeyword}
         />
         <button
-          className="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-r"
+          className="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-r min-w-[5rem]"
           onClick={selectList}
         >
-          Search
+          검색
         </button>
       </div>
 

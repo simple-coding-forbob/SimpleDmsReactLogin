@@ -11,6 +11,7 @@ public class FreeBoardDto {
     private Long fid;
     private String title;
     private String content;
-    private String author;
-    private Long viewCount;
+    private Long viewCount=(long)0;
+    private String email;
+    private String name;      // 이름(닉네임), N+1 터질수 있음(조심)
 }

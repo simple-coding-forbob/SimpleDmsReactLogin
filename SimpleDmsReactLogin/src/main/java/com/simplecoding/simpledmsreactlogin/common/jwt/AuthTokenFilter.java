@@ -43,13 +43,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         try {
             // 1) 요청 헤더에서 JWT 추출
-            String jwt = parseJwt(request);
+            String jwt = jwtUtils.parseJwt(request);
 
             // 2) JWT가 존재하고 유효하면
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
 
                 // 3) JWT에서 사용자 이메일 추출
-                String email = jwtUtils.getUserNameFromJwtToken(jwt);
+                String email = jwtUtils.getUserNameFromJwt(jwt);
 
                 // 4) DB에서 사용자 상세 정보 조회
                 UserDetails userDetails = userDetailsService.loadUserByUsername(email);
@@ -76,20 +76,5 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         // 8) 다음 필터로 요청 전달
         filterChain.doFilter(request, response);
-    }
-
-    /**
-     * 요청 헤더에서 JWT 토큰 추출
-     * Authorization 헤더 예시: "Bearer eyJhbGciOiJIUzUxMiJ9..."
-     */
-    private String parseJwt(HttpServletRequest request) {
-        String headerAuth = request.getHeader("Authorization");
-
-        // null 체크 및 "Bearer " 접두사 확인
-        if (headerAuth != null && headerAuth.startsWith("Bearer ")) {
-            // "Bearer " 이후 문자열(토큰) 반환
-            return headerAuth.substring(7);
-        }
-        return null; // 토큰 없으면 null 반환
     }
 }
