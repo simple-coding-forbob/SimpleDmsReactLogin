@@ -26,8 +26,8 @@ public class FileDbService {
 
     //    like 검색 + 전체조회 + 페이징처리
     public Page<FileDbDto> selectFileDbList(String searchKeyword, Pageable pageable) {
-        Page<FileDb> page= fileDbRepository.selectFileDbList(searchKeyword, pageable);
-        return page.map(fileDb -> mapStruct.toDto(fileDb));
+        Page<FileDbDto> page= fileDbRepository.selectFileDbList(searchKeyword, pageable);
+        return page;
     }
 
     //    TODO: 저장: save

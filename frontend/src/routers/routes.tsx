@@ -1,34 +1,37 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layout/Layout";
-import Home from "../pages/Home";
+import LoginView from "../pages/auth/LoginView";
+import RegisterView from "../pages/auth/RegisterView";
 import AddDept from "../pages/dept/AddDept";
 import DeptDetail from "../pages/dept/DeptDetail";
 import DeptList from "../pages/dept/DeptList";
 import AddEmp from "../pages/emp/AddEmp";
 import EmpDetail from "../pages/emp/EmpDetail";
 import EmpList from "../pages/emp/EmpList";
-import AddFileDb from "../pages/filedb/AddFileDb";
-import FiledbList from "../pages/filedb/FileDbList";
-import AddGallery from "../pages/gallery/AddGallery";
-import GalleryList from "../pages/gallery/GalleryList";
-import FaqList from "../pages/faq/FaqList";
-import AddFaq from "../pages/faq/AddFaq";
-import FaqDetail from "../pages/faq/FaqDetail";
-import QnaList from "../pages/qna/QnaList";
-import AddQna from "../pages/qna/AddQna";
-import QnaDetail from "../pages/qna/QnaDetail";
-import NoticeList from "../pages/notice/NoticeList";
-import NoticeDetail from "../pages/notice/NoticeDetail";
-import AddNotice from "../pages/notice/AddNotice";
-import EventNoticeList from "../pages/eventnotice/EventNoticeList";
 import AddEventNotice from "../pages/eventnotice/AddEventNotice";
 import EventNoticeDetail from "../pages/eventnotice/EventNoticeDetail";
-import LoginView from "../pages/auth/LoginView";
-import RegisterView from "../pages/auth/RegisterView";
-import FreeBoardList from "../pages/freeboard/FreeBoardList";
+import EventNoticeList from "../pages/eventnotice/EventNoticeList";
+import AddFaq from "../pages/faq/AddFaq";
+import FaqDetail from "../pages/faq/FaqDetail";
+import FaqList from "../pages/faq/FaqList";
+import AddFileDb from "../pages/filedb/AddFileDb";
+import FiledbList from "../pages/filedb/FileDbList";
 import AddFreeBoard from "../pages/freeboard/AddFreeBoard";
 import FreeBoardDetail from "../pages/freeboard/FreeBoardDetail";
+import FreeBoardList from "../pages/freeboard/FreeBoardList";
+import AddGallery from "../pages/gallery/AddGallery";
+import GalleryList from "../pages/gallery/GalleryList";
+import Home from "../pages/Home";
 import Mypage from "../pages/Mypage";
+import AddNewsBoard from "../pages/newsboard/AddNewsBoard";
+import NewsBoardDetail from "../pages/newsboard/NewsBoardDetail";
+import NewsBoardList from "../pages/newsboard/NewsBoardList";
+import AddNotice from "../pages/notice/AddNotice";
+import NoticeDetail from "../pages/notice/NoticeDetail";
+import NoticeList from "../pages/notice/NoticeList";
+import AddQna from "../pages/qna/AddQna";
+import QnaDetail from "../pages/qna/QnaDetail";
+import QnaList from "../pages/qna/QnaList";
 
 const router = createBrowserRouter([
   {
@@ -63,7 +66,10 @@ const router = createBrowserRouter([
       { path: "mypage", element: <Mypage /> },
       { path: "free-board", element: <FreeBoardList /> },
       { path: "add-free-board", element: <AddFreeBoard /> },
-      { path: "free-board-detail/:dno", element: <FreeBoardDetail /> },
+      { path: "free-board-detail/:fid", element: <FreeBoardDetail /> },
+      { path: "news-board", element: <NewsBoardList /> },
+      { path: "add-news-board", element: <AddNewsBoard /> },
+      { path: "news-board-detail/:nid", element: <NewsBoardDetail /> },
     ],
   },
 ]);

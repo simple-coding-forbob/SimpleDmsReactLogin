@@ -18,6 +18,8 @@ import com.simplecoding.simpledmsreactlogin.freeboard.dto.FreeBoardDto;
 import com.simplecoding.simpledmsreactlogin.freeboard.entity.FreeBoard;
 import com.simplecoding.simpledmsreactlogin.gallery.dto.GalleryDto;
 import com.simplecoding.simpledmsreactlogin.gallery.entity.Gallery;
+import com.simplecoding.simpledmsreactlogin.newsboard.dto.NewsBoardDto;
+import com.simplecoding.simpledmsreactlogin.newsboard.entity.NewsBoard;
 import com.simplecoding.simpledmsreactlogin.notice.dto.NoticeDto;
 import com.simplecoding.simpledmsreactlogin.notice.entity.Notice;
 import com.simplecoding.simpledmsreactlogin.qna.dto.QnaDto;
@@ -100,4 +102,15 @@ public interface MapStruct {
     FreeBoard toEntity(FreeBoardDto freeBoardDto);
     // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(FreeBoardDto freeBoardDto, @MappingTarget FreeBoard freeBoard);
+
+
+    // TODO: 12) NewsBoard <-> NewsBoardDto
+    @Mapping(source = "member.email", target = "email")
+    @Mapping(source = "member.name", target = "name")
+    NewsBoardDto toDto(NewsBoard newsBoard);
+    @Mapping(source = "email", target = "member.email")
+    @Mapping(source = "name", target = "member.name")
+    NewsBoard toEntity(NewsBoardDto newsBoardDto);
+    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
+    void updateFromDto(NewsBoardDto newsBoardDto, @MappingTarget NewsBoard newsBoard);
 }
