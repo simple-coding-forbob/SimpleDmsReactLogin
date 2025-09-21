@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import type IFreeBoard from "../../types/IFreeBoard";
-import FreeBoardService from "../../services/FreeBoardService";
 import Pagination from "rc-pagination";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import FreeBoardService from "../../services/FreeBoardService";
+import type IFreeBoard from "../../types/IFreeBoard";
 
 function FreeBoardList() {
   const [freeBoards, setFreeBoards] = useState<IFreeBoard[]>([]);
@@ -66,7 +66,7 @@ function FreeBoardList() {
             {freeBoards.map((data) => (
               <tr key={data.fid} className="hover:bg-gray-50">
                 <td className="px-4 py-2 border-b">
-                  <Link to={`/dept-detail/${data.fid}`}>{data.title}</Link>
+                  <Link to={`/free-board-detail/${data.fid}`}>{data.title}</Link>
                 </td>
                 <td className="px-4 py-2 border-b">{data.content}</td>
                 <td className="px-4 py-2 border-b text-center">{data.name}</td>

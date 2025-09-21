@@ -22,8 +22,8 @@ public class QnaService {
     private final ErrorMsg errorMsg;
 
     public Page<QnaDto> selectQnaList(String searchKeyword, Pageable pageable) {
-        Page<Qna> page= qnaRepository.selectQnaList(searchKeyword, pageable);
-        return page.map(qna -> mapStruct.toDto(qna));
+        Page<QnaDto> page= qnaRepository.selectQnaList(searchKeyword, pageable);
+        return page;
     }
 
     public QnaDto findById(long fno) {

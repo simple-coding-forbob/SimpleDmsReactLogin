@@ -26,8 +26,8 @@ public class GalleryService {
 
     //    like 검색 + 전체조회 + 페이징처리
     public Page<GalleryDto> selectGalleryList(String searchKeyword, Pageable pageable) {
-        Page<Gallery> page= galleryRepository.selectGalleryList(searchKeyword, pageable);
-        return page.map(gallery -> mapStruct.toDto(gallery));
+        Page<GalleryDto> page= galleryRepository.selectGalleryList(searchKeyword, pageable);
+        return page;
     }
 
     //    TODO: 저장/수정 : save

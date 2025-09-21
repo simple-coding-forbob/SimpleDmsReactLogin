@@ -22,8 +22,8 @@ public class FaqService {
     private final ErrorMsg errorMsg;
 
     public Page<FaqDto> selectFaqList(String searchKeyword, Pageable pageable) {
-        Page<Faq> page= faqRepository.selectFaqList(searchKeyword, pageable);
-        return page.map(faq -> mapStruct.toDto(faq));
+        Page<FaqDto> page= faqRepository.selectFaqList(searchKeyword, pageable);
+        return page;
     }
 
     public FaqDto findById(long fno) {

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import type { AuthContextType } from "../types/auth/IAuthContexttype";
 import { authContext } from "../contexts/authContext";
+import type { AuthContextType } from "../types/auth/IAuthContexttype";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -238,6 +238,26 @@ export default function Header() {
               </li>
             </ul>
           </li>
+          <li className="group md:relative">
+            <Link to="#" className="hover:underline">
+              NewsBoard
+            </Link>
+            <ul
+              className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
+            >
+              <li className="m-2">
+                <Link to="/news-board" className="hover:underline">
+                  NewsBoard 조회
+                </Link>
+              </li>
+              <li className="m-2">
+                <Link to="/add-news-board" className="hover:underline">
+                  NewsBoard 추가
+                </Link>
+              </li>
+            </ul>
+          </li>
         </ul>
         <ul
           className="flex flex-col gap-4  pr-5 py-2
@@ -257,7 +277,7 @@ export default function Header() {
           {loggedIn && (
             <>
               <li>
-                <Link to="#">마이페이지</Link>
+                <Link to="/mypage">마이페이지</Link>
               </li>
               <li>
                 <button onClick={logoutMenu}>로그아웃</button>

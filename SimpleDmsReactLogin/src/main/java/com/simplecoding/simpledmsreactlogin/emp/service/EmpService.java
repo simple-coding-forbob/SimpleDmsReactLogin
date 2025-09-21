@@ -22,8 +22,8 @@ public class EmpService {
     private final ErrorMsg errorMsg;
 
     public Page<EmpDto> selectEmpList(String searchKeyword, Pageable pageable) {
-        Page<Emp>  page= empRepository.selectEmpList(searchKeyword, pageable);
-        return page.map(emp -> mapStruct.toDto(emp));
+        Page<EmpDto>  page= empRepository.selectEmpList(searchKeyword, pageable);
+        return page;
     }
 
     //    저장/수정 : 1) 기본키가(부서번호) 없으면 저장(insert)

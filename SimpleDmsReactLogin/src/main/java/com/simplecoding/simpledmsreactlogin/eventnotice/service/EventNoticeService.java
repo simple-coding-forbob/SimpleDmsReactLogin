@@ -20,8 +20,8 @@ public class EventNoticeService {
     private final MapStruct mapStruct;
 
     public Page<EventNoticeDto> selectEventNoticeList(String searchKeyword, Pageable pageable) {
-        Page<EventNotice> page= eventNoticeRepository.selectEventNoticeList(searchKeyword, pageable);
-        return page.map(notice -> mapStruct.toDto(notice));
+        Page<EventNoticeDto> page= eventNoticeRepository.selectEventNoticeList(searchKeyword, pageable);
+        return page;
     }
 
     public EventNoticeDto findById(long eid) {
