@@ -15,7 +15,7 @@ public interface FileDbRepository extends JpaRepository<FileDb, String> {
     @Query(value = "select new com.simplecoding.simpledmsreactlogin.filedb.dto" +
             ".FileDbDto(f.uuid,f.fileTitle,f.fileContent,f.fileUrl) " +
             "from FileDb f\n" +
-            "where f.fileTitle like %:searchKeyword% order by f.insertTime")
+            "where f.fileTitle like %:searchKeyword% order by f.insertTime desc")
     Page<FileDbDto> selectFileDbList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

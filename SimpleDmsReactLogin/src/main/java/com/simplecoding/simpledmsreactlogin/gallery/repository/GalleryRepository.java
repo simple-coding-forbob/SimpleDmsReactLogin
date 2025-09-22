@@ -15,7 +15,7 @@ public interface GalleryRepository extends JpaRepository<Gallery, String> {
     @Query(value = "select new com.simplecoding.simpledmsreactlogin.gallery.dto" +
             ".GalleryDto(g.uuid,g.galleryTitle,g.galleryFileUrl) " +
             "from Gallery g\n" +
-            "where g.galleryTitle like %:searchKeyword% order by g.insertTime")
+            "where g.galleryTitle like %:searchKeyword% order by g.insertTime desc")
     Page<GalleryDto> selectGalleryList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

@@ -15,7 +15,7 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
     @Query(value = "select new com.simplecoding.simpledmsreactlogin.notice.dto" +
             ".NoticeDto(n.nid,n.title,n.content,n.isVisible,n.startDate,n.endDate) " +
             "from Notice n\n" +
-            "where n.title like %:searchKeyword% order by n.insertTime")
+            "where n.title like %:searchKeyword% order by n.insertTime desc")
     Page<NoticeDto> selectNoticeList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

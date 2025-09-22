@@ -18,6 +18,8 @@ import com.simplecoding.simpledmsreactlogin.freeboard.dto.FreeBoardDto;
 import com.simplecoding.simpledmsreactlogin.freeboard.entity.FreeBoard;
 import com.simplecoding.simpledmsreactlogin.gallery.dto.GalleryDto;
 import com.simplecoding.simpledmsreactlogin.gallery.entity.Gallery;
+import com.simplecoding.simpledmsreactlogin.meetingroom.dto.ReservationDto;
+import com.simplecoding.simpledmsreactlogin.meetingroom.entity.Reservation;
 import com.simplecoding.simpledmsreactlogin.newsboard.dto.NewsBoardDto;
 import com.simplecoding.simpledmsreactlogin.newsboard.entity.NewsBoard;
 import com.simplecoding.simpledmsreactlogin.notice.dto.NoticeDto;
@@ -113,4 +115,17 @@ public interface MapStruct {
     NewsBoard toEntity(NewsBoardDto newsBoardDto);
     // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(NewsBoardDto newsBoardDto, @MappingTarget NewsBoard newsBoard);
+
+    // TODO: 13) Reservation <-> ReservationDto
+    @Mapping(source = "member.email", target = "email")
+    @Mapping(source = "meetingRoom.roomName", target = "roomName")
+//    @Mapping(source = "status", target = "description",expression = "java(reservation.getStatus().name())")
+//    @Mapping(source = "status", target = "description",expression = "java(reservation.getStatus().getDescription())")
+    ReservationDto toDto(Reservation reservation);
+    @Mapping(source = "email", target = "member.email")
+    @Mapping(source = "roomName", target = "meetingRoom.roomName")
+//    @Mapping(source = "status", target = "description",expression = "java(reservation.getStatus().name())")
+    Reservation toEntity(ReservationDto reservationDto);
+    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
+    void updateFromDto(ReservationDto reservationDto, @MappingTarget Reservation reservation);
 }

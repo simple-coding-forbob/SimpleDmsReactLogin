@@ -19,7 +19,7 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long> {
     @Query(value = "select new com.simplecoding.simpledmsreactlogin.freeboard.dto.FreeBoardDto(" +
             "f.fid,f.title,f.content,f.viewCount,f.member.email,f.member.name)" +
             " from FreeBoard f\n" +
-            "where f.title like %:searchKeyword% order by f.insertTime")
+            "where f.title like %:searchKeyword% order by f.insertTime desc")
     Page<FreeBoardDto> selectFreeBoardList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

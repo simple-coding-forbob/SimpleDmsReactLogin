@@ -18,7 +18,7 @@ public interface DeptRepository extends JpaRepository<Dept,Long> {
     @Query(value = "select new com.simplecoding.simpledmsreactlogin.dept.dto" +
             ".DeptDto(d.dno, d.dname, d.loc) " +
             "from Dept d\n" +
-            "where d.dname like %:searchKeyword% order by d.insertTime")
+            "where d.dname like %:searchKeyword% order by d.insertTime desc")
     Page<DeptDto> selectDeptList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

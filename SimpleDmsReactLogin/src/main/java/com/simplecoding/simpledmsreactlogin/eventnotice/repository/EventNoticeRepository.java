@@ -15,7 +15,7 @@ public interface EventNoticeRepository extends JpaRepository<EventNotice, Long> 
     @Query(value = "select new com.simplecoding.simpledmsreactlogin.eventnotice.dto" +
             ".EventNoticeDto(n.eid,n.subject,n.text,n.isVisible,n.startDate,n.endDate) " +
             "from EventNotice n\n" +
-            "where n.subject like %:searchKeyword% order by n.insertTime")
+            "where n.subject like %:searchKeyword% order by n.insertTime desc")
     Page<EventNoticeDto> selectEventNoticeList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

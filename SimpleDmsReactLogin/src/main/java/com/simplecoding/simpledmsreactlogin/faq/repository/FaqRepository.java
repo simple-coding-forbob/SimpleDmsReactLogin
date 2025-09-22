@@ -15,7 +15,7 @@ public interface FaqRepository extends JpaRepository<Faq,Long> {
     @Query(value = "select new com.simplecoding.simpledmsreactlogin.faq.dto" +
             ".FaqDto(f.fno,f.title,f.content) " +
             "from Faq f\n" +
-            "where f.title like %:searchKeyword% order by f.insertTime")
+            "where f.title like %:searchKeyword% order by f.insertTime desc")
     Page<FaqDto> selectFaqList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

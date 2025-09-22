@@ -1,6 +1,5 @@
 package com.simplecoding.simpledmsreactlogin.newsboard.repository;
 
-import com.simplecoding.simpledmsreactlogin.freeboard.entity.FreeBoard;
 import com.simplecoding.simpledmsreactlogin.newsboard.dto.NewsBoardDto;
 import com.simplecoding.simpledmsreactlogin.newsboard.entity.NewsBoard;
 import org.springframework.data.domain.Page;
@@ -19,7 +18,7 @@ public interface NewsBoardRepository extends JpaRepository<NewsBoard,Long> {
     @Query(value = "select new com.simplecoding.simpledmsreactlogin.newsboard.dto" +
             ".NewsBoardDto(n.nid,n.subject,n.text,n.viewCount,n.member.email,n.member.name)\n" +
             "from NewsBoard n\n" +
-            "where n.subject like %:searchKeyword% order by n.insertTime")
+            "where n.subject like %:searchKeyword% order by n.insertTime desc")
     Page<NewsBoardDto> selectNewsBoardList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

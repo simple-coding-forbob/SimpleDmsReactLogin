@@ -15,7 +15,7 @@ public interface QnaRepository extends JpaRepository<Qna,Long> {
     @Query(value = "select new com.simplecoding.simpledmsreactlogin.qna.dto" +
             ".QnaDto(q.qno,q.questioner,q.question,q.answerer,q.answer) " +
             "from Qna q\n" +
-            "where q.question like %:searchKeyword% order by q.insertTime")
+            "where q.question like %:searchKeyword% order by q.insertTime desc")
     Page<QnaDto> selectQnaList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable
