@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type IQna from "../../types/IQna";
 import QnaService from "../../services/QnaService";
 import qnaValidation from "../../validation/qnaValidation";
+import { Meta } from "react-head";
 
 function AddQna() {
   const nav = useNavigate();
@@ -28,6 +29,7 @@ function AddQna() {
 
   return (
     <>
+      <Meta name="description" content="Qna 추가 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">Qna 추가</h1>
 
       <form onSubmit={formik.handleSubmit}>
@@ -112,7 +114,7 @@ function AddQna() {
         {/* 버튼 */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          className="w-full bg-blue-700 text-white p-2 rounded hover:bg-blue-800"
         >
           저장
         </button>

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import type IEventNotice from "../../types/IEventNotice";
 import eventNoticeValidation from "../../validation/eventNoticeValidation";
 import EventNoticeService from "../../services/EventNoticeService";
+import { Meta } from "react-head";
 
 function EventNoticeDetail() {
   const params = useParams<{ eid: string }>();
@@ -56,6 +57,7 @@ function EventNoticeDetail() {
 
   return (
     <>
+      <Meta name="description" content="공지사항 상세조회 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">공지사항 상세조회</h1>
 
       <form onSubmit={formik.handleSubmit}>

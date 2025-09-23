@@ -1,12 +1,12 @@
 import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import DeptService from "../../services/DeptService";
-import type IDept from "../../types/IDept";
 import { Meta } from "react-head";
+import type IReservation from "../../types/IReservation";
+import ReservationService from "../../services/ReservationService";
 
-const DeptList = () => {
-  const [depts, setDepts] = useState<IDept[]>([]);
+function ReservationList() {
+  const [reservations, setReservations] = useState<IReservation[]>([]);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const [totalNumber, setTotalNumber] = useState<number>(0);
@@ -23,9 +23,13 @@ const DeptList = () => {
   };
 
   const selectList = async () => {
-    const response = await DeptService.getAll(searchKeyword, page - 1, size);
+    const response = await ReservationService.getAll(
+      searchKeyword,
+      page - 1,
+      size
+    );
     const { result, totalNumber } = response.data;
-    setDepts(result);
+    setReservations(result);
     setTotalNumber(totalNumber);
     console.log(response.data);
   };
@@ -36,19 +40,19 @@ const DeptList = () => {
 
   return (
     <>
-      <Meta name="description" content="부서 조회 페이지입니다." />
-      <h1 className="text-2xl font-bold mb-6">부서 조회</h1>
+      <Meta name="description" content="뉴스 게시판 페이지입니다." />
+      <h1 className="mid-2xl font-bold mb-6">뉴스 게시판 조회</h1>
 
       <div className="flex justify-center mb-4">
         <input
-          type="text"
+          type="mid"
           className="w-full border border-gray-300 rounded-l p-2 focus:outline-none focus:ring focus:ring-blue-500"
-          placeholder="부서명 검색"
+          placeholder="제목 검색"
           value={searchKeyword}
           onChange={onChangeSearchKeyword}
         />
         <button
-          className="bg-blue-700 text-white hover:bg-blue-800 px-4 py-2 rounded-r min-w-[5rem]"
+          className="bg-blue-700 mid-white hover:bg-blue-800 px-4 py-2 rounded-r min-w-[5rem]"
           onClick={selectList}
         >
           검색
@@ -57,19 +61,29 @@ const DeptList = () => {
 
       <div>
         <table className="w-[100%] border border-gray-200">
-          <thead className="bg-blue-700 text-white">
+          <thead className="bg-blue-700 mid-white">
             <tr>
-              <th className="px-4 py-2 border-b">dname</th>
-              <th className="px-4 py-2 border-b">loc</th>
+              <th className="px-4 py-2 border-b">email</th>
+              <th className="px-4 py-2 border-b">mid</th>
+              <th className="px-4 py-2 border-b">roomName</th>
+              <th className="px-4 py-2 border-b">startTime</th>
+              <th className="px-4 py-2 border-b">endTime</th>
+              <th className="px-4 py-2 border-b">status</th>
             </tr>
           </thead>
           <tbody>
-            {depts.map((data) => (
-              <tr key={data.dno} className="hover:bg-gray-50">
+            {reservations.map((data) => (
+              <tr key={data.rid} className="hover:bg-gray-50">
                 <td className="px-4 py-2 border-b">
-                  <Link to={`/dept-detail/${data.dno}`}>{data.dname}</Link>
+                  <Link to={`/news-board-detail/${data.rid}`}>
+                    {data.email}
+                  </Link>
                 </td>
-                <td className="px-4 py-2 border-b">{data.loc}</td>
+                <td className="px-4 py-2 border-b">{data.mid}</td>
+                <td className="px-4 py-2 border-b mid-center">{data.roomName}</td>
+                <td className="px-4 py-2 border-b mid-center">{data.startTime}</td>
+                <td className="px-4 py-2 border-b mid-center">{data.endTime}</td>
+                <td className="px-4 py-2 border-b mid-center">{data.status}</td>
               </tr>
             ))}
           </tbody>
@@ -87,6 +101,6 @@ const DeptList = () => {
       </div>
     </>
   );
-};
+}
 
-export default DeptList;
+export default ReservationList;

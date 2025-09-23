@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type IEventNotice from "../../types/IEventNotice";
 import EventNoticeService from "../../services/EventNoticeService";
+import { Meta } from "react-head";
 
 const EventNoticeList = () => {
   const [eventNotices, setEventNotice] = useState<IEventNotice[]>([]);
@@ -39,6 +40,7 @@ const EventNoticeList = () => {
 
   return (
     <>
+      <Meta name="description" content="공지사항 조회 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">공지사항 조회</h1>
 
       <div className="flex justify-center mb-4">
@@ -50,7 +52,7 @@ const EventNoticeList = () => {
           onChange={onChangeSearchKeyword}
         />
         <button
-          className="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-r min-w-[5rem]"
+          className="bg-blue-700 text-white hover:bg-blue-800 px-4 py-2 rounded-r min-w-[5rem]"
           onClick={selectList}
         >
           검색
@@ -59,7 +61,7 @@ const EventNoticeList = () => {
 
       <div>
         <table className="w-[100%] border border-gray-200">
-          <thead className="bg-blue-500 text-white">
+          <thead className="bg-blue-700 text-white">
             <tr>
               <th className="px-4 py-2 border-b">subject</th>
               <th className="px-4 py-2 border-b">text</th>

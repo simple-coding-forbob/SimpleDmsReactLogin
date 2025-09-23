@@ -5,6 +5,7 @@ import FileDbService from "../../services/FileDbService";
 
 import type IFileDb from "../../types/IFileDb";
 import fileDbValidation from "../../validation/fileDbValidation";
+import { Meta } from "react-head";
 
 function AddFileDb() {
   const nav = useNavigate();
@@ -33,7 +34,8 @@ function AddFileDb() {
   };
 
   return (
-    <div className="submit-form">
+    <>
+      <Meta name="description" content="이미지 업로드 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">이미지 업로드</h1>
 
       <form onSubmit={formik.handleSubmit}>
@@ -100,12 +102,12 @@ function AddFileDb() {
         {/* 버튼 */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          className="w-full bg-blue-700 text-white p-2 rounded hover:bg-blue-800"
         >
           업로드
         </button>
       </form>
-    </div>
+    </>
   );
 }
 

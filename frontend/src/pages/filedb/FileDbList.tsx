@@ -3,6 +3,7 @@ import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
 import FileDbService from "../../services/FileDbService";
 import type IFileDb from "../../types/IFileDb";
+import { Meta } from "react-head";
 
 const FiledbList = () => {
   const [fileDbs, setFileDbs] = useState<IFileDb[]>([]);
@@ -48,7 +49,8 @@ const FiledbList = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">FileDb List</h1>
+      <Meta name="description" content="FileDb 조회 페이지입니다." />
+      <h1 className="text-2xl font-bold mb-4">FileDb 조회</h1>
 
       {/* 검색 */}
       <div className="flex mb-4">
@@ -60,7 +62,7 @@ const FiledbList = () => {
           onChange={onChangeSearchKeyword}
         />
         <button
-          className="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-r min-w-[5rem]"
+          className="bg-blue-700 text-white hover:bg-blue-800 px-4 py-2 rounded-r min-w-[5rem]"
           onClick={selectList}
         >
           검색

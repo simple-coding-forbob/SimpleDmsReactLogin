@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import faqValidation from "../../validation/faqValidation";
 import type IFaq from "../../types/IFaq";
 import FaqService from "../../services/FaqService";
+import { Meta } from "react-head";
 
 function AddFaq() {
   const nav = useNavigate();
@@ -27,6 +28,7 @@ function AddFaq() {
 
   return (
     <>
+      <Meta name="description" content="Faq 추가 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">Faq 추가</h1>
 
       <form onSubmit={formik.handleSubmit}>
@@ -73,7 +75,7 @@ function AddFaq() {
         {/* 버튼 */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          className="w-full bg-blue-700 text-white p-2 rounded hover:bg-blue-800"
         >
           저장
         </button>

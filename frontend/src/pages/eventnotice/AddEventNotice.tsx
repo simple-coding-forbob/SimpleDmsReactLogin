@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type IEventNotice from "../../types/IEventNotice";
 import EventNoticeService from "../../services/EventNoticeService";
 import eventNoticeValidation from "../../validation/eventNoticeValidation";
+import { Meta } from "react-head";
 
 function AddEventNotice() {
   const nav = useNavigate();
@@ -29,6 +30,7 @@ function AddEventNotice() {
 
   return (
     <>
+      <Meta name="description" content="공지사항 추가 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">공지사항 추가</h1>
 
       <form onSubmit={formik.handleSubmit}>
@@ -132,7 +134,7 @@ function AddEventNotice() {
         {/* 버튼 */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          className="w-full bg-blue-700 text-white p-2 rounded hover:bg-blue-800"
         >
           저장
         </button>

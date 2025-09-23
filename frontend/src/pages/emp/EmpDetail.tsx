@@ -5,6 +5,7 @@ import EmpService from "../../services/EmpService";
 
 import type IEmp from "../../types/IEmp";
 import empValidation from "../../validation/empValidation";
+import { Meta } from "react-head";
 
 function EmpDetail() {
   const params = useParams<{ eno: string }>();
@@ -60,6 +61,7 @@ function EmpDetail() {
 
   return (
     <>
+      <Meta name="description" content="사원 상세조회 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">사원 상세조회</h1>
 
       <form onSubmit={formik.handleSubmit}>

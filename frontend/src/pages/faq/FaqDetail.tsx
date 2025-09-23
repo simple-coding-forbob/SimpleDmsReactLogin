@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import type IFaq from "../../types/IFaq";
 import FaqService from "../../services/FaqService";
 import faqValidation from "../../validation/faqValidation";
+import { Meta } from "react-head";
 
 function FaqDetail() {
   const params = useParams<{ fno: string }>();
@@ -55,6 +56,7 @@ function FaqDetail() {
 
   return (
     <>
+      <Meta name="description" content="Faq 상세조회 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">Faq 상세조회</h1>
 
       <form onSubmit={formik.handleSubmit}>

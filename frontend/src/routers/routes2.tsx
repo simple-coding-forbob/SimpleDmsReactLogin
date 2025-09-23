@@ -1,9 +1,6 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layout/Layout";
-import ReservationList from "../pages/reservation/ReservationList";
-import AddReservation from "../pages/reservation/AddReservation";
-import ReservationDetail from "../pages/reservation/ReservationDetail";
 
 // 공통 로딩 컴포넌트
 const loading = <div>Loading...</div>;
@@ -37,15 +34,9 @@ const AddNotice = lazy(() => import("../pages/notice/AddNotice"));
 const NoticeDetail = lazy(() => import("../pages/notice/NoticeDetail"));
 
 // 이벤트 공지
-const EventNoticeList = lazy(
-  () => import("../pages/eventnotice/EventNoticeList")
-);
-const AddEventNotice = lazy(
-  () => import("../pages/eventnotice/AddEventNotice")
-);
-const EventNoticeDetail = lazy(
-  () => import("../pages/eventnotice/EventNoticeDetail")
-);
+const EventNoticeList = lazy(() => import("../pages/eventnotice/EventNoticeList"));
+const AddEventNotice = lazy(() => import("../pages/eventnotice/AddEventNotice"));
+const EventNoticeDetail = lazy(() => import("../pages/eventnotice/EventNoticeDetail"));
 
 // 파일 DB
 const FileDbList = lazy(() => import("../pages/filedb/FileDbList"));
@@ -63,16 +54,12 @@ const Mypage = lazy(() => import("../pages/Mypage"));
 // 자유게시판
 const FreeBoardList = lazy(() => import("../pages/freeboard/FreeBoardList"));
 const AddFreeBoard = lazy(() => import("../pages/freeboard/AddFreeBoard"));
-const FreeBoardDetail = lazy(
-  () => import("../pages/freeboard/FreeBoardDetail")
-);
+const FreeBoardDetail = lazy(() => import("../pages/freeboard/FreeBoardDetail"));
 
 // 뉴스게시판
 const NewsBoardList = lazy(() => import("../pages/freeboard/FreeBoardList"));
 const AddNewsBoard = lazy(() => import("../pages/freeboard/AddFreeBoard"));
-const NewsBoardDetail = lazy(
-  () => import("../pages/freeboard/FreeBoardDetail")
-);
+const NewsBoardDetail = lazy(() => import("../pages/freeboard/FreeBoardDetail"));
 
 const router = createBrowserRouter([
   {
@@ -115,9 +102,6 @@ const router = createBrowserRouter([
       { path: "news-board", element: <NewsBoardList /> },
       { path: "add-news-board", element: <AddNewsBoard /> },
       { path: "news-board-detail/:nid", element: <NewsBoardDetail /> },
-      { path: "reservation", element: <ReservationList /> },
-      { path: "add-reservation", element: <AddReservation /> },
-      { path: "reservation-detail/:rid", element: <ReservationDetail /> },
     ],
   },
 ]);

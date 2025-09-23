@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FreeBoardService from "../../services/FreeBoardService";
 import type IFreeBoard from "../../types/IFreeBoard";
+import { Meta } from "react-head";
 
 function FreeBoardList() {
   const [freeBoards, setFreeBoards] = useState<IFreeBoard[]>([]);
@@ -22,7 +23,11 @@ function FreeBoardList() {
   };
 
   const selectList = async () => {
-    const response = await FreeBoardService.getAll(searchKeyword, page - 1, size);
+    const response = await FreeBoardService.getAll(
+      searchKeyword,
+      page - 1,
+      size
+    );
     const { result, totalNumber } = response.data;
     setFreeBoards(result);
     setTotalNumber(totalNumber);
@@ -33,7 +38,9 @@ function FreeBoardList() {
     selectList();
   }, [page]);
 
-  return     <>
+  return (
+    <>
+      <Meta name="description" content="자유 게시판 조회 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">자유 게시판 조회</h1>
 
       <div className="flex justify-center mb-4">
@@ -45,7 +52,7 @@ function FreeBoardList() {
           onChange={onChangeSearchKeyword}
         />
         <button
-          className="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-r min-w-[5rem]"
+          className="bg-blue-700 text-white hover:bg-blue-800 px-4 py-2 rounded-r min-w-[5rem]"
           onClick={selectList}
         >
           검색
@@ -54,7 +61,7 @@ function FreeBoardList() {
 
       <div>
         <table className="w-[100%] border border-gray-200">
-          <thead className="bg-blue-500 text-white">
+          <thead className="bg-blue-700 text-white">
             <tr>
               <th className="px-4 py-2 border-b">title</th>
               <th className="px-4 py-2 border-b">content</th>
@@ -66,11 +73,15 @@ function FreeBoardList() {
             {freeBoards.map((data) => (
               <tr key={data.fid} className="hover:bg-gray-50">
                 <td className="px-4 py-2 border-b">
-                  <Link to={`/free-board-detail/${data.fid}`}>{data.title}</Link>
+                  <Link to={`/free-board-detail/${data.fid}`}>
+                    {data.title}
+                  </Link>
                 </td>
                 <td className="px-4 py-2 border-b">{data.content}</td>
                 <td className="px-4 py-2 border-b text-center">{data.name}</td>
-                <td className="px-4 py-2 border-b text-center">{data.viewCount}</td>
+                <td className="px-4 py-2 border-b text-center">
+                  {data.viewCount}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -86,7 +97,8 @@ function FreeBoardList() {
           className="flex space-x-2"
         />
       </div>
-    </>;
+    </>
+  );
 }
 
 export default FreeBoardList;

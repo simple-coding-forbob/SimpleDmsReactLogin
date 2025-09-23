@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import FreeBoardService from "../../services/FreeBoardService";
 import type IFreeBoard from "../../types/IFreeBoard";
-import freeBoardValidation from "../../validation/freeboardValidation";
+import freeBoardValidation from "../../validation/freeBoardValidation";
+import { Meta } from "react-head";
 
 function FreeBoardDetail() {
   const params = useParams<{ fid: string }>();
@@ -58,6 +59,7 @@ function FreeBoardDetail() {
 
   return (
     <>
+      <Meta name="description" content="자유 게시판 상세조회 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">자유게시판 상세조회</h1>
 
       <form onSubmit={formik.handleSubmit}>

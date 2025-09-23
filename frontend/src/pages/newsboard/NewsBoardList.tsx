@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import NewsBoardService from "../../services/NewsBoardService";
 import type INewsBoard from "../../types/INewsBoard";
+import { Meta } from "react-head";
 
 function NewsBoardList() {
   const [newsBoards, setNewsBoards] = useState<INewsBoard[]>([]);
@@ -22,7 +23,11 @@ function NewsBoardList() {
   };
 
   const selectList = async () => {
-    const response = await NewsBoardService.getAll(searchKeyword, page - 1, size);
+    const response = await NewsBoardService.getAll(
+      searchKeyword,
+      page - 1,
+      size
+    );
     const { result, totalNumber } = response.data;
     setNewsBoards(result);
     setTotalNumber(totalNumber);
@@ -33,7 +38,9 @@ function NewsBoardList() {
     selectList();
   }, [page]);
 
-  return     <>
+  return (
+    <>
+      <Meta name="description" content="뉴스 게시판 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">뉴스 게시판 조회</h1>
 
       <div className="flex justify-center mb-4">
@@ -45,7 +52,7 @@ function NewsBoardList() {
           onChange={onChangeSearchKeyword}
         />
         <button
-          className="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-r min-w-[5rem]"
+          className="bg-blue-700 text-white hover:bg-blue-800 px-4 py-2 rounded-r min-w-[5rem]"
           onClick={selectList}
         >
           검색
@@ -54,7 +61,7 @@ function NewsBoardList() {
 
       <div>
         <table className="w-[100%] border border-gray-200">
-          <thead className="bg-blue-500 text-white">
+          <thead className="bg-blue-700 text-white">
             <tr>
               <th className="px-4 py-2 border-b">subject</th>
               <th className="px-4 py-2 border-b">text</th>
@@ -66,11 +73,15 @@ function NewsBoardList() {
             {newsBoards.map((data) => (
               <tr key={data.nid} className="hover:bg-gray-50">
                 <td className="px-4 py-2 border-b">
-                  <Link to={`/news-board-detail/${data.nid}`}>{data.subject}</Link>
+                  <Link to={`/news-board-detail/${data.nid}`}>
+                    {data.subject}
+                  </Link>
                 </td>
                 <td className="px-4 py-2 border-b">{data.text}</td>
                 <td className="px-4 py-2 border-b text-center">{data.name}</td>
-                <td className="px-4 py-2 border-b text-center">{data.viewCount}</td>
+                <td className="px-4 py-2 border-b text-center">
+                  {data.viewCount}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -86,7 +97,8 @@ function NewsBoardList() {
           className="flex space-x-2"
         />
       </div>
-    </>;
+    </>
+  );
 }
 
 export default NewsBoardList;

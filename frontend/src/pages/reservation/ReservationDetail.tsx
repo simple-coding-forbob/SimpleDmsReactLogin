@@ -6,7 +6,7 @@ import type INewsBoard from "../../types/INewsBoard";
 import newsBoardValidation from "../../validation/newsBoardValidation";
 import { Meta } from "react-head";
 
-function NewsBoardDetail() {
+function ReservationDetail() {
   const params = useParams<{ nid: string }>();
   const nid = Number(params.nid);
   const nav = useNavigate();
@@ -119,4 +119,4 @@ function NewsBoardDetail() {
   );
 }
 
-export default NewsBoardDetail;
+export default ReservationDetail;
