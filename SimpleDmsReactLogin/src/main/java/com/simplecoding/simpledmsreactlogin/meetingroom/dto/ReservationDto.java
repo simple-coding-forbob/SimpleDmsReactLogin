@@ -1,5 +1,6 @@
 package com.simplecoding.simpledmsreactlogin.meetingroom.dto;
 
+import com.simplecoding.simpledmsreactlogin.common.enums.ReservationStatus;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,5 @@ public class ReservationDto {
     private String roomName;                          // 회의실 이름(TB_MEETING_ROOM)
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private String  code;                             // 상수명(코드): R/C/E
-    private String  description;                      // 코드설명
+    private ReservationStatus status;                 // 코드설명
 }
