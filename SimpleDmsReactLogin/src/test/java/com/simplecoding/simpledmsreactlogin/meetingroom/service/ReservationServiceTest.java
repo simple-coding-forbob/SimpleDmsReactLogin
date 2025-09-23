@@ -51,7 +51,7 @@ class ReservationServiceTest {
         String searchKeyword="";
         Pageable pageable= PageRequest.of(0, 3);
 //        2) 테스트 실행:
-        Page<ReservationDto> pages=reservationService.selectByMeetingRoom((long)1,pageable);
+        Page<ReservationDto> pages=reservationService.selectByReservationList(searchKeyword,pageable);
 //        3) 검증 확인:
         log.info("pages={}",pages.getContent());
     }

@@ -119,12 +119,9 @@ public interface MapStruct {
     // TODO: 13) Reservation <-> ReservationDto
     @Mapping(source = "member.email", target = "email")
     @Mapping(source = "meetingRoom.roomName", target = "roomName")
-//    @Mapping(source = "status", target = "description",expression = "java(reservation.getStatus().name())")
-//    @Mapping(source = "status", target = "description",expression = "java(reservation.getStatus().getDescription())")
     ReservationDto toDto(Reservation reservation);
     @Mapping(source = "email", target = "member.email")
     @Mapping(source = "roomName", target = "meetingRoom.roomName")
-//    @Mapping(source = "status", target = "description",expression = "java(reservation.getStatus().name())")
     Reservation toEntity(ReservationDto reservationDto);
     // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(ReservationDto reservationDto, @MappingTarget Reservation reservation);

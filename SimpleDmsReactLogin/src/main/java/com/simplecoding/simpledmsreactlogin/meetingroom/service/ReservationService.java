@@ -22,8 +22,9 @@ public class ReservationService {
     private final ErrorMsg errorMsg;
     private final SecurityUtil securityUtil;
 
-    public Page<ReservationDto> selectByMeetingRoom(Long mid, Pageable pageable) {
-        return reservationRepository.selectByMeetingRoom(mid, pageable);
+    public Page<ReservationDto> selectByReservationList(String searchKeyword, Pageable pageable) {
+        Page<ReservationDto> page= reservationRepository.selectByReservationList(searchKeyword, pageable);
+        return page;
     }
     
     @Transactional
