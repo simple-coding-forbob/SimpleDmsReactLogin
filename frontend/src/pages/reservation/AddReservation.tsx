@@ -5,7 +5,7 @@ import type INewsBoard from "../../types/INewsBoard";
 import newsBoardValidation from "../../validation/newsBoardValidation";
 import { Meta } from "react-head";
 
-function AddNewsBoard() {
+function AddReservation() {
   const nav = useNavigate();
 
   const save = async (data: INewsBoard) => {
@@ -86,4 +86,4 @@ function AddNewsBoard() {
   );
 }
 
-export default AddNewsBoard;
+export default AddReservation;

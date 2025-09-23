@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import GalleryService from "../../services/GalleryService";
 import type IGallery from "../../types/IGallery";
 import galleryValidation from "../../validation/galleryValidation";
+import { Meta } from "react-head";
 
 function AddGallery() {
   const nav = useNavigate();
@@ -31,7 +32,8 @@ function AddGallery() {
   };
 
   return (
-    <div className="submit-form">
+    <>
+      <Meta name="description" content="이미지 업로드 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">이미지 업로드</h1>
 
       <form onSubmit={formik.handleSubmit}>
@@ -78,12 +80,12 @@ function AddGallery() {
         {/* 버튼 */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          className="w-full bg-blue-700 text-white p-2 rounded hover:bg-blue-800"
         >
           업로드
         </button>
       </form>
-    </div>
+    </>
   );
 }
 

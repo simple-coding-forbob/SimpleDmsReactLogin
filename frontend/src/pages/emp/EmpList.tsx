@@ -4,6 +4,7 @@ import Pagination from "rc-pagination";
 import { Link } from "react-router-dom";
 import EmpService from "../../services/EmpService";
 import type IEmp from "../../types/IEmp";
+import { Meta } from "react-head";
 
 const EmpList = () => {
   const [emps, setEmp] = useState<IEmp[]>([]);
@@ -36,6 +37,7 @@ const EmpList = () => {
 
   return (
     <>
+      <Meta name="description" content="사원 조회 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">사원 조회</h1>
 
       <div className="flex justify-center mb-4">
@@ -47,7 +49,7 @@ const EmpList = () => {
           onChange={onChangeSearchKeyword}
         />
         <button
-          className="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-r min-w-[5rem]"
+          className="bg-blue-700 text-white hover:bg-blue-800 px-4 py-2 rounded-r min-w-[5rem]"
           onClick={selectList}
         >
           검색
@@ -56,7 +58,7 @@ const EmpList = () => {
 
       <div>
         <table className="w-[100%] border border-gray-200">
-          <thead className="bg-blue-500 text-white">
+          <thead className="bg-blue-700 text-white">
             <tr>
               <th className="px-4 py-2 border-b">ename</th>
               <th className="px-4 py-2 border-b">job</th>

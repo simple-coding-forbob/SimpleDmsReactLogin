@@ -16,7 +16,7 @@ export default function Header() {
   return (
     // TODO: md:xxx (768px 이상에서 적용), lg:xxx (1024px 이상에서 적용), 기본은 모바일 우선 디자인
     <nav className="bg-gray-100 text-gray-800">
-      <div className="bg-blue-600 text-white flex justify-between border-b items-center py-1 px-5">
+      <div className="bg-blue-700 text-white flex justify-between border-b items-center py-1 px-5">
         {/* Logo + 메뉴 */}
         <div className="text font-bold">simple-coding</div>
 
@@ -254,6 +254,26 @@ export default function Header() {
               <li className="m-2">
                 <Link to="/add-news-board" className="hover:underline">
                   NewsBoard 추가
+                </Link>
+              </li>
+            </ul>
+          </li>
+          <li className="group md:relative">
+            <Link to="#" className="hover:underline">
+              Reservation
+            </Link>
+            <ul
+              className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
+            >
+              <li className="m-2">
+                <Link to="/reservation" className="hover:underline">
+                  Reservation 조회
+                </Link>
+              </li>
+              <li className="m-2">
+                <Link to="/add-reservation" className="hover:underline">
+                  Reservation 추가
                 </Link>
               </li>
             </ul>

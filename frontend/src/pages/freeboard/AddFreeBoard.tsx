@@ -1,9 +1,9 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import type IFreeBoard from "../../types/IFreeBoard";
 import FreeBoardService from "../../services/FreeBoardService";
 import { useFormik } from "formik";
-import freeBoardValidation from "../../validation/freeboardValidation";
+import freeBoardValidation from "../../validation/freeBoardValidation";
+import { Meta } from "react-head";
 
 function AddFreeBoard() {
   const nav = useNavigate();
@@ -30,6 +30,7 @@ function AddFreeBoard() {
 
   return (
     <>
+      <Meta name="description" content="자유 게시판 추가 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">자유 게시판 추가</h1>
 
       <form onSubmit={formik.handleSubmit}>
@@ -76,7 +77,7 @@ function AddFreeBoard() {
         {/* 버튼 */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          className="w-full bg-blue-700 text-white p-2 rounded hover:bg-blue-800"
         >
           저장
         </button>

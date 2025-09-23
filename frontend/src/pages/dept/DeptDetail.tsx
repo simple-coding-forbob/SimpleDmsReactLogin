@@ -5,6 +5,7 @@ import DeptService from "../../services/DeptService";
 
 import type IDept from "../../types/IDept";
 import deptValidation from "../../validation/deptValidation";
+import { Meta } from "react-head";
 
 function DeptDetail() {
   const params = useParams<{ dno: string }>();
@@ -56,6 +57,7 @@ function DeptDetail() {
 
   return (
     <>
+      <Meta name="description" content="부서 상세조회 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">부서 상세조회</h1>
 
       <form onSubmit={formik.handleSubmit}>

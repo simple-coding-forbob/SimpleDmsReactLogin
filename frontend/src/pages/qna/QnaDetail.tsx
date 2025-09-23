@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import type IQna from "../../types/IQna";
 import QnaService from "../../services/QnaService";
 import qnaValidation from "../../validation/qnaValidation";
+import { Meta } from "react-head";
 
 function QnaDetail() {
   const params = useParams<{ qno: string }>();
@@ -57,6 +58,7 @@ function QnaDetail() {
 
   return (
     <>
+      <Meta name="description" content="Qna 상세조회 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">Qna 상세조회</h1>
 
       <form onSubmit={formik.handleSubmit}>

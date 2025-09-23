@@ -1,5 +1,5 @@
 // src/contexts/AuthProvider.tsx
-import React, { useState } from "react";
+import { useState } from "react";
 import type { PropsWithChildren } from "react";
 import { authContext } from "./authContext";
 import type IJwt from "../types/auth/IJwt";

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import type INotice from "../../types/INotice";
 import NoticeService from "../../services/NoticeService";
 import noticeValidation from "../../validation/noticeValidation";
+import { Meta } from "react-head";
 
 function NoticeDetail() {
   const params = useParams<{ nid: string }>();
@@ -56,6 +57,7 @@ function NoticeDetail() {
 
   return (
     <>
+      <Meta name="description" content="공지사항 상세조회 페이지입니다." />
       <h1 className="text-2xl font-bold mb-6">공지사항 상세조회</h1>
 
       <form onSubmit={formik.handleSubmit}>

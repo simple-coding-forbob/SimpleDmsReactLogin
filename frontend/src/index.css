@@ -1,15 +1,2 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans+KR:wght@100..900&display=swap');
 @import "tailwindcss";
-@import "rc-pagination/assets/index.css";
-
-:root {
-    --black: black;
-    --gray: gray;
-}
-
-body {font-family: "Montserrat","Noto Sans KR", sans-serif;line-height: 1.6;}
-
-.drop-down-item {
-    @apply md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
-            md:group-hover:visible md:transition-all md:bg-white! md:text-black! md:w-32 md:p-2 md:rounded;
-}
+/* @import "rc-pagination/assets/index.css"; */
