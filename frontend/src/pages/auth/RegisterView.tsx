@@ -2,10 +2,11 @@
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 
-import registerImg from "../../assets/images/puppy-1920_1280_2.jpg";
+import registerImg from "../../assets/images/puppy-1920_1280_2.webp";
 import AuthService from "../../services/AuthService";
 import type IAuth from "../../types/auth/IAuth";
 import registerValidation from "../../validation/registerValidation";
+import { Meta } from "react-head";
 
 export default function RegisterView() {
   const nav = useNavigate();
@@ -23,11 +24,13 @@ export default function RegisterView() {
 
   return (
     <div className="flex items-center justify-center">
+      <Meta name="description" content="회원가입 페이지입니다." />
       <div className="w-full max-w-5xl rounded-lg flex">
         {/* 이미지 영역 */}
         <div className="hidden lg:flex lg:w-1/2  items-center justify-center">
           <img
             src={registerImg}
+            loading="lazy"
             alt="회원가입"
             className="w-4/5 h-4/5 object-cover"
           />
@@ -54,7 +57,7 @@ export default function RegisterView() {
                 onBlur={formik.handleBlur}
               />
               {formik.touched.email && formik.errors.email && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="text-red-600 text-sm mt-1">
                   {formik.errors.email}
                 </div>
               )}
@@ -76,7 +79,7 @@ export default function RegisterView() {
                 onBlur={formik.handleBlur}
               />
               {formik.touched.password && formik.errors.password && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="text-red-600 text-sm mt-1">
                   {formik.errors.password}
                 </div>
               )}
@@ -98,7 +101,7 @@ export default function RegisterView() {
                 onBlur={formik.handleBlur}
               />
               {formik.touched.repassword && formik.errors.repassword && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="text-red-600 text-sm mt-1">
                   {formik.errors.repassword}
                 </div>
               )}
@@ -120,7 +123,7 @@ export default function RegisterView() {
                 onBlur={formik.handleBlur}
               />
               {formik.touched.name && formik.errors.name && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="text-red-600 text-sm mt-1">
                   {formik.errors.name}
                 </div>
               )}
@@ -128,7 +131,7 @@ export default function RegisterView() {
 
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition"
+              className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition"
             >
               회원 가입
             </button>

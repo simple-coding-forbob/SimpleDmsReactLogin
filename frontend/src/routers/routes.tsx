@@ -1,9 +1,7 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layout/Layout";
-import ReservationList from "../pages/reservation/ReservationList";
-import AddReservation from "../pages/reservation/AddReservation";
-import ReservationDetail from "../pages/reservation/ReservationDetail";
+
 
 // 공통 로딩 컴포넌트
 const loading = <div>Loading...</div>;
@@ -73,6 +71,11 @@ const AddNewsBoard = lazy(() => import("../pages/freeboard/AddFreeBoard"));
 const NewsBoardDetail = lazy(
   () => import("../pages/freeboard/FreeBoardDetail")
 );
+
+// 예약 게시판
+const ReservationList = lazy(() => import("../pages/reservation/ReservationList"));
+const AddReservation = lazy(() => import("../pages/reservation/AddReservation"));
+const ReservationDetail = lazy(() => import("../pages/reservation/ReservationDetail"));
 
 const router = createBrowserRouter([
   {

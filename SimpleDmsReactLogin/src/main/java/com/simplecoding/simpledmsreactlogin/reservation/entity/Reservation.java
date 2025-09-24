@@ -1,8 +1,9 @@
-package com.simplecoding.simpledmsreactlogin.meetingroom.entity;
+package com.simplecoding.simpledmsreactlogin.reservation.entity;
 
 import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
 import com.simplecoding.simpledmsreactlogin.common.BaseTimeEntity;
 import com.simplecoding.simpledmsreactlogin.common.enums.ReservationStatus;
+import com.simplecoding.simpledmsreactlogin.meetingroom.entity.MeetingRoom;
 import jakarta.persistence.*;
 import lombok.*;
 

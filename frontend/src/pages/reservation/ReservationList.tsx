@@ -47,12 +47,12 @@ function ReservationList() {
         <input
           type="mid"
           className="w-full border border-gray-300 rounded-l p-2 focus:outline-none focus:ring focus:ring-blue-500"
-          placeholder="제목 검색"
+          placeholder="회의실 검색"
           value={searchKeyword}
           onChange={onChangeSearchKeyword}
         />
         <button
-          className="bg-blue-700 mid-white hover:bg-blue-800 px-4 py-2 rounded-r min-w-[5rem]"
+          className="bg-blue-700 text-white hover:bg-blue-800 px-4 py-2 rounded-r min-w-[5rem]"
           onClick={selectList}
         >
           검색
@@ -61,7 +61,7 @@ function ReservationList() {
 
       <div>
         <table className="w-[100%] border border-gray-200">
-          <thead className="bg-blue-700 mid-white">
+          <thead className="bg-blue-700 text-white">
             <tr>
               <th className="px-4 py-2 border-b">email</th>
               <th className="px-4 py-2 border-b">mid</th>
@@ -79,11 +79,11 @@ function ReservationList() {
                     {data.email}
                   </Link>
                 </td>
-                <td className="px-4 py-2 border-b">{data.mid}</td>
-                <td className="px-4 py-2 border-b mid-center">{data.roomName}</td>
-                <td className="px-4 py-2 border-b mid-center">{data.startTime}</td>
-                <td className="px-4 py-2 border-b mid-center">{data.endTime}</td>
-                <td className="px-4 py-2 border-b mid-center">{data.status}</td>
+                <td className="px-4 py-2 border-b text-center">{data.mid}</td>
+                <td className="px-4 py-2 border-b text-center">{data.roomName}</td>
+                <td className="px-4 py-2 border-b text-center">{data.startTime}</td>
+                <td className="px-4 py-2 border-b text-center">{data.endTime}</td>
+                <td className="px-4 py-2 border-b text-center">{data.status}</td>
               </tr>
             ))}
           </tbody>

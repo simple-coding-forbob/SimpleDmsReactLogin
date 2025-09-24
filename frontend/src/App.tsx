@@ -1,5 +1,5 @@
 import { RouterProvider } from "react-router-dom";
-import router from "./routers/routes2";
+import router from "./routers/routes";
 import "./App.css";
 import { HeadProvider } from "react-head";
 

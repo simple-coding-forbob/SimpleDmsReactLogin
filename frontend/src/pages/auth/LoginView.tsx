@@ -2,12 +2,13 @@
 import { useFormik } from "formik";
 import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import loginImg from "../../assets/images/puppy-1920_1280.jpg";
+import loginImg from "../../assets/images/puppy-1920_1280.webp";
 import { authContext } from "../../contexts/authContext";
 import AuthService from "../../services/AuthService";
 import type IAuth from "../../types/auth/IAuth";
 import type { AuthContextType } from "../../types/auth/IAuthContexttype";
 import authValidation from "../../validation/authValidation"; // Yup 스키마
+import { Meta } from "react-head";
 
 function LoginView() {
   const { loggedIn, login } = useContext<AuthContextType>(authContext);
@@ -33,11 +34,13 @@ function LoginView() {
 
   return (
     <div className="flex items-center justify-center">
+      <Meta name="description" content="로그인 페이지입니다." />
       <div className="w-full max-w-5xl rounded-lg flex">
         {/* 이미지 영역 */}
         <div className="hidden lg:flex lg:w-1/2 items-center justify-center">
           <img
             src={loginImg}
+            loading="lazy"
             alt="로그인"
             className="w-full h-full object-contain"
           />
@@ -64,7 +67,7 @@ function LoginView() {
                 onBlur={formik.handleBlur}
               />
               {formik.touched.email && formik.errors.email && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="text-red-600 text-sm mt-1">
                   {formik.errors.email}
                 </div>
               )}
@@ -86,7 +89,7 @@ function LoginView() {
                 onBlur={formik.handleBlur}
               />
               {formik.touched.password && formik.errors.password && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="text-red-600 text-sm mt-1">
                   {formik.errors.password}
                 </div>
               )}
@@ -95,7 +98,7 @@ function LoginView() {
             {/* 로그인 버튼 */}
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition"
+              className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition"
             >
               Login
             </button>
@@ -106,19 +109,19 @@ function LoginView() {
           <div className="space-y-2">
             <Link
               to="/"
-              className="block w-full text-center bg-red-500 text-white p-3 rounded hover:bg-red-600 transition"
+              className="block w-full text-center bg-red-600 text-white p-3 rounded hover:bg-red-700 transition"
             >
               Login with Google
             </Link>
             <Link
               to="/"
-              className="block w-full text-center bg-green-500 text-white p-3 rounded hover:bg-green-600 transition"
+              className="block w-full text-center bg-green-700 text-white p-3 rounded hover:bg-green-800 transition"
             >
               Login with Naver
             </Link>
             <Link
               to="/"
-              className="block w-full text-center bg-yellow-400 text-black p-3 rounded hover:bg-yellow-500 transition"
+              className="block w-full text-center bg-yellow-700 text-white p-3 rounded hover:bg-yellow-800 transition"
             >
               Login with Kakao
             </Link>

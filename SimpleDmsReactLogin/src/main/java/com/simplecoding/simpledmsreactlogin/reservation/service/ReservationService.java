@@ -1,12 +1,12 @@
-package com.simplecoding.simpledmsreactlogin.meetingroom.service;
+package com.simplecoding.simpledmsreactlogin.reservation.service;
 
 import com.simplecoding.simpledmsreactlogin.auth.dto.SecurityUserDto;
 import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 import com.simplecoding.simpledmsreactlogin.common.SecurityUtil;
-import com.simplecoding.simpledmsreactlogin.meetingroom.dto.ReservationDto;
-import com.simplecoding.simpledmsreactlogin.meetingroom.entity.Reservation;
-import com.simplecoding.simpledmsreactlogin.meetingroom.repository.ReservationRepository;
+import com.simplecoding.simpledmsreactlogin.reservation.dto.ReservationDto;
+import com.simplecoding.simpledmsreactlogin.reservation.entity.Reservation;
+import com.simplecoding.simpledmsreactlogin.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

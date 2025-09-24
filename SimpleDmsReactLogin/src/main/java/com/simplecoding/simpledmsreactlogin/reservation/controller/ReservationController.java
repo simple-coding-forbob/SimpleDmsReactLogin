@@ -1,8 +1,8 @@
-package com.simplecoding.simpledmsreactlogin.meetingroom.controller;
+package com.simplecoding.simpledmsreactlogin.reservation.controller;
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
-import com.simplecoding.simpledmsreactlogin.meetingroom.dto.ReservationDto;
-import com.simplecoding.simpledmsreactlogin.meetingroom.service.ReservationService;
+import com.simplecoding.simpledmsreactlogin.reservation.dto.ReservationDto;
+import com.simplecoding.simpledmsreactlogin.reservation.service.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
