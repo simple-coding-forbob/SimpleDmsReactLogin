@@ -18,14 +18,16 @@ import com.simplecoding.simpledmsreactlogin.freeboard.dto.FreeBoardDto;
 import com.simplecoding.simpledmsreactlogin.freeboard.entity.FreeBoard;
 import com.simplecoding.simpledmsreactlogin.gallery.dto.GalleryDto;
 import com.simplecoding.simpledmsreactlogin.gallery.entity.Gallery;
-import com.simplecoding.simpledmsreactlogin.meetingroom.dto.ReservationDto;
-import com.simplecoding.simpledmsreactlogin.meetingroom.entity.Reservation;
+import com.simplecoding.simpledmsreactlogin.meetingroom.dto.MeetingRoomDto;
+import com.simplecoding.simpledmsreactlogin.meetingroom.entity.MeetingRoom;
 import com.simplecoding.simpledmsreactlogin.newsboard.dto.NewsBoardDto;
 import com.simplecoding.simpledmsreactlogin.newsboard.entity.NewsBoard;
 import com.simplecoding.simpledmsreactlogin.notice.dto.NoticeDto;
 import com.simplecoding.simpledmsreactlogin.notice.entity.Notice;
 import com.simplecoding.simpledmsreactlogin.qna.dto.QnaDto;
 import com.simplecoding.simpledmsreactlogin.qna.entity.Qna;
+import com.simplecoding.simpledmsreactlogin.reservation.dto.ReservationDto;
+import com.simplecoding.simpledmsreactlogin.reservation.entity.Reservation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -105,7 +107,6 @@ public interface MapStruct {
     // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(FreeBoardDto freeBoardDto, @MappingTarget FreeBoard freeBoard);
 
-
     // TODO: 12) NewsBoard <-> NewsBoardDto
     @Mapping(source = "member.email", target = "email")
     @Mapping(source = "member.name", target = "name")
@@ -116,7 +117,13 @@ public interface MapStruct {
     // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(NewsBoardDto newsBoardDto, @MappingTarget NewsBoard newsBoard);
 
-    // TODO: 13) Reservation <-> ReservationDto
+    // TODO: 13) MeetingRoom <-> MeetingRoomDto
+    MeetingRoomDto toDto(MeetingRoom meetingRoom);
+    MeetingRoom toEntity(MeetingRoomDto meetingRoomDto);
+    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
+    void updateFromDto(MeetingRoomDto meetingRoomDto, @MappingTarget MeetingRoom meetingRoom);
+
+    // TODO: 14) Reservation <-> ReservationDto
     @Mapping(source = "member.email", target = "email")
     @Mapping(source = "meetingRoom.roomName", target = "roomName")
     ReservationDto toDto(Reservation reservation);

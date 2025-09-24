@@ -1,4 +1,4 @@
-package com.simplecoding.simpledmsreactlogin.meetingroom.dto;
+package com.simplecoding.simpledmsreactlogin.reservation.dto;
 
 import com.simplecoding.simpledmsreactlogin.common.enums.ReservationStatus;
 import lombok.*;

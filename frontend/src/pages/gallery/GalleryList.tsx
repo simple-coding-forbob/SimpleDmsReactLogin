@@ -79,6 +79,7 @@ const GalleryList = () => {
             {/* data.fileUrl! : 절대 null 이 아님을 개발자가 보장 */}
             <img
               src={data.galleryFileUrl ?? ""}
+              loading="lazy"
               alt={data.galleryTitle}
               className="w-full h-48 object-cover"
             />

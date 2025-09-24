@@ -1,7 +1,7 @@
-package com.simplecoding.simpledmsreactlogin.meetingroom.repository;
+package com.simplecoding.simpledmsreactlogin.reservation.repository;
 
-import com.simplecoding.simpledmsreactlogin.meetingroom.dto.ReservationDto;
-import com.simplecoding.simpledmsreactlogin.meetingroom.entity.Reservation;
+import com.simplecoding.simpledmsreactlogin.reservation.dto.ReservationDto;
+import com.simplecoding.simpledmsreactlogin.reservation.entity.Reservation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-    @Query("SELECT new com.simplecoding.simpledmsreactlogin.meetingroom.dto.ReservationDto(" +
+    @Query("SELECT new com.simplecoding.simpledmsreactlogin.reservation.dto.ReservationDto(" +
             "r.rid, r.member.email,r.meetingRoom.mid,r.meetingRoom.roomName, r.startTime, r.endTime, r.status)\n" +
             "FROM Reservation r\n" +
             "WHERE r.meetingRoom.roomName like %:searchKeyword%\n" +
