@@ -1,3 +1,47 @@
+-- ===============================================
+-- 1️⃣ 시퀀스 정의
+-- ===============================================
+DROP SEQUENCE SQ_DEPT;
+CREATE SEQUENCE SQ_DEPT START WITH 10 INCREMENT BY 10;
+
+DROP SEQUENCE SQ_EMP;
+CREATE SEQUENCE SQ_EMP START WITH 8000 INCREMENT BY 1;
+
+DROP SEQUENCE SQ_FAQ;
+CREATE SEQUENCE SQ_FAQ START WITH 1 INCREMENT BY 1;
+
+DROP SEQUENCE SQ_QNA;
+CREATE SEQUENCE SQ_QNA START WITH 1 INCREMENT BY 1;
+
+DROP SEQUENCE SQ_FREE_BOARD;
+CREATE SEQUENCE SQ_FREE_BOARD START WITH 1 INCREMENT BY 1;
+
+DROP SEQUENCE SQ_NEWS_BOARD;
+CREATE SEQUENCE SQ_NEWS_BOARD START WITH 1 INCREMENT BY 1;
+
+DROP SEQUENCE SQ_NOTICE;
+CREATE SEQUENCE SQ_NOTICE START WITH 1 INCREMENT BY 1;
+
+DROP SEQUENCE SQ_EVENT_NOTICE;
+CREATE SEQUENCE SQ_EVENT_NOTICE START WITH 1 INCREMENT BY 1;
+
+DROP SEQUENCE SQ_FILE_DB_LIKES;
+CREATE SEQUENCE SQ_FILE_DB_LIKES START WITH 1 INCREMENT BY 1;
+
+DROP SEQUENCE SQ_GALLERY_LIKES;
+CREATE SEQUENCE SQ_GALLERY_LIKES START WITH 1 INCREMENT BY 1;
+
+DROP SEQUENCE SQ_MEETING_ROOM;
+CREATE SEQUENCE SQ_MEETING_ROOM START WITH 1 INCREMENT BY 1;
+
+DROP SEQUENCE SQ_PUBLIC_CAR;
+CREATE SEQUENCE SQ_PUBLIC_CAR START WITH 1 INCREMENT BY 1;
+
+DROP SEQUENCE SQ_RESERVATION;
+CREATE SEQUENCE SQ_RESERVATION START WITH 1 INCREMENT BY 1;
+
+DROP SEQUENCE SQ_BOOKING;
+CREATE SEQUENCE SQ_BOOKING START WITH 1 INCREMENT BY 1;
 
 -- ===============================================
 -- 2️⃣ 테이블 삭제 (CASCADE 제약조건)
@@ -27,7 +71,7 @@ DROP TABLE TB_BOOKING CASCADE CONSTRAINTS;
 
 -- Departments
 CREATE TABLE TB_DEPT (
-                         DNO NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 10 INCREMENT BY 10) PRIMARY KEY,
+                         DNO NUMBER NOT NULL PRIMARY KEY,
                          DNAME VARCHAR2(255),
                          LOC VARCHAR2(255),
                          INSERT_TIME TIMESTAMP,
@@ -36,7 +80,7 @@ CREATE TABLE TB_DEPT (
 
 -- Employees
 CREATE TABLE TB_EMP (
-                        ENO NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                        ENO NUMBER NOT NULL PRIMARY KEY,
                         ENAME VARCHAR2(255),
                         JOB VARCHAR2(255),
                         MANAGER NUMBER,
@@ -51,7 +95,7 @@ CREATE TABLE TB_EMP (
 
 -- FAQ
 CREATE TABLE TB_FAQ (
-                        FNO NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                        FNO NUMBER NOT NULL PRIMARY KEY,
                         TITLE VARCHAR2(255),
                         CONTENT VARCHAR2(255),
                         INSERT_TIME TIMESTAMP,
@@ -60,7 +104,7 @@ CREATE TABLE TB_FAQ (
 
 -- QNA
 CREATE TABLE TB_QNA (
-                        QNO NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                        QNO NUMBER NOT NULL PRIMARY KEY,
                         QUESTIONER VARCHAR2(255 BYTE) NOT NULL,
                         QUESTION VARCHAR2(4000 BYTE) NOT NULL,
                         ANSWER VARCHAR2(4000 BYTE),
@@ -71,7 +115,7 @@ CREATE TABLE TB_QNA (
 
 -- Notice
 CREATE TABLE TB_NOTICE (
-                           NID NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                           NID NUMBER NOT NULL PRIMARY KEY,
                            TITLE VARCHAR2(255),
                            CONTENT VARCHAR2(255),
                            IS_VISIBLE CHAR(1) DEFAULT 'N',
@@ -83,7 +127,7 @@ CREATE TABLE TB_NOTICE (
 
 -- Event Notice
 CREATE TABLE TB_EVENT_NOTICE (
-                                 EID NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                                 EID NUMBER NOT NULL PRIMARY KEY,
                                  SUBJECT VARCHAR2(255),
                                  TEXT VARCHAR2(255),
                                  IS_VISIBLE CHAR(1) DEFAULT 'N',
@@ -139,7 +183,7 @@ CREATE TABLE TB_FREE_BOARD (
 
 -- News Board
 CREATE TABLE TB_NEWS_BOARD (
-                               NID NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                               NID NUMBER NOT NULL PRIMARY KEY,
                                SUBJECT VARCHAR2(255),
                                TEXT VARCHAR2(4000),
                                EMAIL VARCHAR2(255),
@@ -152,7 +196,7 @@ CREATE TABLE TB_NEWS_BOARD (
 
 -- File Likes
 CREATE TABLE TB_FILE_DB_LIKES (
-                                  ID NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                                  ID NUMBER PRIMARY KEY,
                                   EMAIL VARCHAR2(1000) NOT NULL,
                                   UUID VARCHAR2(1000) NOT NULL,
                                   LIKE_COUNT NUMBER(10) DEFAULT 0,
@@ -164,7 +208,7 @@ CREATE TABLE TB_FILE_DB_LIKES (
 
 -- Gallery Likes
 CREATE TABLE TB_GALLERY_LIKES (
-                                  ID NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                                  ID NUMBER PRIMARY KEY,
                                   EMAIL VARCHAR2(1000) NOT NULL,
                                   UUID VARCHAR2(1000) NOT NULL,
                                   LIKE_COUNT NUMBER(10) DEFAULT 0,
@@ -175,7 +219,7 @@ CREATE TABLE TB_GALLERY_LIKES (
 );
 
 CREATE TABLE TB_MEETING_ROOM (
-                                 MID NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,                       -- 회의실 고유 ID
+                                 MID NUMBER PRIMARY KEY,                       -- 회의실 고유 ID
                                  ROOM_NAME VARCHAR2(100) NOT NULL,             -- 회의실 이름
                                  LOC VARCHAR2(100),                            -- 회의실 위치
                                  CAPACITY NUMBER,                              -- 수용 인원
@@ -185,7 +229,7 @@ CREATE TABLE TB_MEETING_ROOM (
 
 
 CREATE TABLE TB_PUBLIC_CAR (
-                               PID NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,                       -- 공용차 고유 ID
+                               PID NUMBER PRIMARY KEY,                       -- 공용차 고유 ID
                                CAR_NAME VARCHAR2(255) NOT NULL,              -- 공용차 이름
                                FLOOR VARCHAR2(255),                          -- 주차장 위치
                                CAPACITY NUMBER,                              -- 수용 인원
@@ -194,7 +238,7 @@ CREATE TABLE TB_PUBLIC_CAR (
 );
 
 CREATE TABLE TB_RESERVATION (
-                                RID NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,                        -- 예약 고유 ID
+                                RID NUMBER PRIMARY KEY,                        -- 예약 고유 ID
                                 EMAIL VARCHAR2(255) NOT NULL,                  -- 예약 아이디
                                 MID NUMBER NOT NULL,                           -- 예약 회의실 ID
                                 START_TIME TIMESTAMP NOT NULL,                      -- 예약 시작 시간
@@ -208,7 +252,7 @@ CREATE TABLE TB_RESERVATION (
 
 
 CREATE TABLE TB_BOOKING (
-                            BID NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,                        -- 예약 고유 ID
+                            BID NUMBER PRIMARY KEY,                        -- 예약 고유 ID
                             EMAIL VARCHAR2(255) NOT NULL,                  -- 예약 아이디
                             PID NUMBER NOT NULL,                           -- 예약 공용차 ID
                             START_TIME TIMESTAMP NOT NULL,                      -- 예약 시작 시간
