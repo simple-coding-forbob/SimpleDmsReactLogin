@@ -7,11 +7,6 @@ import lombok.*;
 
 @Entity
 @Table(name = "TB_NEWS_BOARD")
-@SequenceGenerator(
-        name = "SQ_NEWS_BOARD_JPA",
-        sequenceName = "SQ_NEWS_BOARD",
-        allocationSize = 1
-)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,9 +16,7 @@ import lombok.*;
 public class NewsBoard extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE
-            , generator = "SQ_NEWS_BOARD_JPA"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long nid;
     private String subject;
     private String text;

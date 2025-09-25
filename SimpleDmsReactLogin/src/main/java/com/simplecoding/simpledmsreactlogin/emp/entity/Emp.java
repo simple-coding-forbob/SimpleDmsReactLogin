@@ -11,11 +11,6 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "TB_EMP")
-@SequenceGenerator(
-        name = "SQ_EMP_JPA",
-        sequenceName = "SQ_EMP",
-        allocationSize = 1
-)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,9 +19,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(of = "eno", callSuper = false)
 public class Emp extends BaseTimeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE
-            , generator = "SQ_EMP_JPA"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long eno;                // 사원번호(기본키, 시퀀스)
     private String ename;               // 사원명
     private String job;                 // 직위

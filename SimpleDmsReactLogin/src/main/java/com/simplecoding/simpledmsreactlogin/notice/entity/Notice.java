@@ -9,11 +9,6 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "TB_NOTICE")
-@SequenceGenerator(
-        name = "SQ_NOTICE_JPA",
-        sequenceName = "SQ_NOTICE",
-        allocationSize = 1
-)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,9 +18,7 @@ import java.time.LocalDate;
 public class Notice extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE
-            , generator = "SQ_NOTICE_JPA"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long nid;            // 기본키, 시퀀스
     private String title;
     private String content;

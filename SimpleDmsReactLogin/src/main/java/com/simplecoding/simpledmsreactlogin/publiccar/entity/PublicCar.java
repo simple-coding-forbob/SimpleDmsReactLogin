@@ -1,6 +1,7 @@
 package com.simplecoding.simpledmsreactlogin.publiccar.entity;
 
 
+import com.simplecoding.simpledmsreactlogin.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +18,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode(of = "pid", callSuper = false)
-public class PublicCar {
+public class PublicCar extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,

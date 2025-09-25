@@ -4,6 +4,8 @@ package com.simplecoding.simpledmsreactlogin.common;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MemberDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MypageDto;
 import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
+import com.simplecoding.simpledmsreactlogin.booking.dto.BookingDto;
+import com.simplecoding.simpledmsreactlogin.booking.entity.Booking;
 import com.simplecoding.simpledmsreactlogin.dept.dto.DeptDto;
 import com.simplecoding.simpledmsreactlogin.dept.entity.Dept;
 import com.simplecoding.simpledmsreactlogin.emp.dto.EmpDto;
@@ -24,6 +26,8 @@ import com.simplecoding.simpledmsreactlogin.newsboard.dto.NewsBoardDto;
 import com.simplecoding.simpledmsreactlogin.newsboard.entity.NewsBoard;
 import com.simplecoding.simpledmsreactlogin.notice.dto.NoticeDto;
 import com.simplecoding.simpledmsreactlogin.notice.entity.Notice;
+import com.simplecoding.simpledmsreactlogin.publiccar.dto.PublicCarDto;
+import com.simplecoding.simpledmsreactlogin.publiccar.entity.PublicCar;
 import com.simplecoding.simpledmsreactlogin.qna.dto.QnaDto;
 import com.simplecoding.simpledmsreactlogin.qna.entity.Qna;
 import com.simplecoding.simpledmsreactlogin.reservation.dto.ReservationDto;
@@ -133,4 +137,22 @@ public interface MapStruct {
     Reservation toEntity(ReservationDto reservationDto);
     // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(ReservationDto reservationDto, @MappingTarget Reservation reservation);
+
+    // TODO: 15) PublicCar <-> PublicCarDto
+    PublicCarDto toDto(PublicCar publicCar);
+    PublicCar toEntity(PublicCarDto publicCarDto);
+    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
+    void updateFromDto(PublicCarDto publicCarDto, @MappingTarget PublicCar publicCar);
+
+    // TODO: 16) Booking <-> BookingDto
+    @Mapping(source = "member.email", target = "email")
+    @Mapping(source = "publicCar.pid", target = "pid")
+    @Mapping(source = "publicCar.carName", target = "carName")
+    BookingDto toDto(Booking booking);
+    @Mapping(source = "email", target = "member.email")
+    @Mapping(source = "pid", target = "publicCar.pid")
+    Booking toEntity(BookingDto bookingDto);
+    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
+    void updateFromDto(BookingDto bookingDto, @MappingTarget Booking booking);
+
 }

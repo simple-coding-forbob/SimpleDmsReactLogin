@@ -8,11 +8,6 @@ import lombok.*;
 
 @Entity
 @Table(name = "TB_FREE_BOARD")
-@SequenceGenerator(
-        name = "SQ_FREE_BOARD_JPA",
-        sequenceName = "SQ_FREE_BOARD",
-        allocationSize = 1
-)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,9 +16,7 @@ import lombok.*;
 @EqualsAndHashCode(of = "fid", callSuper = false)
 public class FreeBoard extends BaseTimeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE
-            , generator = "SQ_FREE_BOARD_JPA"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fid;
     private String title;
     private String content;

@@ -25,7 +25,7 @@ public class MeetingRoomService {
     public List<MeetingRoomDto> findAll() {
         List<MeetingRoom> list= meetingRepository.findAll();
         return list.stream()
-                .map(room -> mapStruct.toDto(room))
+                .map(data -> mapStruct.toDto(data))
                 .collect(Collectors.toList());
     }
 
@@ -43,9 +43,9 @@ public class MeetingRoomService {
         meetingRepository.save(meetingRoom);
     }
 
-    public MeetingRoomDto findById(long dno) {
+    public MeetingRoomDto findById(long mid) {
 //        JPA 상세조회 함수 실행
-        MeetingRoom meetingRoom = meetingRepository.findById(dno)
+        MeetingRoom meetingRoom = meetingRepository.findById(mid)
                 .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
 
         return mapStruct.toDto(meetingRoom);
@@ -62,7 +62,7 @@ public class MeetingRoomService {
     }
 
     //    삭제 함수
-    public void deleteById(long dno) {
-        meetingRepository.deleteById(dno);
+    public void deleteById(long mid) {
+        meetingRepository.deleteById(mid);
     }
 }
