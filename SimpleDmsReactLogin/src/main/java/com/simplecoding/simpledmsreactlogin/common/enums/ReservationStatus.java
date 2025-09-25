@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum ReservationStatus {
-    R( "예약중"), C( "취소됨"), E( "종료됨");
+    R( "예약"), C( "취소"), E( "종료");
 
     private final String description;
 

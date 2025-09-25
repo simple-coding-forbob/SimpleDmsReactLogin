@@ -4,6 +4,7 @@ import com.simplecoding.simpledmsreactlogin.auth.dto.SecurityUserDto;
 import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 import com.simplecoding.simpledmsreactlogin.common.SecurityUtil;
+import com.simplecoding.simpledmsreactlogin.meetingroom.repository.MeetingRoomRepository;
 import com.simplecoding.simpledmsreactlogin.reservation.dto.ReservationDto;
 import com.simplecoding.simpledmsreactlogin.reservation.entity.Reservation;
 import com.simplecoding.simpledmsreactlogin.reservation.repository.ReservationRepository;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final MeetingRoomRepository meetingRoomRepository;
     private final MapStruct mapStruct;
     private final ErrorMsg errorMsg;
     private final SecurityUtil securityUtil;
@@ -39,6 +41,11 @@ public class ReservationService {
 //               2) 기본키가(부서번호) 있으면 수정(update)
 //           => JPA 내부적으로 if문 있음 : 알아서 실행됨
     public void save(ReservationDto reservationDto) {
+//        해당 날짜에 예약이 있는지 확인-> 있으면 예외처리
+        if(reservationRepository.existsByReservation(reservationDto.getStartTime(), reservationDto.getEndTime(), reservationDto.getMid()) > 0) {
+            throw new RuntimeException(errorMsg.getMessage("errors.reservation"));
+        }
+
 //        JPA 저장 함수 실행 : return 값 : 저장된 객체
 //      TODO: 1) 시큐리티에서 email 가져오기: 화면에서 전송안함
         SecurityUserDto securityUserDto =securityUtil.getLoginUser();

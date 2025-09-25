@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
@@ -22,7 +23,17 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     Page<ReservationDto> selectByReservationList(@Param("searchKeyword") String searchKeyword,  Pageable pageable);
 
     @EntityGraph(attributePaths = {"member","meetingRoom"})
-    @Query(value = "select r from Reservation r\n" +
+    @Query("select r from Reservation r\n" +
             "where r.rid = :rid")
     Optional<Reservation> selectById(@Param("rid") Long rid);
+
+    @Query("select count(r) from Reservation r\n" +
+            "where r.startTime <= :endTime\n" +
+            "and   r.endTime >= :startTime " +
+            "and r.meetingRoom.mid=:mid " +
+            "and r.status='R'")
+    long existsByReservation(@Param("startTime") LocalDateTime startTime
+            , @Param("endTime") LocalDateTime endTime
+            , @Param("mid") Long mid
+    );
 }

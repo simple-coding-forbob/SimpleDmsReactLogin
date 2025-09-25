@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Meta } from "react-head";
 import type IReservation from "../../types/IReservation";
 import ReservationService from "../../services/ReservationService";
+import { format } from "date-fns";
 
 function ReservationList() {
   const [reservations, setReservations] = useState<IReservation[]>([]);
@@ -40,8 +41,8 @@ function ReservationList() {
 
   return (
     <>
-      <Meta name="description" content="뉴스 게시판 페이지입니다." />
-      <h1 className="mid-2xl font-bold mb-6">뉴스 게시판 조회</h1>
+      <Meta name="description" content="예약 게시판 페이지입니다." />
+      <h1 className="text-2xl font-bold mb-6">예약 게시판 조회</h1>
 
       <div className="flex justify-center mb-4">
         <input
@@ -81,8 +82,8 @@ function ReservationList() {
                 </td>
                 <td className="px-4 py-2 border-b text-center">{data.mid}</td>
                 <td className="px-4 py-2 border-b text-center">{data.roomName}</td>
-                <td className="px-4 py-2 border-b text-center">{data.startTime}</td>
-                <td className="px-4 py-2 border-b text-center">{data.endTime}</td>
+                <td className="px-4 py-2 border-b text-center">{format(data.startTime,"yyyy-MM-dd HH:mm")}</td>
+                <td className="px-4 py-2 border-b text-center">{format(data.endTime,"yyyy-MM-dd HH:mm")}</td>
                 <td className="px-4 py-2 border-b text-center">{data.status}</td>
               </tr>
             ))}
