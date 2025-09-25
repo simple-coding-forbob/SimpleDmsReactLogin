@@ -19,7 +19,7 @@ function Layout() {
       {/* 머리말 */}
       <Header />
       {/* 내용 */}
-      <main className="container mx-auto mt-8">
+      <main className="container mx-auto mt-8 px-3">
         <Outlet />
       </main>
     </>

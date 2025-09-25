@@ -6,27 +6,29 @@ import type INotice from "../types/INotice";
 import common from "./CommonService";
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
-const getAll = (searchKeyword:string, page:number, size:number) => {
-  return common.get<IApiResponse<INotice[]>>(`/notice?searchKeyword=${searchKeyword}&page=${page}&size=${size}`);
+const getAll = (searchKeyword: string, page: number, size: number) => {
+  return common.get<IApiResponse<INotice[]>>("/notice?searchKeyword", {
+    params: { searchKeyword, page, size },
+  });
 };
 
 // 상세 조회
-const get = (nid:number | null) => {
+const get = (nid: number) => {
   return common.get<IApiResponse<INotice>>(`/notice/${nid}`);
 };
 
 // 저장함수
-const insert = (data:INotice) => {
+const insert = (data: INotice) => {
   return common.post("/notice", data);
 };
 
 // 수정함수
-const update = (nid:number | null, data:INotice) => {
+const update = (nid: number, data: INotice) => {
   return common.put(`/notice/${nid}`, data);
 };
 
 // 삭제함수
-const remove = (nid:number | null) => {
+const remove = (nid: number) => {
   return common.delete(`/notice/${nid}`);
 };
 

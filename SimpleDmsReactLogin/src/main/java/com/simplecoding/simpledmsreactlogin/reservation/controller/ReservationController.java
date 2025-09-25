@@ -1,6 +1,8 @@
 package com.simplecoding.simpledmsreactlogin.reservation.controller;
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
+import com.simplecoding.simpledmsreactlogin.common.dto.ReservationStatusDto;
+import com.simplecoding.simpledmsreactlogin.common.enums.ReservationStatus;
 import com.simplecoding.simpledmsreactlogin.reservation.dto.ReservationDto;
 import com.simplecoding.simpledmsreactlogin.reservation.service.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +16,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Log4j2
@@ -59,6 +62,24 @@ public class ReservationController {
     public ResponseEntity<Void> create(@RequestBody ReservationDto reservationDto) {
         reservationService.save(reservationDto);
         return ResponseEntity.ok().build();
+    }
+
+    // 상태 정보(예약 상수) 전체 조회: R(예약), C(취소), E(종료)
+    @Operation(summary = "RESERVATION 상태 정보 조회", description = "RESERVATION 상태 정보를 조회합니다.")
+    @GetMapping("/reservation/status")
+    public ResponseEntity<ApiResponse<List<ReservationStatusDto>>> getStatusList() {
+
+        List<ReservationStatusDto> list = Arrays.stream(ReservationStatus.values())
+                .map(s -> new ReservationStatusDto(s.name(), s.getDescription()))
+                .toList();
+        ApiResponse<List<ReservationStatusDto>> response = new ApiResponse<>(
+                true,
+                "조회 성공",
+                list,
+                0,
+                0
+        );
+        return ResponseEntity.ok(response);
     }
 
     // 수정

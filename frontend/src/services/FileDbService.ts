@@ -5,9 +5,9 @@ import common from "./CommonService";
 
 // 전체 조회 (like 검색 + 페이징)
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get<IApiResponse<IFileDb[]>>(
-    `/fileDb?searchKeyword=${searchKeyword}&page=${page}&size=${size}`
-  );
+  return common.get<IApiResponse<IFileDb[]>>("/fileDb", {
+    params: { searchKeyword, page, size },
+  });
 };
 
 // 삭제

@@ -1,5 +1,5 @@
 ﻿export default interface IDept {
-    dno?: number,
-    dname: string,
-    loc: string
+    dno?: number;
+    dname: string;
+    loc: string;
 }
