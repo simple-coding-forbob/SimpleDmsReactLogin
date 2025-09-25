@@ -77,6 +77,11 @@ const ReservationList = lazy(() => import("../pages/reservation/ReservationList"
 const AddReservation = lazy(() => import("../pages/reservation/AddReservation"));
 const ReservationDetail = lazy(() => import("../pages/reservation/ReservationDetail"));
 
+// 예약 게시판
+const BookingList = lazy(() => import("../pages/booking/BookingList"));
+const AddBooking = lazy(() => import("../pages/booking/AddBooking"));
+const BookingDetail = lazy(() => import("../pages/booking/BookingDetail"));
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -121,6 +126,9 @@ const router = createBrowserRouter([
       { path: "reservation", element: <ReservationList /> },
       { path: "add-reservation", element: <AddReservation /> },
       { path: "reservation-detail/:rid", element: <ReservationDetail /> },
+      { path: "booking", element: <BookingList /> },
+      { path: "add-booking", element: <AddBooking /> },
+      { path: "booking-detail/:rid", element: <BookingDetail /> },
     ],
   },
 ]);

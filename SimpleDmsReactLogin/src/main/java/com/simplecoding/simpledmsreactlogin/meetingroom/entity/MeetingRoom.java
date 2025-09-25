@@ -6,11 +6,6 @@ import lombok.*;
 
 @Entity
 @Table(name = "TB_MEETING_ROOM")
-@SequenceGenerator(
-        name = "SQ_MEETING_ROOM_JPA",
-        sequenceName = "SQ_MEETING_ROOM",
-        allocationSize = 1
-)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,9 +15,7 @@ import lombok.*;
 public class MeetingRoom extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "SQ_MEETING_ROOM_JPA"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mid;
     private String roomName;
     private String loc;

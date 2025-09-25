@@ -1,13 +1,13 @@
-package com.simplecoding.simpledmsreactlogin.reservation.service;
+package com.simplecoding.simpledmsreactlogin.booking.service;
 
 import com.simplecoding.simpledmsreactlogin.auth.dto.SecurityUserDto;
+import com.simplecoding.simpledmsreactlogin.booking.repository.BookingRepository;
 import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 import com.simplecoding.simpledmsreactlogin.common.SecurityUtil;
-import com.simplecoding.simpledmsreactlogin.meetingroom.repository.MeetingRoomRepository;
-import com.simplecoding.simpledmsreactlogin.reservation.dto.ReservationDto;
-import com.simplecoding.simpledmsreactlogin.reservation.entity.Reservation;
-import com.simplecoding.simpledmsreactlogin.reservation.repository.ReservationRepository;
+import com.simplecoding.simpledmsreactlogin.booking.dto.BookingDto;
+import com.simplecoding.simpledmsreactlogin.booking.entity.Booking;
+import com.simplecoding.simpledmsreactlogin.booking.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,57 +16,57 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class ReservationService {
+public class BookingService {
 
-    private final ReservationRepository reservationRepository;
+    private final BookingRepository bookingRepository;
     private final MapStruct mapStruct;
     private final ErrorMsg errorMsg;
     private final SecurityUtil securityUtil;
 
-    public Page<ReservationDto> selectByReservationList(String searchKeyword, Pageable pageable) {
-        return reservationRepository.selectByReservationList(searchKeyword, pageable);
+    public Page<BookingDto> selectByBookingList(String searchKeyword, Pageable pageable) {
+        return bookingRepository.selectByBookingList(searchKeyword,pageable);
     }
 
     @Transactional
-    public ReservationDto selectById(long rid) {
+    public BookingDto selectById(long bid) {
 //        JPA 상세조회 함수 실행
-        Reservation reservation= reservationRepository.selectById(rid)
+        Booking booking= bookingRepository.selectById(bid)
                 .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
-        return mapStruct.toDto(reservation);
+        return mapStruct.toDto(booking);
     }
 
     //    저장/수정 : 1) 기본키가(부서번호) 없으면 저장(insert)
 //               2) 기본키가(부서번호) 있으면 수정(update)
 //           => JPA 내부적으로 if문 있음 : 알아서 실행됨
-    public void save(ReservationDto reservationDto) {
+    public void save(BookingDto bookingDto) {
 //        해당 날짜에 예약이 있는지 확인-> 있으면 예외처리
-        if(reservationRepository.existsByReservation(reservationDto.getStartTime(), reservationDto.getEndTime(), reservationDto.getMid()) > 0) {
-            throw new RuntimeException(errorMsg.getMessage("errors.reservation"));
+        if(bookingRepository.existsByBooking(bookingDto.getStartTime(), bookingDto.getEndTime(), bookingDto.getPid()) > 0) {
+            throw new RuntimeException(errorMsg.getMessage("errors.booking"));
         }
 
 //        JPA 저장 함수 실행 : return 값 : 저장된 객체
 //      TODO: 1) 시큐리티에서 email 가져오기: 화면에서 전송안함
         SecurityUserDto securityUserDto =securityUtil.getLoginUser();
-        reservationDto.setEmail(securityUserDto.getUsername());
+        bookingDto.setEmail(securityUserDto.getUsername());
 //      TODO: 2) 저장하기
-        Reservation reservation= mapStruct.toEntity(reservationDto);
-        reservationRepository.save(reservation);
+        Booking booking= mapStruct.toEntity(bookingDto);
+        bookingRepository.save(booking);
     }
 
     @Transactional
-    public void updateFromDto(ReservationDto reservationDto) {
+    public void updateFromDto(BookingDto bookingDto) {
 //        JPA 저장 함수 실행 : return 값 : 저장된 객체
-        Reservation reservation=reservationRepository.findById(reservationDto.getRid())
+        Booking booking=bookingRepository.findById(bookingDto.getBid())
                 .orElseThrow(() -> new RuntimeException("errors.not.found"));
 //      TODO: 1) 시큐리티에서 email 가져오기: 화면에서 전송안함
         SecurityUserDto securityUserDto =securityUtil.getLoginUser();
-        reservationDto.setEmail(securityUserDto.getUsername());
+        bookingDto.setEmail(securityUserDto.getUsername());
 
-        mapStruct.updateFromDto(reservationDto, reservation);
+        mapStruct.updateFromDto(bookingDto, booking);
     }
 
     //    삭제 함수
-    public void deleteById(long rid) {
-        reservationRepository.deleteById(rid);
+    public void deleteById(long bid) {
+        bookingRepository.deleteById(bid);
     }
 }

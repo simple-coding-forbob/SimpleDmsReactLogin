@@ -7,11 +7,6 @@ import lombok.*;
 
 @Entity
 @Table(name = "TB_QNA")
-@SequenceGenerator(
-        name = "SQ_QNA_JPA",
-        sequenceName = "SQ_QNA",
-        allocationSize = 1
-)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,9 +15,7 @@ import lombok.*;
 @EqualsAndHashCode(of = "qno", callSuper = false)
 public class Qna extends BaseTimeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE
-            , generator = "SQ_QNA_JPA"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long qno;
     private String questioner;
     private String question;
