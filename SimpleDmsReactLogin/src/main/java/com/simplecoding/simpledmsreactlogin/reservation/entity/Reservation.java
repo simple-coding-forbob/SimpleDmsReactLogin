@@ -38,5 +38,5 @@ public class Reservation extends BaseTimeEntity {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     @Enumerated(EnumType.STRING)
-    private ReservationStatus status; // 예약 상태 (R/C/E)
+    private ReservationStatus status=ReservationStatus.R;  // 코드설명, 기본(R:예약)
 }

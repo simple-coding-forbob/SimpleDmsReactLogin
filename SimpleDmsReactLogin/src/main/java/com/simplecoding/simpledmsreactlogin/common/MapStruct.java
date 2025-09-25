@@ -125,10 +125,11 @@ public interface MapStruct {
 
     // TODO: 14) Reservation <-> ReservationDto
     @Mapping(source = "member.email", target = "email")
+    @Mapping(source = "meetingRoom.mid", target = "mid")
     @Mapping(source = "meetingRoom.roomName", target = "roomName")
     ReservationDto toDto(Reservation reservation);
     @Mapping(source = "email", target = "member.email")
-    @Mapping(source = "roomName", target = "meetingRoom.roomName")
+    @Mapping(source = "mid", target = "meetingRoom.mid")
     Reservation toEntity(ReservationDto reservationDto);
     // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(ReservationDto reservationDto, @MappingTarget Reservation reservation);

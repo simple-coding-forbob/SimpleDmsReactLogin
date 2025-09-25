@@ -4,9 +4,26 @@ import { Meta } from "react-head";
 import type IReservation from "../../types/IReservation";
 import ReservationService from "../../services/ReservationService";
 import reservationValidation from "../../validation/reservationValidation";
+import { useEffect, useState } from "react";
+import MeetingRoomService from "../../services/MeetingRoomService";
+import type IMeetingRoom from "../../types/IMeetingRoom";
 
 function AddReservation() {
   const nav = useNavigate();
+
+  const [meetingRooms, setMeetingRooms] = useState<IMeetingRoom[]>([]); // null로 초기화 -> 로딩 상태 판단
+
+    // 회의실 전체조회
+  useEffect(() => {
+    findAll();
+  }, []);
+
+  const findAll = async () => {
+    const response = await MeetingRoomService.findAll();
+    const { result } = response.data;
+    setMeetingRooms(result);
+    console.log(response.data);
+  };
 
   const save = async (data: IReservation) => {
     await ReservationService.insert(data);
@@ -17,10 +34,10 @@ function AddReservation() {
   const formik = useFormik({
     initialValues: {
       email: "",
+      mid:"",
       roomName: "",
       startTime: "",
-      endTime: "",
-      status: "",
+      endTime: "",                  
     },
     validationSchema: reservationValidation,
     onSubmit: (data: IReservation) => {
@@ -34,56 +51,38 @@ function AddReservation() {
       <h1 className="text-2xl font-bold mb-6">예약 게시판 추가</h1>
 
       <form onSubmit={formik.handleSubmit}>
-        {/* email 입력 */}
-        <div className="mb-4">
-          <label htmlFor="email" className="block mb-1">
-            email
-          </label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            placeholder="제목"
-            className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring focus:ring-blue-500"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          {formik.touched.email && formik.errors.email && (
-            <div className="text-red-500">{formik.errors.email}</div>
-          )}
-        </div>
-        {/* roomName 입력 */}
+        {/* mid 선택 */}
         <div className="mb-4">
           <label htmlFor="roomName" className="block mb-1">
             roomName
           </label>
           <select
-            id="roomName"
-            name="roomName"
+            id="mid"
+            name="mid"
             className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring focus:ring-blue-500"
-            value={formik.values.roomName}
+            value={formik.values.mid}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           >
-            <option value="">선택하세요</option>
+            <option value="">선택해주세요</option>
             {meetingRooms.map((room) => (
-              <option key={room.mid} value={room.roomName}>
+              <option key={room.mid} value={room.mid}>
                 {room.roomName}
               </option>
             ))}
           </select>
-          {formik.touched.roomName && formik.errors.roomName && (
-            <div className="text-red-500">{formik.errors.roomName}</div>
+          {formik.touched.mid && formik.errors.mid && (
+            <div className="text-red-500">{formik.errors.mid}</div>
           )}
         </div>
         {/* startTime 입력 */}
         <div className="mb-4">
           <label htmlFor="startTime" className="block mb-1">
-            text
+            startTime
           </label>
           <input
-            type="date"
+            type="datetime-local"
+            step="3600"
             id="startTime"
             name="startTime"
             placeholder="startTime"
@@ -96,13 +95,13 @@ function AddReservation() {
             <div className="text-red-500">{formik.errors.startTime}</div>
           )}
         </div>
-        {/* text 입력 */}
+        {/* endTime 입력 */}
         <div className="mb-4">
           <label htmlFor="endTime" className="block mb-1">
-            text
+            endTime
           </label>
           <input
-            type="date"
+            type="datetime-local"
             id="endTime"
             name="endTime"
             placeholder="endTime"

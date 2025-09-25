@@ -19,9 +19,22 @@ import java.util.List;
 @Log4j2
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class MeetingRoomController {
     private final MeetingRoomService meetingRoomService;
 
+
+    //	전체조회
+    @Operation(summary = "미팅룸 전체 조회(페이징 없음)", description = "미팅룸 목록을 전체 조회합니다. 페이징 없습니다.")
+    @GetMapping("/meeting-room/all")
+    public ResponseEntity<ApiResponse<List<MeetingRoomDto>>> findAll() {
+//		1) Pageable : page(현재페이지), size(1페이지 당 화면에 보일개수)
+//		전체조회 서비스 메소드 실행
+        List<MeetingRoomDto> list=meetingRoomService.findAll();
+        ApiResponse<List<MeetingRoomDto>> response = new ApiResponse<>(true,
+                "조회 성공", list, 0, 0);
+        return ResponseEntity.ok(response);
+    }
 
     //	전체조회
     @Operation(summary = "미팅룸 전체 조회", description = "검색 키워드로 미팅룸 목록을 조회합니다.")
