@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
     "axios": "^1.11.0",
+    "date-fns": "^4.1.0",
     "formik": "^2.4.6",
     "rc-pagination": "^5.1.0",
     "react": "^19.1.1",

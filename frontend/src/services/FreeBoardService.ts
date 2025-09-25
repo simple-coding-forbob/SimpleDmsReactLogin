@@ -5,28 +5,29 @@ import type IFreeBoard from "../types/IFreeBoard";
 import common from "./CommonService";
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
-const getAll = (searchKeyword:string, page:number, size:number) => {
-  return common.get<IApiResponse<IFreeBoard[]>>(`/free-board?searchKeyword=${searchKeyword}&page=${page}&size=${size}`
-  );
+const getAll = (searchKeyword: string, page: number, size: number) => {
+  return common.get<IApiResponse<IFreeBoard[]>>("/free-board", {
+    params: { searchKeyword, page, size },
+  });
 };
 
 // 상세 조회
-const get = (fid:number | null) => {
+const get = (fid: number) => {
   return common.get<IApiResponse<IFreeBoard>>(`/free-board/${fid}`);
 };
 
 // 저장함수
-const insert = (data:IFreeBoard) => {
+const insert = (data: IFreeBoard) => {
   return common.post("/free-board", data);
 };
 
 // 수정함수
-const update = (fid:number | null, data:IFreeBoard) => {
+const update = (fid: number, data: IFreeBoard) => {
   return common.put(`/free-board/${fid}`, data);
 };
 
 // 삭제함수
-const remove = (fid:number | null) => {
+const remove = (fid: number) => {
   return common.delete(`/free-board/${fid}`);
 };
 

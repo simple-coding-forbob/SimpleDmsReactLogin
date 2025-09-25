@@ -18,7 +18,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Query("SELECT new com.simplecoding.simpledmsreactlogin.reservation.dto.ReservationDto(" +
             "r.rid, r.member.email,r.meetingRoom.mid,r.meetingRoom.roomName, r.startTime, r.endTime, r.status)\n" +
             "FROM Reservation r\n" +
-            "WHERE r.meetingRoom.roomName like %:searchKeyword%\n" +
+            "WHERE r.meetingRoom.roomName like %:searchKeyword%\n " +
+            "and r.status='R'" +
             "order by r.insertTime desc")
     Page<ReservationDto> selectByReservationList(@Param("searchKeyword") String searchKeyword,  Pageable pageable);
 

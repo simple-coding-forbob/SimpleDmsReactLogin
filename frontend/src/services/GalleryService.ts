@@ -5,9 +5,9 @@ import common from "./CommonService";
 
 // 전체 조회 (like 검색 + 페이징)
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get<IApiResponse<IGallery[]>>(
-    `/gallery?searchKeyword=${searchKeyword}&page=${page}&size=${size}`
-  );
+  return common.get<IApiResponse<IGallery[]>>("/gallery", {
+    params: { searchKeyword, page, size },
+  });
 };
 
 // 삭제
@@ -19,7 +19,7 @@ const remove = (uuid: number) => {
 const insert = (data: IGallery) => {
   const formData = new FormData();
   formData.append("galleryTitle", data.galleryTitle);
-  if(data.galleryData) {
+  if (data.galleryData) {
     formData.append("galleryData", data.galleryData);
   }
 

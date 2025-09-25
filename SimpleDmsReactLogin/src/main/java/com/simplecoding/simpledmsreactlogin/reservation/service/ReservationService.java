@@ -25,10 +25,9 @@ public class ReservationService {
     private final SecurityUtil securityUtil;
 
     public Page<ReservationDto> selectByReservationList(String searchKeyword, Pageable pageable) {
-        Page<ReservationDto> page= reservationRepository.selectByReservationList(searchKeyword, pageable);
-        return page;
+        return reservationRepository.selectByReservationList(searchKeyword, pageable);
     }
-    
+
     @Transactional
     public ReservationDto selectById(long rid) {
 //        JPA 상세조회 함수 실행

@@ -46,7 +46,7 @@ function ReservationList() {
 
       <div className="flex justify-center mb-4">
         <input
-          type="mid"
+          type="text"
           className="w-full border border-gray-300 rounded-l p-2 focus:outline-none focus:ring focus:ring-blue-500"
           placeholder="회의실 검색"
           value={searchKeyword}
@@ -76,15 +76,23 @@ function ReservationList() {
             {reservations.map((data) => (
               <tr key={data.rid} className="hover:bg-gray-50">
                 <td className="px-4 py-2 border-b">
-                  <Link to={`/news-board-detail/${data.rid}`}>
+                  <Link to={`/reservation-detail/${data.rid}`}>
                     {data.email}
                   </Link>
                 </td>
                 <td className="px-4 py-2 border-b text-center">{data.mid}</td>
-                <td className="px-4 py-2 border-b text-center">{data.roomName}</td>
-                <td className="px-4 py-2 border-b text-center">{format(data.startTime,"yyyy-MM-dd HH:mm")}</td>
-                <td className="px-4 py-2 border-b text-center">{format(data.endTime,"yyyy-MM-dd HH:mm")}</td>
-                <td className="px-4 py-2 border-b text-center">{data.status}</td>
+                <td className="px-4 py-2 border-b text-center">
+                  {data.roomName}
+                </td>
+                <td className="px-4 py-2 border-b text-center">
+                  {format(data.startTime, "yyyy-MM-dd HH:mm")}
+                </td>
+                <td className="px-4 py-2 border-b text-center">
+                  {format(data.endTime, "yyyy-MM-dd HH:mm")}
+                </td>
+                <td className="px-4 py-2 border-b text-center">
+                  {data.status}
+                </td>
               </tr>
             ))}
           </tbody>
