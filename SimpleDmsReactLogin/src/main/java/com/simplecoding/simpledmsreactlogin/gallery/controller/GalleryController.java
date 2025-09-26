@@ -58,8 +58,8 @@ public class GalleryController {
             @Parameter(description = "갤러리 제목") @RequestParam(defaultValue = "") String galleryTitle,
             @Parameter(description = "첨부 이미지 파일") @RequestParam(required = false) MultipartFile galleryData) throws Exception {
 
-        GalleryDto galleryDto = new GalleryDto(galleryTitle);
-        galleryService.save(galleryDto, galleryData.getBytes());
+        GalleryDto galleryDto = new GalleryDto(galleryTitle, galleryData);
+        galleryService.save(galleryDto);
 
         return ResponseEntity.ok().build();
     }

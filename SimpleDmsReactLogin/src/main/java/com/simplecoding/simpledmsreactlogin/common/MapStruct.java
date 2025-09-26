@@ -8,6 +8,8 @@ import com.simplecoding.simpledmsreactlogin.booking.dto.BookingDto;
 import com.simplecoding.simpledmsreactlogin.booking.entity.Booking;
 import com.simplecoding.simpledmsreactlogin.dept.dto.DeptDto;
 import com.simplecoding.simpledmsreactlogin.dept.entity.Dept;
+import com.simplecoding.simpledmsreactlogin.document.dto.DocumentDto;
+import com.simplecoding.simpledmsreactlogin.document.entity.Document;
 import com.simplecoding.simpledmsreactlogin.emp.dto.EmpDto;
 import com.simplecoding.simpledmsreactlogin.emp.entity.Emp;
 import com.simplecoding.simpledmsreactlogin.eventnotice.dto.EventNoticeDto;
@@ -38,6 +40,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 
+
 @Mapper(componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE  // null 제외 기능(update 시 사용)
 )
@@ -62,39 +65,35 @@ public interface MapStruct {
     // TODO: 3) Faq <-> FaqDto
     FaqDto toDto(Faq faq);
     Faq toEntity(FaqDto faqDto);
-    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(FaqDto faqDto, @MappingTarget Faq faq);
 
     // TODO: 4) Qna <-> QnaDto
     QnaDto toDto(Qna qna);
     Qna toEntity(QnaDto qnaDto);
-    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(QnaDto qnaDto, @MappingTarget Qna qna);
 
     // TODO: 5) Notice <-> NoticeDto
     NoticeDto toDto(Notice notice);
     Notice toEntity(NoticeDto noticeDto);
-    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(NoticeDto noticeDto, @MappingTarget Notice notice);
 
     // TODO: 6) EventNotice <-> EventNoticeDto
     EventNoticeDto toDto(EventNotice eventNotice);
     EventNotice toEntity(EventNoticeDto eventNoticeDto);
-    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(EventNoticeDto eventNoticeDto, @MappingTarget EventNotice eventNotice);
 
     //    TODO: 7) fileDb <-> fileDto
     FileDbDto toDto(FileDb fileDb);
-    @Mapping(target = "fileData", ignore = true)
     FileDb toEntity(FileDbDto fileDbDto);
 
     //    TODO: 8) gallery <-> galleryDto
     GalleryDto toDto(Gallery gallery);
-    @Mapping(target = "galleryData", ignore = true)
     Gallery toEntity(GalleryDto galleryDto);
 
     //    TODO: 9) member <-> memberDto
+    @Mapping(source = "emp.eno", target = "eno")
     MemberDto toDto(Member member);
+    @Mapping(source = "eno", target = "emp.eno")
     Member toEntity(MemberDto memberDto);
 
     //    TODO: 10) Member <-> MypageDto
@@ -108,7 +107,6 @@ public interface MapStruct {
     @Mapping(source = "email", target = "member.email")
     @Mapping(source = "name", target = "member.name")
     FreeBoard toEntity(FreeBoardDto freeBoardDto);
-    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(FreeBoardDto freeBoardDto, @MappingTarget FreeBoard freeBoard);
 
     // TODO: 12) NewsBoard <-> NewsBoardDto
@@ -118,13 +116,11 @@ public interface MapStruct {
     @Mapping(source = "email", target = "member.email")
     @Mapping(source = "name", target = "member.name")
     NewsBoard toEntity(NewsBoardDto newsBoardDto);
-    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(NewsBoardDto newsBoardDto, @MappingTarget NewsBoard newsBoard);
 
     // TODO: 13) MeetingRoom <-> MeetingRoomDto
     MeetingRoomDto toDto(MeetingRoom meetingRoom);
     MeetingRoom toEntity(MeetingRoomDto meetingRoomDto);
-    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(MeetingRoomDto meetingRoomDto, @MappingTarget MeetingRoom meetingRoom);
 
     // TODO: 14) Reservation <-> ReservationDto
@@ -135,13 +131,11 @@ public interface MapStruct {
     @Mapping(source = "email", target = "member.email")
     @Mapping(source = "mid", target = "meetingRoom.mid")
     Reservation toEntity(ReservationDto reservationDto);
-    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(ReservationDto reservationDto, @MappingTarget Reservation reservation);
 
     // TODO: 15) PublicCar <-> PublicCarDto
     PublicCarDto toDto(PublicCar publicCar);
     PublicCar toEntity(PublicCarDto publicCarDto);
-    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(PublicCarDto publicCarDto, @MappingTarget PublicCar publicCar);
 
     // TODO: 16) Booking <-> BookingDto
@@ -152,7 +146,10 @@ public interface MapStruct {
     @Mapping(source = "email", target = "member.email")
     @Mapping(source = "pid", target = "publicCar.pid")
     Booking toEntity(BookingDto bookingDto);
-    // TODO: 수정 시 사용: dirty checking 기능(save() 없이 수정 가능)
     void updateFromDto(BookingDto bookingDto, @MappingTarget Booking booking);
 
+    // TODO: 17) Document <-> DocumentDto
+    DocumentDto toDto(Document document);
+    Document toEntity(DocumentDto documentDto);
+    void updateFromDto(DocumentDto documentDto, @MappingTarget Document document);
 }

@@ -2,9 +2,8 @@ package com.simplecoding.simpledmsreactlogin.auth.entity;
 
 
 import com.simplecoding.simpledmsreactlogin.common.BaseTimeEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.simplecoding.simpledmsreactlogin.emp.entity.Emp;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -20,4 +19,7 @@ public class Member extends BaseTimeEntity {
     private String password;
     private String name;     // 유저명
     private String codeName="ROLE_USER"; // 권한명 ( ROLE_USER, ROLE_ADMIN )
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "eno")
+    private Emp emp;
 }

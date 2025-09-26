@@ -31,17 +31,16 @@ public class FileDbService {
     }
 
     //    TODO: 저장: save
-    public void save(FileDbDto fileDbDto, byte[] fileData) {
+    public void save(FileDbDto fileDbDto) {
 //        TODO: 0) DTO 값 -> Entity 로 저장
         FileDb fileDb=mapStruct.toEntity(fileDbDto);
         // TODO 1) UUID 만들기(기본키): 자바에서 중복안되게 만들어주는 글자(랜덤)
         String newUuid=UUID.randomUUID().toString();
+        fileDb.setUuid(newUuid);
 //		        2) 다운로드URL 만들기(개발자 알아서)
         String downloadURL=generateDownloadUrl(newUuid);
 //		        3) FileDbVO 에 위의 UUID, URL 저장(setter)
-        fileDb.setUuid(newUuid);
         fileDb.setFileUrl(downloadURL);
-        fileDb.setFileData(fileData);
 //		        4) DB insert(fileDbVO)
         fileDbRepository.save(fileDb);
     }

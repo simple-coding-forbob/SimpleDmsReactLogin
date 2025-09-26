@@ -60,6 +60,7 @@ const EmpList = () => {
         <table className="w-[100%] border border-gray-200">
           <thead className="bg-blue-700 text-white">
             <tr>
+              <th className="px-4 py-2 border-b">eno</th>
               <th className="px-4 py-2 border-b">ename</th>
               <th className="px-4 py-2 border-b">job</th>
               <th className="px-4 py-2 border-b">manager</th>
@@ -73,8 +74,9 @@ const EmpList = () => {
             {emps.map((data) => (
               <tr key={data.eno} className="hover:bg-gray-50">
                 <td className="px-4 py-2 border-b">
-                  <Link to={`/emp-detail/${data.eno}`}>{data.ename}</Link>
+                  <Link to={`/emp-detail/${data.eno}`}>{data.eno}</Link>
                 </td>
+                <td className="px-4 py-2 border-b">{data.ename}</td>
                 <td className="px-4 py-2 border-b">{data.job}</td>
                 <td className="px-4 py-2 border-b">{data.manager}</td>
                 <td className="px-4 py-2 border-b">{data.hiredate}</td>
