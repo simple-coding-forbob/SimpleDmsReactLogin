@@ -57,8 +57,8 @@ public class FileDbController {
             @RequestParam(defaultValue = "") String fileContent,
             @RequestParam(required = false) MultipartFile fileData
     ) throws Exception {
-        FileDbDto fileDbDto = new FileDbDto(fileTitle, fileContent);
-        fileDbService.save(fileDbDto, fileData.getBytes());
+        FileDbDto fileDbDto = new FileDbDto(fileTitle, fileContent, fileData);
+        fileDbService.save(fileDbDto);
         return ResponseEntity.ok().build();
     }
 

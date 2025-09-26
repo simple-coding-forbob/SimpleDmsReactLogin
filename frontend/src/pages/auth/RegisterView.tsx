@@ -17,7 +17,7 @@ export default function RegisterView() {
   };
 
   const formik = useFormik({
-    initialValues: { email: "", password: "", repassword: "", name: "" },
+    initialValues: { email: "", password: "", repassword: "", name: "",eno: "" },
     validationSchema: registerValidation,
     onSubmit: handleRegister,
   });
@@ -125,6 +125,28 @@ export default function RegisterView() {
               {formik.touched.name && formik.errors.name && (
                 <div className="text-red-600 text-sm mt-1">
                   {formik.errors.name}
+                </div>
+              )}
+            </div>
+
+            {/* eno */}
+            <div>
+              <label htmlFor="eno" className="block mb-1 font-bold">
+                사원번호
+              </label>
+              <input
+                type="text"
+                id="eno"
+                name="eno"
+                placeholder="사원번호 입력"
+                className="w-full border border-gray-300 rounded p-3 focus:outline-none focus:ring focus:ring-blue-500"
+                value={formik.values.eno}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.eno && formik.errors.eno && (
+                <div className="text-red-600 text-sm mt-1">
+                  {formik.errors.eno}
                 </div>
               )}
             </div>

@@ -14,6 +14,9 @@ const registerValidation = Yup.object().shape({
   name: Yup.string()
     .min(2, "이름은 최소 2자 이상이어야 합니다")
     .required("이름은 필수 입력입니다"),
+  eno: Yup.number()
+    .min(4, "사원번호는 최소 4자 이상이어야 합니다")
+    .required("사원번호는 필수 입력입니다"),
 });
 
 export default registerValidation;

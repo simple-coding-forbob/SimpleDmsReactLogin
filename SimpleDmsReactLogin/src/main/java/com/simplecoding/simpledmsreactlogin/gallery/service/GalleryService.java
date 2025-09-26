@@ -31,27 +31,19 @@ public class GalleryService {
     }
 
     //    TODO: 저장/수정 : save
-    public void save(GalleryDto galleryDto, byte[] galleryData) {
-//        TODO: 0) DTO 값 -> Entity 로 저장
+    public void save(GalleryDto galleryDto) {
         Gallery gallery=mapStruct.toEntity(galleryDto);
-        // TODO 1) UUID 만들기(기본키): 자바에서 중복안되게 만들어주는 글자(랜덤)
+
         String newUuid= UUID.randomUUID().toString();
-//		        2) 다운로드URL 만들기(개발자 알아서)
         String downloadURL=generateDownloadUrl(newUuid);
-//		        3) GalleryVO 에 위의 UUID, URL 저장(setter)
         gallery.setUuid(newUuid);
         gallery.setGalleryFileUrl(downloadURL);
-        gallery.setGalleryData(galleryData);
-//		        4) DB insert(galleryVO)
+
         galleryRepository.save(gallery);
     }
 
     //	다운로드 URL을 만들어주는 메소드
-//	URL: 웹브라우저주소창 또는 img 태그 -> 해당하는 컨트롤러 메소드가 이미지를 전송해 줌
     public String generateDownloadUrl(String uuid) {
-//		인터넷주소 체계        : http://localhost:8080/경로(path)?쿼리스트링
-//		기본주소(ContextPath): http://localhost:8080
-//		URL 만드는 클래스      : ServletUriComponentsBuilder
         return ServletUriComponentsBuilder
                 .fromCurrentContextPath()    // 기본주소 : http://localhost:8080
                 .path("/api/download/gallery/{uuid}")    // 경로    : /gallery/download
