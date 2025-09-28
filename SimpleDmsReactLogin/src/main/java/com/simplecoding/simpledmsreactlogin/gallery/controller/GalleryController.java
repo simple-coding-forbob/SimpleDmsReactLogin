@@ -13,13 +13,11 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Log4j2
@@ -58,7 +56,7 @@ public class GalleryController {
             @Parameter(description = "갤러리 제목") @RequestParam(defaultValue = "") String galleryTitle,
             @Parameter(description = "첨부 이미지 파일") @RequestParam(required = false) MultipartFile galleryData) throws Exception {
 
-        GalleryDto galleryDto = new GalleryDto(galleryTitle, galleryData);
+        GalleryDto galleryDto = new GalleryDto(galleryTitle, galleryData.getOriginalFilename(),galleryData);
         galleryService.save(galleryDto);
 
         return ResponseEntity.ok().build();
@@ -82,10 +80,14 @@ public class GalleryController {
 
         Gallery gallery = galleryService.findById(uuid);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentDispositionFormData("attachment", gallery.getUuid());
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        // ContentDisposition 사용 (브라우저 호환성 보장)
+        ContentDisposition contentDisposition = ContentDisposition.attachment()
+                .filename(gallery.getGalleryFileName(), StandardCharsets.UTF_8) // 업로드 시 저장한 파일명 사용
+                .build();
 
-        return new ResponseEntity<>(gallery.getGalleryData(), headers, HttpStatus.OK);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)                          // 바이너리 파일
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString())   // 첨부파일 표시
+                .body(gallery.getGalleryData());                                         // 실제 파일 데이터 전송
     }
 }

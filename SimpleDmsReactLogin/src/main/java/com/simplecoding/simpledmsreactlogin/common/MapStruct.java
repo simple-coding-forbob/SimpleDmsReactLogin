@@ -1,6 +1,8 @@
 package com.simplecoding.simpledmsreactlogin.common;
 
 
+import com.simplecoding.simpledmsreactlogin.approval.dto.ApprovalDto;
+import com.simplecoding.simpledmsreactlogin.approval.entity.Approval;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MemberDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MypageDto;
 import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
@@ -149,7 +151,18 @@ public interface MapStruct {
     void updateFromDto(BookingDto bookingDto, @MappingTarget Booking booking);
 
     // TODO: 17) Document <-> DocumentDto
+    @Mapping(source = "emp.eno", target = "eno")
     DocumentDto toDto(Document document);
+    @Mapping(source = "eno", target = "emp.eno")
     Document toEntity(DocumentDto documentDto);
     void updateFromDto(DocumentDto documentDto, @MappingTarget Document document);
+
+    // TODO: 18) Approval <-> ApprovalDto
+    @Mapping(source = "document.uuid", target = "uuid")
+    @Mapping(source = "emp.eno", target = "eno")
+    ApprovalDto toDto(Approval approval);
+    @Mapping(source = "uuid", target = "document.uuid")
+    @Mapping(source = "eno", target = "emp.eno")
+    Approval toEntity(ApprovalDto approvalDto);
+    void updateFromDto(ApprovalDto approvalDto,@MappingTarget Approval approval);
 }

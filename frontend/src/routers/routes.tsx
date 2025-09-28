@@ -82,6 +82,10 @@ const BookingList = lazy(() => import("../pages/booking/BookingList"));
 const AddBooking = lazy(() => import("../pages/booking/AddBooking"));
 const BookingDetail = lazy(() => import("../pages/booking/BookingDetail"));
 
+// 예약 게시판
+const DocumentList = lazy(() => import("../pages/document/DocumentList"));
+const AddDocument = lazy(() => import("../pages/document/AddDocument"));
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -129,6 +133,8 @@ const router = createBrowserRouter([
       { path: "booking", element: <BookingList /> },
       { path: "add-booking", element: <AddBooking /> },
       { path: "booking-detail/:rid", element: <BookingDetail /> },
+      { path: "document", element: <DocumentList /> },
+      { path: "add-document", element: <AddDocument /> },
     ],
   },
 ]);

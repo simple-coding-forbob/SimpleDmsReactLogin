@@ -1,0 +1,53 @@
+package com.simplecoding.simpledmsreactlogin.approval.service;
+
+import com.simplecoding.simpledmsreactlogin.approval.dto.ApprovalDto;
+import com.simplecoding.simpledmsreactlogin.approval.entity.Approval;
+import com.simplecoding.simpledmsreactlogin.approval.repository.ApprovalRepository;
+import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.MapStruct;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class ApprovalService {
+
+    private final ApprovalRepository approvalRepository;
+    private final MapStruct mapStruct;
+    private final ErrorMsg errorMsg;
+
+    // 전체조회 + 검색 + 페이징
+    public Page<ApprovalDto> selectApprovalList(String searchKeyword, Pageable pageable) {
+        return approvalRepository.selectApprovalList(searchKeyword, pageable);
+    }
+
+    // 저장 (신규 결재 라인)
+    public void save(ApprovalDto approvalDto) {
+        Approval approval = mapStruct.toEntity(approvalDto);
+        approvalRepository.save(approval);
+    }
+
+    // 상세조회
+    public ApprovalDto findById(Long aid) {
+        Approval approval = approvalRepository.findById(aid)
+                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+        return mapStruct.toDto(approval);
+    }
+
+    // 수정 (Dirty Checking)
+    @Transactional
+    public void updateFromDto(ApprovalDto approvalDto) {
+        Approval approval = approvalRepository.findById(approvalDto.getAid())
+                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+        mapStruct.updateFromDto(approvalDto, approval);
+        // Dirty Checking 으로 인해 save() 호출 불필요
+    }
+
+    // 삭제
+    public void deleteById(Long aid) {
+        approvalRepository.deleteById(aid);
+    }
+}
