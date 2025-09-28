@@ -2,7 +2,8 @@ import * as yup from "yup";
 
 // 예약 유효성 체크
 const bookingValidation = yup.object({
-  pid: yup.number().required("공용차를 입력해주세요"),
+  pid: yup.number().typeError("ID는 숫자여야 합니다")
+          .required("공용차를 입력해주세요"),
   startTime: yup.date().required("시작일을 입력해주세요")
                 .min(new Date(), "과거 시간은 예약할 수 없습니다"),
   endTime: yup.date().required("종료일을 입력해주세요")

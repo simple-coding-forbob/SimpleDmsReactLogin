@@ -12,13 +12,12 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Log4j2
@@ -54,10 +53,9 @@ public class DocumentController {
     public ResponseEntity<Void> create(
             @RequestParam String title,
             @RequestParam String content,
-            @RequestParam Long drafter,
             @RequestParam(required = false) MultipartFile fileData
     ) throws Exception {
-        DocumentDto documentDto = new DocumentDto(title, content, drafter, fileData);
+        DocumentDto documentDto = new DocumentDto(title, content, fileData.getOriginalFilename(), fileData);
         documentService.save(documentDto);
         return ResponseEntity.ok().build();
     }
@@ -70,20 +68,19 @@ public class DocumentController {
         return ResponseEntity.ok().build();
     }
 
-    // 다운로드
     @Operation(summary = "Document 다운로드", description = "UUID로 첨부파일을 다운로드합니다.")
     @GetMapping("/download/document/{uuid}")
     public ResponseEntity<byte[]> fileDownload(@PathVariable String uuid) {
         Document document = documentService.findById(uuid);
 
-        if (document.getFileData() == null) {
-            return ResponseEntity.noContent().build();
-        }
+        // ContentDisposition 사용 (브라우저 호환성 보장)
+        ContentDisposition contentDisposition = ContentDisposition.attachment()            // 첨부파일 있음 표시
+                .filename(document.getFileName(), StandardCharsets.UTF_8)                  // 첨부파일명 표시, 자동 인코딩
+                .build();
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentDispositionFormData("attachment", document.getFileUrl());
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-
-        return new ResponseEntity<>(document.getFileData(), headers, HttpStatus.OK);
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)                            // 문서형식: 바이너리 파일 표시
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString())     // 첨부파일 있다고 표시, 첨부파일명(인코딩)도 표시
+                .body(document.getFileData());                                              // 실제 첨부파일 전송
     }
 }

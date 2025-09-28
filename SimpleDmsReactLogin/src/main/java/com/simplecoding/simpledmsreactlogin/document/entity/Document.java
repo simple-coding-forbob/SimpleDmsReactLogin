@@ -1,10 +1,9 @@
 package com.simplecoding.simpledmsreactlogin.document.entity;
 
+import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
 import com.simplecoding.simpledmsreactlogin.common.BaseTimeEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import com.simplecoding.simpledmsreactlogin.emp.entity.Emp;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -19,7 +18,10 @@ public class Document extends BaseTimeEntity {
     private String uuid;        // 기본키, 시퀀스
     private String title;
     private String content;
-    private Long drafter;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "eno")
+    private Emp emp;              // 업로더 사원번호
+    private String fileName;
     private String fileUrl;
     @Lob
     private byte[] fileData;

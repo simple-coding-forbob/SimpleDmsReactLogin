@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DocumentRepository extends JpaRepository<Document, String> {
     @Query(value = "select new com.simplecoding.simpledmsreactlogin.document.dto.DocumentDto(" +
-            "d.uuid, d.title, d.content, d.drafter, d.fileUrl) " +
+            "d.uuid, d.title, d.content, d.emp.eno, d.fileName, d.fileUrl) " +
             "from Document d\n" +
             "where d.title like %:searchKeyword% order by d.insertTime desc")
     Page<DocumentDto> selectDocumentList(

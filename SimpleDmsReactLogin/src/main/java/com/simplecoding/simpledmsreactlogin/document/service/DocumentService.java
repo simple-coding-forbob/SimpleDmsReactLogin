@@ -1,7 +1,9 @@
 package com.simplecoding.simpledmsreactlogin.document.service;
 
+import com.simplecoding.simpledmsreactlogin.auth.dto.SecurityUserDto;
 import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
+import com.simplecoding.simpledmsreactlogin.common.SecurityUtil;
 import com.simplecoding.simpledmsreactlogin.document.dto.DocumentDto;
 import com.simplecoding.simpledmsreactlogin.document.entity.Document;
 import com.simplecoding.simpledmsreactlogin.document.repository.DocumentRepository;
@@ -20,6 +22,7 @@ public class DocumentService {
     private final DocumentRepository documentRepository;
     private final MapStruct mapStruct;
     private final ErrorMsg errorMsg;
+    private final SecurityUtil securityUtil;
 
     // 전체조회 + 검색 + 페이징
     public Page<DocumentDto> selectDocumentList(String searchKeyword, Pageable pageable) {
@@ -28,12 +31,18 @@ public class DocumentService {
 
     // 저장 (신규 문서)
     public void save(DocumentDto documentDto) {
+        //        eno 저장: 로그인 유저
+        SecurityUserDto securityUserDto=securityUtil.getLoginUser();
+        documentDto.setEno(securityUserDto.getEno());
+
         // DTO -> Entity 변환
         Document document = mapStruct.toEntity(documentDto);
 
         // UUID 생성
         String newUuid = UUID.randomUUID().toString();
         document.setUuid(newUuid);
+
+//        파일 확장자 추출
 
         // 다운로드 URL 생성
         String downloadURL = generateDownloadUrl(newUuid);
