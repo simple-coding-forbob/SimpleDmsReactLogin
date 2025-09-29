@@ -11,8 +11,9 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "aid")
 public class ApprovalDto {
     private Long aid;
-    private String uuid;
-    private Long eno;
+    private String uuid;                 // fk: Document
+    private String title;                //     Document
+    private Long eno;                    // fk: Emp
     private Integer seq;
     private String status;
     private LocalDateTime approveTime;
