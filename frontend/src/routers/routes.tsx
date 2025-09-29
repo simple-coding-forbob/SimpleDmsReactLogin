@@ -2,7 +2,6 @@ import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../layout/Layout";
 
-
 // 공통 로딩 컴포넌트
 const loading = <div>Loading...</div>;
 
@@ -73,18 +72,29 @@ const NewsBoardDetail = lazy(
 );
 
 // 예약 게시판
-const ReservationList = lazy(() => import("../pages/reservation/ReservationList"));
-const AddReservation = lazy(() => import("../pages/reservation/AddReservation"));
-const ReservationDetail = lazy(() => import("../pages/reservation/ReservationDetail"));
+const ReservationList = lazy(
+  () => import("../pages/reservation/ReservationList")
+);
+const AddReservation = lazy(
+  () => import("../pages/reservation/AddReservation")
+);
+const ReservationDetail = lazy(
+  () => import("../pages/reservation/ReservationDetail")
+);
 
 // 예약 게시판
 const BookingList = lazy(() => import("../pages/booking/BookingList"));
 const AddBooking = lazy(() => import("../pages/booking/AddBooking"));
 const BookingDetail = lazy(() => import("../pages/booking/BookingDetail"));
 
-// 예약 게시판
+// 문서 게시판
 const DocumentList = lazy(() => import("../pages/document/DocumentList"));
 const AddDocument = lazy(() => import("../pages/document/AddDocument"));
+
+// 전자결재 게시판
+const ApprovalList = lazy(() => import("../pages/approval/ApprovalList"));
+const AddApproval = lazy(() => import("../pages/approval/AddApproval"));
+const ApprovalDetail = lazy(() => import("../pages/approval/ApprovalDetail"));
 
 const router = createBrowserRouter([
   {
@@ -135,6 +145,9 @@ const router = createBrowserRouter([
       { path: "booking-detail/:rid", element: <BookingDetail /> },
       { path: "document", element: <DocumentList /> },
       { path: "add-document", element: <AddDocument /> },
+      { path: "approval-detail/:aid", element: <ApprovalDetail /> },
+      { path: "approval", element: <ApprovalList /> },
+      { path: "add-approval", element: <AddApproval /> },
     ],
   },
 ]);

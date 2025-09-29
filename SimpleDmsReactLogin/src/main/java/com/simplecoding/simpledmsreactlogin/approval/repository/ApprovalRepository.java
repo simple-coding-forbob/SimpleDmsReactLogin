@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface ApprovalRepository extends JpaRepository<Approval, Long> {
 
     @Query("select new com.simplecoding.simpledmsreactlogin.approval.dto.ApprovalDto(" +
-            "a.aid, a.document.uuid, a.emp.eno, a.seq, a.status, a.approveTime, a.note) " +
+            "a.aid, a.document.uuid, a.document.title, a.emp.eno, a.seq, a.status, a.approveTime, a.note) " +
             "from Approval a " +
             "where a.document.title like %:searchKeyword% " +
             "order by a.insertTime desc")

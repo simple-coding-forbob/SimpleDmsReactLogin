@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Meta } from "react-head";
 import DocumentService from "../../services/DocumentService";
 import type IDocument from "../../types/IDocument";
+import { Link } from "react-router-dom";
 
 const DocumentList = () => {
   const [documents, setDocuments] = useState<IDocument[]>([]);
@@ -86,7 +87,7 @@ const DocumentList = () => {
           >
             <div className="p-4">
               <a
-                href={doc.fileUrl?? "javascript:void(0)"} // 백엔드 다운로드 URL
+                href={doc.fileUrl ?? "javascript:void(0)"} // 백엔드 다운로드 URL
                 className="font-bold text-lg text-blue-600 hover:underline"
                 download // 브라우저가 파일 다운로드 처리(새로 고침 없음)
               >
@@ -98,11 +99,17 @@ const DocumentList = () => {
               </p>
               <div className="mt-2 flex space-x-2">
                 <button
-                  className="px-2 py-1 bg-red-500 rounded text-white"
+                  className="px-2 py-1 bg-red-600 rounded text-white"
                   onClick={() => remove(doc.uuid!)}
                 >
                   삭제
                 </button>
+                <Link
+                  to={"/add-approval/"+ doc.uuid}
+                  className="px-2 py-1 bg-green-600 rounded text-white"
+                >
+                  결재
+                </Link>
               </div>
             </div>
           </div>
