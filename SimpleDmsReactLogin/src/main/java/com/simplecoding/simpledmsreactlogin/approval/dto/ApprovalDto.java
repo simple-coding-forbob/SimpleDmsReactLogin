@@ -13,7 +13,7 @@ public class ApprovalDto {
     private Long aid;
     private String uuid;                 // fk: Document
     private String title;                //     Document
-    private Long eno;                    // fk: Emp
+    private Long approver;               // fk: Emp
     private Integer seq;
     private String status;
     private LocalDateTime approveTime;

@@ -33,7 +33,7 @@ public class DocumentService {
     public void save(DocumentDto documentDto) {
         //        eno 저장: 로그인 유저
         SecurityUserDto securityUserDto=securityUtil.getLoginUser();
-        documentDto.setEno(securityUserDto.getEno());
+        documentDto.setDrafter(securityUserDto.getEno());
 
         // DTO -> Entity 변환
         Document document = mapStruct.toEntity(documentDto);
@@ -61,10 +61,17 @@ public class DocumentService {
                 .toUriString();                        // 최종 URL 생성
     }
 
-    // 상세조회
+    // TODO: 상세조회: Controller 다운로드 메소드에서 사용
     public Document findById(String uuid) {
         return documentRepository.findById(uuid)
                 .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+    }
+    
+    // 상세조회
+    public DocumentDto findByIdToDto(String uuid) {
+        Document document = documentRepository.findById(uuid)
+                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+        return mapStruct.toDto(document);
     }
 
     // 삭제

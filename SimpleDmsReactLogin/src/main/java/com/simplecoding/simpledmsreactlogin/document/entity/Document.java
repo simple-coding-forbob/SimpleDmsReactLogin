@@ -1,6 +1,5 @@
 package com.simplecoding.simpledmsreactlogin.document.entity;
 
-import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
 import com.simplecoding.simpledmsreactlogin.common.BaseTimeEntity;
 import com.simplecoding.simpledmsreactlogin.emp.entity.Emp;
 import jakarta.persistence.*;
@@ -19,7 +18,7 @@ public class Document extends BaseTimeEntity {
     private String title;
     private String content;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "eno")
+    @JoinColumn(name = "drafter")
     private Emp emp;              // 업로더 사원번호
     private String fileName;
     private String fileUrl;

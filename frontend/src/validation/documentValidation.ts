@@ -1,9 +1,10 @@
 import * as yup from "yup";
+import messages from "../common/messages";
 
 // 문서 업로드용 유효성 검사 스키마
 const documentValidation = yup.object({
-  title: yup.string().required("문서 제목을 입력해주세요"),
-  content: yup.string().required("문서 내용을 입력해주세요"),
+  title: yup.string().required(messages.required),
+  content: yup.string().required(messages.required),
 });
 
 export default documentValidation;

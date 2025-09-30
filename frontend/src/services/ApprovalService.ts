@@ -2,7 +2,7 @@
 import type IApiResponse from "../types/IApiResponse";
 import type IApproval from "../types/IApproval";
 
-import common from "./CommonService";
+import common from "../common/CommonService";
 
 // 전체 문서 조회 + like 검색 (paging)
 const getAll = (searchKeyword: string, page: number, size: number) => {

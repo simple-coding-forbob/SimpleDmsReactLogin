@@ -151,18 +151,18 @@ public interface MapStruct {
     void updateFromDto(BookingDto bookingDto, @MappingTarget Booking booking);
 
     // TODO: 17) Document <-> DocumentDto
-    @Mapping(source = "emp.eno", target = "eno")
+    @Mapping(source = "emp.eno", target = "drafter")
     DocumentDto toDto(Document document);
-    @Mapping(source = "eno", target = "emp.eno")
+    @Mapping(source = "drafter", target = "emp.eno")
     Document toEntity(DocumentDto documentDto);
     void updateFromDto(DocumentDto documentDto, @MappingTarget Document document);
 
     // TODO: 18) Approval <-> ApprovalDto
     @Mapping(source = "document.uuid", target = "uuid")
-    @Mapping(source = "emp.eno", target = "eno")
+    @Mapping(source = "emp.eno", target = "approver")
     ApprovalDto toDto(Approval approval);
     @Mapping(source = "uuid", target = "document.uuid")
-    @Mapping(source = "eno", target = "emp.eno")
+    @Mapping(source = "approver", target = "emp.eno")
     Approval toEntity(ApprovalDto approvalDto);
     void updateFromDto(ApprovalDto approvalDto,@MappingTarget Approval approval);
 }

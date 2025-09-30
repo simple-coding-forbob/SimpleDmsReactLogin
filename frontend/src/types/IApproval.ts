@@ -2,7 +2,7 @@
   aid?: number;
   uuid: string;
   title: string;
-  eno: number | string;
+  approver: number | string;
   seq: number | string;
   status?: string;
   approveTime?: string;

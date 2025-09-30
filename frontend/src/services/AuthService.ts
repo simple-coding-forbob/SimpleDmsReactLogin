@@ -2,7 +2,7 @@
 import type IApiResponse from "../types/IApiResponse";
 import type IAuth from "../types/auth/IAuth";
 import type IJwt from "../types/auth/IJwt";
-import common from "./CommonService";
+import common from "../common/CommonService";
 
 const login = (user: IAuth) => {
   return common.post<IJwt>("/auth/login", user);
