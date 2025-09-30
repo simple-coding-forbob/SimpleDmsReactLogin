@@ -4,7 +4,7 @@ import type IApiResponse from "../types/IApiResponse";
 import type IReservation from "../types/IReservation";
 import type IReservationStatus from "../types/IReservationStatus";
 
-import common from "./CommonService";
+import common from "../common/CommonService";
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
 const getStatusAll = () => {

@@ -336,6 +336,31 @@ export default function Header() {
 
           {loggedIn && (
             <>
+              <li className="group md:relative">
+                <Link to="#" className="hover:underline">
+                  전자 결재
+                </Link>
+                <ul
+                  className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
+                >
+                  <li className="m-2">
+                    <Link to="/approval-drafts" className="hover:underline">
+                      내가 올린 문서
+                    </Link>
+                  </li>
+                  <li className="m-2">
+                    <Link to="/approval-pending" className="hover:underline">
+                      내가 결재해야 할 문서
+                    </Link>
+                  </li>
+                  <li className="m-2">
+                    <Link to="/approval-completed" className="hover:underline">
+                      내가 이미 결재한 문서
+                    </Link>
+                  </li>
+                </ul>
+              </li>
               <li>
                 <Link to="/mypage">마이페이지</Link>
               </li>

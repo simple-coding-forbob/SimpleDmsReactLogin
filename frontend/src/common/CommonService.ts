@@ -1,4 +1,5 @@
 import axios from "axios";
+import messages from "./messages";
 
 // todo: baseURL: "http://스프링ip:스프링port/공통url"
 // react <-> springboot : json 객체(통신)
@@ -31,7 +32,7 @@ common.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error(error);
-    const msg = error.response?.data?.message || "관리자에게 문의하세요";
+    const msg = error.response?.data?.message || messages.contactAdmin;
     alert("[서버 오류] : " + msg);
 
     return Promise.reject(error);

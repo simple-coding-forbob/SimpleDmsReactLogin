@@ -2,7 +2,7 @@
 
 import type IApiResponse from "../types/IApiResponse";
 import type INewsBoard from "../types/INewsBoard";
-import common from "./CommonService";
+import common from "../common/CommonService";
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
 const getAll = (searchKeyword: string, page: number, size: number) => {

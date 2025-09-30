@@ -23,7 +23,7 @@ public class Approval extends BaseTimeEntity {
     @JoinColumn(name = "uuid")
     private Document document;             // 문서 UUID (FK → TB_DOCUMENT.UUID)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "eno")
+    @JoinColumn(name = "approver")
     private Emp emp;                       // 결재자 사원번호
     private Integer seq;
     private String status;                 // P:대기, A:승인, R:반려

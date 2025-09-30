@@ -92,9 +92,8 @@ const DocumentList = lazy(() => import("../pages/document/DocumentList"));
 const AddDocument = lazy(() => import("../pages/document/AddDocument"));
 
 // 전자결재 게시판
-const ApprovalList = lazy(() => import("../pages/approval/ApprovalList"));
+const ApprovalDrafts = lazy(() => import("../pages/approval/ApprovalDrafts"));
 const AddApproval = lazy(() => import("../pages/approval/AddApproval"));
-const ApprovalDetail = lazy(() => import("../pages/approval/ApprovalDetail"));
 
 const router = createBrowserRouter([
   {
@@ -145,9 +144,8 @@ const router = createBrowserRouter([
       { path: "booking-detail/:rid", element: <BookingDetail /> },
       { path: "document", element: <DocumentList /> },
       { path: "add-document", element: <AddDocument /> },
-      { path: "approval-detail/:aid", element: <ApprovalDetail /> },
-      { path: "approval", element: <ApprovalList /> },
-      { path: "add-approval", element: <AddApproval /> },
+      { path: "add-approval/:uuid", element: <AddApproval /> },
+      { path: "approval-drafts", element: <ApprovalDrafts /> },
     ],
   },
 ]);

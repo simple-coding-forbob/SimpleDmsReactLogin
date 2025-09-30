@@ -12,18 +12,18 @@ public class DocumentDto {
     private String uuid;     // 기본키, 시퀀스
     private String title;
     private String content;
-    private Long eno;        // 업로더 사원번호
+    private Long drafter;    // 업로더 사원번호
     private String fileName;
     private String fileUrl;
     private byte[] fileData; // 파일 데이터까지 포함
 
 //    TODO: DocumentRepository 에서 사용
-    public DocumentDto(String uuid, String title, String content, Long eno, String fileName, String fileUrl) {
+    public DocumentDto(String uuid, String title, String content, Long drafter, String fileName, String fileUrl) {
         this.uuid = uuid;
         this.title = title;
         this.content = content;
         this.fileName = fileName;
-        this.eno = eno;
+        this.drafter = drafter;
         this.fileUrl = fileUrl;
     }
 

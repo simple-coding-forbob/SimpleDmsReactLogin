@@ -1,13 +1,18 @@
 // DocumentService.ts
 import type IApiResponse from "../types/IApiResponse";
 import type IDocument from "../types/IDocument";
-import common from "./CommonService";
+import common from "../common/CommonService";
 
 // 전체 조회 (검색 + 페이징)
 const getAll = (searchKeyword: string, page: number, size: number) => {
   return common.get<IApiResponse<IDocument[]>>("/document", {
     params: { searchKeyword, page, size },
   });
+};
+
+// 상세 조회
+const get = (uuid: string) => {
+  return common.get<IApiResponse<IDocument>>(`/document/${uuid}`);
 };
 
 // 삭제
@@ -32,6 +37,7 @@ const insert = (data: IDocument) => {
 
 const DocumentService = {
   getAll,
+  get,
   remove,
   insert
 };

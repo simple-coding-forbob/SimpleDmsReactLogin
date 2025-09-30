@@ -2,7 +2,7 @@
 
 import type IApiResponse from "../types/IApiResponse";
 import type IEmp from "../types/IEmp";
-import common from "./CommonService";
+import common from "../common/CommonService";
 
 const getAll = (searchKeyword: string, page: number, size: number) => {
   return common.get<IApiResponse<IEmp[]>>("/emp", {

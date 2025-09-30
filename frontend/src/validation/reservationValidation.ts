@@ -1,15 +1,16 @@
 import * as yup from "yup";
+import messages from "../common/messages";
 
 // 예약 유효성 체크
 const reservationValidation = yup.object({
-  mid: yup.number().typeError("id는 숫자여야 합니다")
-        .required("회의실을 입력해주세요"),
-  startTime: yup.date().typeError("올바른 날짜를 입력해주세요")
-                .required("시작일을 입력해주세요")
-                .min(new Date(), "과거 시간은 예약할 수 없습니다"),
-  endTime: yup.date().typeError("올바른 날짜를 입력해주세요")
-                .required("종료일을 입력해주세요")
-                .min(yup.ref("startTime"), "종료일은 시작일 이후여야 합니다")
+  mid: yup.number().typeError(messages.number)
+        .required(messages.required),
+  startTime: yup.date().typeError(messages.date)
+                .required(messages.required)
+                .min(new Date(), messages.minStartTime),
+  endTime: yup.date().typeError(messages.number)
+                .required(messages.required)
+                .min(yup.ref("startTime"), messages.minEndTime)
 });
 
 export default reservationValidation;
