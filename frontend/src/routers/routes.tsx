@@ -93,6 +93,7 @@ const AddDocument = lazy(() => import("../pages/document/AddDocument"));
 
 // 전자결재 게시판
 const ApprovalDrafts = lazy(() => import("../pages/approval/ApprovalDrafts"));
+const ApprovalPending = lazy(() => import("../pages/approval/ApprovalPending"));
 const AddApproval = lazy(() => import("../pages/approval/AddApproval"));
 
 const router = createBrowserRouter([
@@ -146,6 +147,7 @@ const router = createBrowserRouter([
       { path: "add-document", element: <AddDocument /> },
       { path: "add-approval/:uuid", element: <AddApproval /> },
       { path: "approval-drafts", element: <ApprovalDrafts /> },
+      { path: "approval-pending", element: <ApprovalPending /> },
     ],
   },
 ]);

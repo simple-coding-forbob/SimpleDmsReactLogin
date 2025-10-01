@@ -33,8 +33,9 @@ class FreeBoardServiceTest {
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_ADMIN");
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(authority);       // 권한들
+        Long eno=7788L;
 
-        SecurityUserDto securityUserDto = new SecurityUserDto(email, password, authorities);
+        SecurityUserDto securityUserDto = new SecurityUserDto(email, password, authorities, eno);
 
         // 인증 유저 만들기
         UsernamePasswordAuthenticationToken auth =

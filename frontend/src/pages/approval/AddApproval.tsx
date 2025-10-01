@@ -36,7 +36,7 @@ function AddApproval() {
     try {
       await ApprovalService.insert(data);
       alert(messages.save);
-      nav("/approval");
+      nav("/approval-drafts");
     } catch (error) {
       console.error(error);
       alert(messages.contactAdmin);
@@ -86,12 +86,12 @@ function AddApproval() {
 
         {/* eno 입력 */}
         <div className="mb-4">
-          <label htmlFor="eno" className="block mb-1">
+          <label htmlFor="approver" className="block mb-1">
             결재자 사원번호
           </label>
           <textarea
-            id="eno"
-            name="eno"
+            id="approver"
+            name="approver"
             placeholder="결재자 사원번호"
             className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring focus:ring-blue-500"
             value={formik.values.approver}

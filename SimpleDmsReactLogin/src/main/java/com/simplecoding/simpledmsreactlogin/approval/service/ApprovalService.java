@@ -3,8 +3,10 @@ package com.simplecoding.simpledmsreactlogin.approval.service;
 import com.simplecoding.simpledmsreactlogin.approval.dto.ApprovalDto;
 import com.simplecoding.simpledmsreactlogin.approval.entity.Approval;
 import com.simplecoding.simpledmsreactlogin.approval.repository.ApprovalRepository;
+import com.simplecoding.simpledmsreactlogin.auth.dto.SecurityUserDto;
 import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
+import com.simplecoding.simpledmsreactlogin.common.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,10 +20,18 @@ public class ApprovalService {
     private final ApprovalRepository approvalRepository;
     private final MapStruct mapStruct;
     private final ErrorMsg errorMsg;
+    private final SecurityUtil securityUtil;
 
-    // 전체조회 + 검색 + 페이징
-    public Page<ApprovalDto> selectApprovalList(String searchKeyword, Pageable pageable) {
-        return approvalRepository.selectApprovalList(searchKeyword, pageable);
+    // 내가 올린 문서 조회
+    public Page<ApprovalDto> selectApprovalDrafts(String searchKeyword, Pageable pageable) {
+        SecurityUserDto securityUserDto= securityUtil.getLoginUser();
+        return approvalRepository.selectApprovalDrafts(searchKeyword, securityUserDto.getEno(), pageable);
+    }
+
+    // 내가 결재해야할 문서 조회
+    public Page<ApprovalDto> selectApprovalPending(String searchKeyword, Pageable pageable) {
+        SecurityUserDto securityUserDto= securityUtil.getLoginUser();
+        return approvalRepository.selectApprovalPending(searchKeyword, securityUserDto.getEno(), pageable);
     }
 
     // 저장 (신규 결재 라인)

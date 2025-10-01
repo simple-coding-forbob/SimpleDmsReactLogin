@@ -47,26 +47,10 @@ class ApprovalServiceTest {
     }
 
     @Test
-    void selectApprovalList() {
+    void selectApprovalDrafter() {
         Pageable pageable= PageRequest.of(0, 3);
         String searchKeyword="";
-        Page<ApprovalDto> page=approvalService.selectApprovalList(searchKeyword, pageable);
+        Page<ApprovalDto> page=approvalService.selectApprovalDrafts(searchKeyword, pageable);
         log.info(page.getContent());
-    }
-
-    @Test
-    void save() {
-    }
-
-    @Test
-    void findById() {
-    }
-
-    @Test
-    void updateFromDto() {
-    }
-
-    @Test
-    void deleteById() {
     }
 }
