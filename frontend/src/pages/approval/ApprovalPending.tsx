@@ -5,7 +5,7 @@ import ApprovalService from "../../services/ApprovalService";
 import type IApproval from "../../types/IApproval";
 import { Meta } from "react-head";
 
-const ApprovalDrafts = () => {
+const ApprovalPending = () => {
   const [approvals, setApprovals] = useState<IApproval[]>([]);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [page, setPage] = useState<number>(1);
@@ -23,11 +23,29 @@ const ApprovalDrafts = () => {
   };
 
   const selectList = async () => {
-    const response = await ApprovalService.getAllDrafts(searchKeyword, page - 1, size);
+    const response = await ApprovalService.getAllPending(
+      searchKeyword,
+      page - 1,
+      size
+    );
     const { result, totalNumber } = response.data;
     setApprovals(result);
     setTotalNumber(totalNumber);
     console.log(response.data);
+  };
+
+  // 승인
+  const approval = async (aid: number, data: IApproval) => {
+    await ApprovalService.approval(aid, data);
+    alert("수정되었습니다");
+    selectList();
+  };
+  
+  // 반려
+  const reject = async (aid: number, data: IApproval) => {
+    await ApprovalService.reject(aid, data);
+    alert("수정되었습니다");
+    selectList();
   };
 
   useEffect(() => {
@@ -75,11 +93,33 @@ const ApprovalDrafts = () => {
                 <td className="px-4 py-2 border-b text-center">
                   <Link to={`/approval-detail/${data.uuid}`}>{data.title}</Link>
                 </td>
-                <td className="px-4 py-2 border-b text-center">{data.approver}</td>
+                <td className="px-4 py-2 border-b text-center">
+                  {data.approver}
+                </td>
                 <td className="px-4 py-2 border-b text-center">{data.seq}</td>
-                <td className="px-4 py-2 border-b text-center">{data.status}</td>
-                <td className="px-4 py-2 border-b text-center">{data.approveTime}</td>
+                <td className="px-4 py-2 border-b text-center">
+                  {data.status}
+                </td>
+                <td className="px-4 py-2 border-b text-center">
+                  {data.approveTime}
+                </td>
                 <td className="px-4 py-2 border-b text-center">{data.note}</td>
+                <td>
+                  <div className="mt-2 flex space-x-2">
+                    <button
+                      className="px-2 py-1 bg-green-600 rounded text-white"
+                      onClick={() => approval(data.aid?? 0, data)}
+                    >
+                      결재
+                    </button>
+                    <button
+                      className="px-2 py-1 bg-red-600 rounded text-white"
+                      onClick={() => reject(data.aid?? 0, data)}
+                    >
+                      반려
+                    </button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -100,4 +140,4 @@ const ApprovalDrafts = () => {
   );
 };
 
-export default ApprovalDrafts;
+export default ApprovalPending;

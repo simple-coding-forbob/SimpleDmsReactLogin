@@ -4,9 +4,16 @@ import type IApproval from "../types/IApproval";
 
 import common from "../common/CommonService";
 
-// 전체 문서 조회 + like 검색 (paging)
-const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get<IApiResponse<IApproval[]>>("/approval", {
+// 내가 올린 문서 조회
+const getAllDrafts = (searchKeyword: string, page: number, size: number) => {
+  return common.get<IApiResponse<IApproval[]>>("/approval-drafts", {
+    params: { searchKeyword, page, size },
+  });
+};
+
+// 내가 결재해야할 문서 조회
+const getAllPending = (searchKeyword: string, page: number, size: number) => {
+  return common.get<IApiResponse<IApproval[]>>("/approval-pending", {
     params: { searchKeyword, page, size },
   });
 };
@@ -21,8 +28,13 @@ const insert = (data: IApproval) => {
   return common.post("/approval", data);
 };
 
-// 수정 (결재선 변경, 문서 수정 등)
-const update = (aid: number, data: IApproval) => {
+// 승인
+const approval = (aid: number, data: IApproval) => {
+  return common.put(`/approval/${aid}`, data);
+};
+
+// 반려
+const reject = (aid: number, data: IApproval) => {
   return common.put(`/approval/${aid}`, data);
 };
 
@@ -32,10 +44,12 @@ const remove = (aid: number) => {
 };
 
 const ApprovalService = {
-  getAll,
+  getAllDrafts,
+  getAllPending,
   get,
   insert,
-  update,
+  approval,
+  reject,
   remove,
 };
 

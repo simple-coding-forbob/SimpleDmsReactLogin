@@ -16,6 +16,29 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
             "a.aid, a.document.uuid, a.document.title, a.emp.eno, a.seq, a.status, a.approveTime, a.note) " +
             "from Approval a " +
             "where a.document.title like %:searchKeyword% " +
-            "order by a.insertTime desc")
-    Page<ApprovalDto> selectApprovalList(@Param("searchKeyword") String searchKeyword, Pageable pageable);
+            "and a.document.emp.eno=:drafter " +
+            "and a.status='P' " +
+            "order by a.document.uuid, a.seq ")
+    Page<ApprovalDto> selectApprovalDrafts(@Param("searchKeyword") String searchKeyword,
+                                         @Param("drafter") Long drafter, Pageable pageable);
+
+    @Query("select new com.simplecoding.simpledmsreactlogin.approval.dto.ApprovalDto(" +
+            "a.aid, a.document.uuid, a.document.title, a.emp.eno, a.seq, a.status, a.approveTime, a.note) " +
+            "from Approval a " +
+            "where a.document.title like %:searchKeyword% " +
+            "and a.emp.eno=:approver " +
+            "and a.status='P' " +
+            "order by a.document.uuid, a.seq ")
+    Page<ApprovalDto> selectApprovalPending(@Param("searchKeyword") String searchKeyword,
+                                            @Param("approver") Long approver, Pageable pageable);
+
+    @Query("select new com.simplecoding.simpledmsreactlogin.approval.dto.ApprovalDto(" +
+            "a.aid, a.document.uuid, a.document.title, a.emp.eno, a.seq, a.status, a.approveTime, a.note) " +
+            "from Approval a " +
+            "where a.document.title like %:searchKeyword% " +
+            "and a.emp.eno=:approver " +
+            "and a.status='C' " +
+            "order by a.document.uuid, a.seq ")
+    Page<ApprovalDto> selectApprovalCompleted(@Param("searchKeyword") String searchKeyword,
+                                            @Param("approver") Long approver, Pageable pageable);
 }

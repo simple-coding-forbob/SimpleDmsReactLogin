@@ -1,7 +1,6 @@
 package com.simplecoding.simpledmsreactlogin.publiccar.service;
 
 import com.simplecoding.simpledmsreactlogin.auth.dto.SecurityUserDto;
-import com.simplecoding.simpledmsreactlogin.meetingroom.dto.MeetingRoomDto;
 import com.simplecoding.simpledmsreactlogin.publiccar.dto.PublicCarDto;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,8 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @Log4j2
 @SpringBootTest
@@ -34,8 +31,9 @@ class PublicCarServiceTest {
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_ADMIN");
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(authority);       // 권한들
+        Long eno=7788L;
 
-        SecurityUserDto securityUserDto = new SecurityUserDto(email, password, authorities);
+        SecurityUserDto securityUserDto = new SecurityUserDto(email, password, authorities, eno);
 
         // 인증 유저 만들기
         UsernamePasswordAuthenticationToken auth =

@@ -25,14 +25,28 @@ public class ApprovalController {
 
     private final ApprovalService approvalService;
 
-    // 전체조회 + 검색 + 페이징
-    @Operation(summary = "결재 라인 전체 조회", description = "검색 키워드로 결재 라인 목록을 조회합니다.")
-    @GetMapping("/approval")
-    public ResponseEntity<ApiResponse<List<ApprovalDto>>> selectApprovalList(
+    // 내가 올린 문서 조회
+    @Operation(summary = "내가 올린 문서 조회", description = "검색 키워드로 내가 올린 문서를 조회합니다.")
+    @GetMapping("/approval-drafts")
+    public ResponseEntity<ApiResponse<List<ApprovalDto>>> selectApprovalDrafts(
             @Parameter(description = "검색 키워드") @RequestParam(defaultValue = "") String searchKeyword,
             @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
-        Page<ApprovalDto> pages = approvalService.selectApprovalList(searchKeyword, pageable);
+        Page<ApprovalDto> pages = approvalService.selectApprovalDrafts(searchKeyword, pageable);
+
+        ApiResponse<List<ApprovalDto>> response = new ApiResponse<>(true,
+                "조회 성공", pages.getContent(), pages.getNumber(), pages.getTotalElements());
+        return ResponseEntity.ok(response);
+    }
+
+    // 내가 결재해야할 문서 조회
+    @Operation(summary = "내가 결재해야할 문서 조회", description = "검색 키워드로 결재해야할 문서를 조회합니다.")
+    @GetMapping("/approval-pending")
+    public ResponseEntity<ApiResponse<List<ApprovalDto>>> selectApprovalPending(
+            @Parameter(description = "검색 키워드") @RequestParam(defaultValue = "") String searchKeyword,
+            @PageableDefault(page = 0, size = 10) Pageable pageable) {
+
+        Page<ApprovalDto> pages = approvalService.selectApprovalPending(searchKeyword, pageable);
 
         ApiResponse<List<ApprovalDto>> response = new ApiResponse<>(true,
                 "조회 성공", pages.getContent(), pages.getNumber(), pages.getTotalElements());

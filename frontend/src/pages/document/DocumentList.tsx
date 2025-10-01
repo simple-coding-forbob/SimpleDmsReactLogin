@@ -95,7 +95,7 @@ const DocumentList = () => {
               </a>
               <p className="text-gray-600">{doc.content}</p>
               <p className="text-sm text-gray-400">
-                작성자 사원번호: {doc.eno}
+                작성자 사원번호: {doc.drafter}
               </p>
               <div className="mt-2 flex space-x-2">
                 <button
