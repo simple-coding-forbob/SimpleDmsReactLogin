@@ -2,7 +2,6 @@ package com.simplecoding.simpledmsreactlogin.document.controller;
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
 import com.simplecoding.simpledmsreactlogin.document.dto.DocumentDto;
-import com.simplecoding.simpledmsreactlogin.document.entity.Document;
 import com.simplecoding.simpledmsreactlogin.document.service.DocumentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -17,9 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Log4j2
@@ -52,47 +49,51 @@ public class DocumentController {
     // 추가
     @Operation(summary = "Document 등록", description = "새로운 Document를 등록합니다.")
     @PostMapping("/document")
-    public ResponseEntity<Void> create(
+    public ResponseEntity<DocumentDto> create(
             @RequestParam String title,
-            @RequestParam String content,
-            @RequestParam(required = false) MultipartFile fileData
-    ) throws Exception {
-        DocumentDto documentDto = new DocumentDto(title, content, fileData.getOriginalFilename(), fileData);
+            @RequestParam String content
+    ) {
+        DocumentDto documentDto = new DocumentDto();
+        documentDto.setTitle(title);
+        documentDto.setContent(content);
+
         documentService.save(documentDto);
         return ResponseEntity.ok().build();
     }
 
     // 상세조회
     @Operation(summary = "Document 상세 조회", description = "Document 상세 정보를 조회합니다.")
-    @GetMapping("/document/{uuid}")
-    public ResponseEntity<ApiResponse<DocumentDto>> findById(@Parameter(description = "조회할 uuid") @PathVariable String  uuid) {
-        DocumentDto documentDto = documentService.findByIdToDto(uuid);
-
+    @GetMapping("/document/{docId}")
+    public ResponseEntity<ApiResponse<DocumentDto>> findById(
+            @Parameter(description = "조회할 Document ID") @PathVariable Long docId
+    ) {
+        DocumentDto documentDto = documentService.findByIdToDto(docId);
         ApiResponse<DocumentDto> response = new ApiResponse<>(true, "조회 성공", documentDto, 0, 0);
         return ResponseEntity.ok(response);
     }
 
     // 삭제
-    @Operation(summary = "Document 삭제", description = "UUID로 삭제합니다.")
-    @DeleteMapping("/document/{uuid}")
-    public ResponseEntity<Void> delete(@PathVariable String uuid) {
-        documentService.deleteById(uuid);
+    @Operation(summary = "Document 삭제", description = "ID로 삭제합니다.")
+    @DeleteMapping("/document/{docId}")
+    public ResponseEntity<Void> delete(@PathVariable Long docId) {
+        documentService.deleteById(docId);
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Document 다운로드", description = "UUID로 첨부파일을 다운로드합니다.")
-    @GetMapping("/download/document/{uuid}")
-    public ResponseEntity<byte[]> fileDownload(@PathVariable String uuid) {
-        Document document = documentService.findById(uuid);
+    @Operation(summary = "Document PDF 다운로드", description = "Document 내용을 PDF로 생성하여 다운로드합니다.")
+    @GetMapping("/document/pdf/{docId}")
+    public ResponseEntity<byte[]> downloadPdf(@PathVariable Long docId) throws Exception {
 
-        // ContentDisposition 사용 (브라우저 호환성 보장)
-        ContentDisposition contentDisposition = ContentDisposition.attachment()            // 첨부파일 있음 표시
-                .filename(document.getFileName(), StandardCharsets.UTF_8)                  // 첨부파일명 표시, 자동 인코딩
+        byte[] pdfBytes = documentService.generatePdf(docId);
+
+        ContentDisposition contentDisposition = ContentDisposition
+                .attachment()
+                .filename("document_" + docId + ".pdf")
                 .build();
 
         return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)                            // 문서형식: 바이너리 파일 표시
-                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString())     // 첨부파일 있다고 표시, 첨부파일명(인코딩)도 표시
-                .body(document.getFileData());                                              // 실제 첨부파일 전송
+                .contentType(MediaType.APPLICATION_PDF)
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString())
+                .body(pdfBytes);
     }
 }

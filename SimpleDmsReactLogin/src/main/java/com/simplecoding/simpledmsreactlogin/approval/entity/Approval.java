@@ -22,7 +22,7 @@ public class Approval extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long aid;                                // PK
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uuid")
+    @JoinColumn(name = "doc_id")
     private Document document;                       // 문서 UUID (FK → TB_DOCUMENT.UUID)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "approver")
@@ -30,6 +30,6 @@ public class Approval extends BaseTimeEntity {
     private Integer seq;
     @Enumerated(EnumType.STRING)
     private ApprovalStatus status=ApprovalStatus.P;  // P:대기, A:승인, R:반려, C:완료
-    private LocalDateTime approveTime;
+    private LocalDateTime approveTime;               // 승인/반려 시간 기록
     private String note;
 }

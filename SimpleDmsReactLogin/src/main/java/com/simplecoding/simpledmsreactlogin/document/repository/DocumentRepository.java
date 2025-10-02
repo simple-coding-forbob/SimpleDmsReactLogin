@@ -10,11 +10,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DocumentRepository extends JpaRepository<Document, String> {
+public interface DocumentRepository extends JpaRepository<Document, Long> {
+
     @Query(value = "select new com.simplecoding.simpledmsreactlogin.document.dto.DocumentDto(" +
-            "d.uuid, d.title, d.content, d.emp.eno, d.fileName, d.fileUrl) " +
-            "from Document d\n" +
-            "where d.title like %:searchKeyword% order by d.insertTime desc")
+            "d.docId, d.title, d.content, d.emp.eno) " +
+            "from Document d " +
+            "where (:searchKeyword is null or d.title like %:searchKeyword%) " +
+            "order by d.insertTime desc")
     Page<DocumentDto> selectDocumentList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable

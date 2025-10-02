@@ -3,6 +3,7 @@ package com.simplecoding.simpledmsreactlogin.document.service;
 import com.simplecoding.simpledmsreactlogin.auth.dto.SecurityUserDto;
 import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
+import com.simplecoding.simpledmsreactlogin.common.PdfGen;
 import com.simplecoding.simpledmsreactlogin.common.SecurityUtil;
 import com.simplecoding.simpledmsreactlogin.document.dto.DocumentDto;
 import com.simplecoding.simpledmsreactlogin.document.entity.Document;
@@ -11,9 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +24,7 @@ public class DocumentService {
     private final MapStruct mapStruct;
     private final ErrorMsg errorMsg;
     private final SecurityUtil securityUtil;
+    private final PdfGen pdfGen;
 
     // 전체조회 + 검색 + 페이징
     public Page<DocumentDto> selectDocumentList(String searchKeyword, Pageable pageable) {
@@ -31,52 +33,43 @@ public class DocumentService {
 
     // 저장 (신규 문서)
     public void save(DocumentDto documentDto) {
-        //        eno 저장: 로그인 유저
-        SecurityUserDto securityUserDto=securityUtil.getLoginUser();
+        // 로그인 유저의 사번 세팅
+        SecurityUserDto securityUserDto = securityUtil.getLoginUser();
         documentDto.setDrafter(securityUserDto.getEno());
 
         // DTO -> Entity 변환
         Document document = mapStruct.toEntity(documentDto);
-
-        // UUID 생성
-        String newUuid = UUID.randomUUID().toString();
-        document.setUuid(newUuid);
-
-//        파일 확장자 추출
-
-        // 다운로드 URL 생성
-        String downloadURL = generateDownloadUrl(newUuid);
-        document.setFileUrl(downloadURL);
-
         // DB 저장
         documentRepository.save(document);
     }
 
-    // 다운로드 URL 생성
-    public String generateDownloadUrl(String uuid) {
-        return ServletUriComponentsBuilder
-                .fromCurrentContextPath()              // http://localhost:8080
-                .path("/api/download/document/{uuid}") // 경로 지정
-                .buildAndExpand(uuid)                  // {uuid} 치환
-                .toUriString();                        // 최종 URL 생성
+    // 상세조회 (Entity)
+    public Document findById(Long docId) {
+        return documentRepository.findById(docId)
+                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
     }
 
-    // TODO: 상세조회: Controller 다운로드 메소드에서 사용
-    public Document findById(String uuid) {
-        return documentRepository.findById(uuid)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
-    }
-    
-    // 상세조회
-    public DocumentDto findByIdToDto(String uuid) {
-        Document document = documentRepository.findById(uuid)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+    // 상세조회 (DTO)
+    public DocumentDto findByIdToDto(Long docId) {
+        Document document = findById(docId);
         return mapStruct.toDto(document);
     }
 
     // 삭제
-    public void deleteById(String uuid) {
-        documentRepository.deleteById(uuid);
+    public void deleteById(Long docId) {
+        documentRepository.deleteById(docId);
     }
 
+    public byte[] generatePdf(Long id) throws Exception {
+        // 1. Document 조회
+        Document document = findById(id);
+        // 2. 데이터 바인딩
+        Map<String, Object> params = new HashMap<>();
+        params.put("title", document.getTitle());
+        params.put("content", document.getContent());
+        params.put("drafter", document.getEmp().getEname());
+
+        // 3. JasperReports 템플릿 불러오기 (resources 폴더 안에 .jrxml 또는 .jasper)
+        return pdfGen.generatePdf("jasper/document.jasper", document, params);
+    }
 }

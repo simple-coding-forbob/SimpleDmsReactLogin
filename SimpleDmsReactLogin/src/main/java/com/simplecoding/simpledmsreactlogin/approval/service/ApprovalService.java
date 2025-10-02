@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class ApprovalService {
@@ -34,6 +36,12 @@ public class ApprovalService {
         return approvalRepository.selectApprovalPending(searchKeyword, securityUserDto.getEno(), pageable);
     }
 
+    // 내가 이미 결재한 문서 조회
+    public Page<ApprovalDto> selectApprovalCompleted(String searchKeyword, Pageable pageable) {
+        SecurityUserDto securityUserDto= securityUtil.getLoginUser();
+        return approvalRepository.selectApprovalCompleted(searchKeyword, securityUserDto.getEno(), pageable);
+    }
+
     // 저장 (신규 결재 라인)
     public void save(ApprovalDto approvalDto) {
         Approval approval = mapStruct.toEntity(approvalDto);
@@ -47,13 +55,24 @@ public class ApprovalService {
         return mapStruct.toDto(approval);
     }
 
-    // 수정 (Dirty Checking)
+    // 승인
     @Transactional
-    public void updateFromDto(ApprovalDto approvalDto) {
+    public void approve(ApprovalDto approvalDto) {
         Approval approval = approvalRepository.findById(approvalDto.getAid())
                 .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
         mapStruct.updateFromDto(approvalDto, approval);
-        // Dirty Checking 으로 인해 save() 호출 불필요
+        // 승인 시간 기록
+        approval.setApproveTime(LocalDateTime.now());
+    }
+
+    // 반려
+    @Transactional
+    public void reject(ApprovalDto approvalDto) {
+        Approval approval = approvalRepository.findById(approvalDto.getAid())
+                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+        mapStruct.updateFromDto(approvalDto, approval);
+        // 승인/반려 시간 기록
+        approval.setApproveTime(LocalDateTime.now());
     }
 
     // 삭제
