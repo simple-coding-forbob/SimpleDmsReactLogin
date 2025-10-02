@@ -42,9 +42,9 @@ const DocumentList = () => {
   };
 
   // 삭제
-  const remove = async (uuid: string) => {
+  const remove = async (docId: string) => {
     try {
-      await DocumentService.remove(uuid);
+      await DocumentService.remove(docId);
       alert("삭제되었습니다");
       selectList();
     } catch (error) {
@@ -82,12 +82,12 @@ const DocumentList = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {documents.map((doc) => (
           <div
-            key={doc.uuid}
+            key={doc.docId}
             className="border rounded shadow hover:shadow-md overflow-hidden"
           >
             <div className="p-4">
               <a
-                href={doc.fileUrl ?? "javascript:void(0)"} // 백엔드 다운로드 URL
+                href={"/document/pdf/"+doc.docId} // 백엔드 다운로드 URL
                 className="font-bold text-lg text-blue-600 hover:underline"
                 download // 브라우저가 파일 다운로드 처리(새로 고침 없음)
               >
@@ -100,12 +100,12 @@ const DocumentList = () => {
               <div className="mt-2 flex space-x-2">
                 <button
                   className="px-2 py-1 bg-red-600 rounded text-white"
-                  onClick={() => remove(doc.uuid!)}
+                  onClick={() => remove(doc.docId!)}
                 >
                   삭제
                 </button>
                 <Link
-                  to={"/add-approval/"+ doc.uuid}
+                  to={"/add-approval/"+ doc.docId}
                   className="px-2 py-1 bg-green-600 rounded text-white"
                 >
                   결재

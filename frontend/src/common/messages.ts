@@ -4,6 +4,7 @@ const messages = {
   // TODO: 일반 에러/성공메세지
   contactAdmin: "오류가 발생했습니다. 관리자에게 문의하세요",
   save: "저장되었습니다",
+  update: "수정되었습니다",
   uuidNotFound: "uuid가 존재하지 않습니다.",
 
   // TODO: 유효성 에러메세지

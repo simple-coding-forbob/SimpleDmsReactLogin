@@ -52,6 +52,20 @@ public class ApprovalController {
                 "조회 성공", pages.getContent(), pages.getNumber(), pages.getTotalElements());
         return ResponseEntity.ok(response);
     }
+    
+    // 내가 이미 결재한 문서 조회
+    @Operation(summary = "내가 이미 결재한 문서 조회", description = "검색 키워드로 결재해야할 문서를 조회합니다.")
+    @GetMapping("/approval-completed")
+    public ResponseEntity<ApiResponse<List<ApprovalDto>>> selectApprovalCompleted(
+            @Parameter(description = "검색 키워드") @RequestParam(defaultValue = "") String searchKeyword,
+            @PageableDefault(page = 0, size = 10) Pageable pageable) {
+
+        Page<ApprovalDto> pages = approvalService.selectApprovalCompleted(searchKeyword, pageable);
+
+        ApiResponse<List<ApprovalDto>> response = new ApiResponse<>(true,
+                "조회 성공", pages.getContent(), pages.getNumber(), pages.getTotalElements());
+        return ResponseEntity.ok(response);
+    }
 
     // 저장
     @Operation(summary = "결재 라인 저장", description = "새로운 결재 라인을 등록합니다.")
@@ -61,15 +75,27 @@ public class ApprovalController {
         return ResponseEntity.ok().build();
     }
 
-    // 수정
-    @Operation(summary = "결재 라인 수정", description = "결재 라인을 수정합니다.")
+    // 승인
+    @Operation(summary = "승인", description = "승인 상태로 수정합니다.")
     @PutMapping("/approval/{aid}")
-    public ResponseEntity<Void> update(
-            @Parameter(description = "수정할 결재 라인 ID") @PathVariable Long aid,
+    public ResponseEntity<Void> approve(
+            @Parameter(description = "수정할 결재 ID") @PathVariable Long aid,
             @RequestBody ApprovalDto approvalDto) {
 
         approvalDto.setAid(aid);
-        approvalService.updateFromDto(approvalDto);
+        approvalService.approve(approvalDto);
+        return ResponseEntity.ok().build();
+    }
+    
+    // 반려
+    @Operation(summary = "반려", description = "반려 상태로 수정합니다.")
+    @PutMapping("/reject/{aid}")
+    public ResponseEntity<Void> reject(
+            @Parameter(description = "수정할 결재 ID") @PathVariable Long aid,
+            @RequestBody ApprovalDto approvalDto) {
+
+        approvalDto.setAid(aid);
+        approvalService.reject(approvalDto);
         return ResponseEntity.ok().build();
     }
 

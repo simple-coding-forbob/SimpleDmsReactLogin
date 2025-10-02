@@ -12,16 +12,15 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@EqualsAndHashCode(of = "id", callSuper = false)
 public class Document extends BaseTimeEntity {
+
     @Id
-    private String uuid;        // 기본키, 시퀀스
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // DB 시퀀스/auto increment
+    private Long docId;             // 기본키 (시퀀스)
     private String title;
     private String content;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "drafter")
-    private Emp emp;              // 업로더 사원번호
-    private String fileName;
-    private String fileUrl;
-    @Lob
-    private byte[] fileData;
+    @JoinColumn(name = "drafter") // FK: TB_EMP(ENO)
+    private Emp emp;              // 기안자
 }

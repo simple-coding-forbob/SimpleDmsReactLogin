@@ -11,28 +11,18 @@ const getAll = (searchKeyword: string, page: number, size: number) => {
 };
 
 // 상세 조회
-const get = (uuid: string) => {
-  return common.get<IApiResponse<IDocument>>(`/document/${uuid}`);
+const get = (docId: string) => {
+  return common.get<IApiResponse<IDocument>>(`/document/${docId}`);
 };
 
 // 삭제
-const remove = (uuid: string) => {
-  return common.delete(`/document/${uuid}`);
+const remove = (docId: string) => {
+  return common.delete(`/document/${docId}`);
 };
 
-// 업로드 / 등록
+// 저장함수
 const insert = (data: IDocument) => {
-  const formData = new FormData();
-  formData.append("title", data.title);
-  formData.append("content", data.content);
-
-  if (data.fileData) {
-    formData.append("fileData", data.fileData); 
-  }
-
-  return common.post("/document", formData, {
-    headers: { "Content-Type": "multipart/form-data" },
-  });
+  return common.post("/document", data);
 };
 
 const DocumentService = {

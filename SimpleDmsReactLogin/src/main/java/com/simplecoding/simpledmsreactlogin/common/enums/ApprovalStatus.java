@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum ApprovalStatus {
-    P( "대기"), A( "결재"), R( "반려"), C( "완료");
+    P( "대기"), A( "결재"), R( "반려");
 
     private final String description;
 

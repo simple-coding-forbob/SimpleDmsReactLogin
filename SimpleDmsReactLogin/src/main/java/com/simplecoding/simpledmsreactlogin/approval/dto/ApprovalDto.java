@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "aid")
 public class ApprovalDto {
     private Long aid;
-    private String uuid;                            // fk: Document
+    private Long docId;                            // fk: Document
     private String title;                           //     Document
     private Long approver;                          // fk: Emp
     private Integer seq;

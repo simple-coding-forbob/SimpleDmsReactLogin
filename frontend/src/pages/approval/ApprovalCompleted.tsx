@@ -1,12 +1,12 @@
 import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
+import { Meta } from "react-head";
 import { Link } from "react-router-dom";
 import ApprovalService from "../../services/ApprovalService";
 import type IApproval from "../../types/IApproval";
-import { Meta } from "react-head";
-import messages from "../../common/messages";
+import { format } from "date-fns";
 
-const ApprovalPending = () => {
+const ApprovalCompleted = () => {
   const [approvals, setApprovals] = useState<IApproval[]>([]);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [page, setPage] = useState<number>(1);
@@ -24,7 +24,7 @@ const ApprovalPending = () => {
   };
 
   const selectList = async () => {
-    const response = await ApprovalService.getAllPending(
+    const response = await ApprovalService.getAllCompleted(
       searchKeyword,
       page - 1,
       size
@@ -33,22 +33,6 @@ const ApprovalPending = () => {
     setApprovals(result);
     setTotalNumber(totalNumber);
     console.log(response.data);
-  };
-
-  // 승인
-  const approval = async (aid: number, data: IApproval) => {
-    data.status="A";
-    await ApprovalService.approval(aid, data);
-    alert(messages.update);
-    selectList();
-  };
-
-  // 반려
-  const reject = async (aid: number, data: IApproval) => {
-    data.status="R";
-    await ApprovalService.reject(aid, data);
-    alert(messages.update);
-    selectList();
   };
 
   useEffect(() => {
@@ -88,8 +72,6 @@ const ApprovalPending = () => {
               <th className="px-4 py-2 border-b">상태</th>
               <th className="px-4 py-2 border-b">결재시간</th>
               <th className="px-4 py-2 border-b">비고</th>
-              <th className="px-4 py-2 border-b">결재</th>
-              <th className="px-4 py-2 border-b">반려</th>
             </tr>
           </thead>
           <tbody>
@@ -106,29 +88,9 @@ const ApprovalPending = () => {
                   {data.status}
                 </td>
                 <td className="px-4 py-2 border-b text-center">
-                  {data.approveTime}
+                  {format(data.approveTime?? "", "yyyy-MM-dd HH:mm")}
                 </td>
                 <td className="px-4 py-2 border-b text-center">{data.note}</td>
-                <td>
-                  <div className="px-4 py-2 border-b text-center">
-                    <button
-                      className="px-2 py-1 bg-green-600 rounded text-white"
-                      onClick={() => approval(data.aid ?? 0, data)}
-                    >
-                      결재
-                    </button>
-                  </div>
-                </td>
-                <td>
-                  <div className="px-4 py-2 border-b text-center">
-                    <button
-                      className="px-2 py-1 bg-red-600 rounded text-white"
-                      onClick={() => reject(data.aid ?? 0, data)}
-                    >
-                      반려
-                    </button>
-                  </div>
-                </td>
               </tr>
             ))}
           </tbody>
@@ -149,4 +111,4 @@ const ApprovalPending = () => {
   );
 };
 
-export default ApprovalPending;
+export default ApprovalCompleted;

@@ -158,10 +158,10 @@ public interface MapStruct {
     void updateFromDto(DocumentDto documentDto, @MappingTarget Document document);
 
     // TODO: 18) Approval <-> ApprovalDto
-    @Mapping(source = "document.uuid", target = "uuid")
+    @Mapping(source = "document.docId", target = "docId")
     @Mapping(source = "emp.eno", target = "approver")
     ApprovalDto toDto(Approval approval);
-    @Mapping(source = "uuid", target = "document.uuid")
+    @Mapping(source = "docId", target = "document.docId")
     @Mapping(source = "approver", target = "emp.eno")
     Approval toEntity(ApprovalDto approvalDto);
     void updateFromDto(ApprovalDto approvalDto,@MappingTarget Approval approval);
