@@ -1,20 +1,19 @@
 ﻿// axios 공통함수 : 벡엔드 연동IApiResponse
 
-import type IApiResponse from "../types/IApiResponse";
 import type IFaq from "../types/IFaq";
 
 import common from "../common/CommonService";
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get<IApiResponse<IFaq[]>>("/faq", {
+  return common.get("/faq", {
     params: { searchKeyword, page, size },
   });
 };
 
 // 상세 조회
 const get = (fno: number) => {
-  return common.get<IApiResponse<IFaq>>(`/faq/${fno}`);
+  return common.get(`/faq/${fno}`);
 };
 
 // 저장함수

@@ -13,12 +13,19 @@ import org.springframework.stereotype.Repository;
 public interface DocumentRepository extends JpaRepository<Document, Long> {
 
     @Query(value = "select new com.simplecoding.simpledmsreactlogin.document.dto.DocumentDto(" +
-            "d.docId, d.title, d.content, d.emp.eno) " +
+            "d.docId, d.title, d.content, d.emp.eno, d.template.tid) " +
             "from Document d " +
-            "where (:searchKeyword is null or d.title like %:searchKeyword%) " +
+            "where d.title like %:searchKeyword% " +
             "order by d.insertTime desc")
     Page<DocumentDto> selectDocumentList(
             @Param("searchKeyword") String searchKeyword,
             Pageable pageable
+    );
+
+    @Query(value = "select count(d) " +
+            "from Document d " +
+            "where d.template.tid=:tid")
+    long countByDocumentId(
+            @Param("tid") Long tid
     );
 }

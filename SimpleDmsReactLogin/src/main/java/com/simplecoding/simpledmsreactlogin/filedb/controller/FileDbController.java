@@ -8,6 +8,7 @@ import com.simplecoding.simpledmsreactlogin.filedb.service.FileDbService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -51,11 +52,8 @@ public class FileDbController {
     @Operation(summary = "FileDb 등록", description = "새로운 FileDb를 등록합니다.")
     @PostMapping("/fileDb")
     public ResponseEntity<Void> create(
-            @RequestParam(defaultValue = "") String fileTitle,
-            @RequestParam(defaultValue = "") String fileContent,
-            @RequestParam(required = false) MultipartFile fileData
+        @Valid @ModelAttribute FileDbDto fileDbDto
     ) throws Exception {
-        FileDbDto fileDbDto = new FileDbDto(fileTitle, fileContent, fileData.getOriginalFilename(),fileData);
         fileDbService.save(fileDbDto);
         return ResponseEntity.ok().build();
     }
@@ -68,21 +66,30 @@ public class FileDbController {
         return ResponseEntity.ok().build();
     }
 
-    // 다운로드
     @Operation(summary = "FileDb 다운로드", description = "UUID로 첨부파일을 다운로드합니다.")
     @GetMapping("/download/fileDb/{uuid}")
-    public ResponseEntity<byte[]> fileDownload(@PathVariable String uuid) {
+    public ResponseEntity<byte[]> fileDownload(@PathVariable String uuid) throws Exception {
         FileDb fileDb = fileDbService.findById(uuid);
+
+        // 서버에 저장된 실제 파일 경로
+        Path filePath = Paths.get(commonUtil.getUploadDir()).resolve(uuid);
+
+        if (!Files.exists(filePath)) {
+            throw new RuntimeException("파일이 존재하지 않습니다."); // 또는 커스텀 예외
+        }
+
+        byte[] fileBytes = Files.readAllBytes(filePath);
 
         // ContentDisposition 사용 (브라우저 호환성 보장)
         ContentDisposition contentDisposition = ContentDisposition.attachment()
-                .filename(fileDb.getFileName(), StandardCharsets.UTF_8) // 실제 파일명 사용, 자동 인코딩
+                .filename(fileDb.getFileName(), StandardCharsets.UTF_8) // 실제 업로드한 파일명
                 .build();
 
         return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)                          // 바이너리 파일
-                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString())   // 첨부파일 표시
-                .body(fileDb.getFileData());                                              // 실제 파일 데이터 전송
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString())
+                .body(fileBytes);
     }
+
 
 }

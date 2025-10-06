@@ -1,20 +1,19 @@
 // axios 공통함수 : 벡엔드 연동IApiResponseIEventNotice
 
-import type IApiResponse from "../types/IApiResponse";
 import type IEventNotice from "../types/IEventNotice";
 
 import common from "../common/CommonService";
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get<IApiResponse<IEventNotice[]>>("/event-notice", {
+  return common.get("/event-notice", {
     params: { searchKeyword, page, size },
   });
 };
 
 // 상세 조회
 const get = (eid: number) => {
-  return common.get<IApiResponse<IEventNotice>>(`/event-notice/${eid}`);
+  return common.get(`/event-notice/${eid}`);
 };
 
 // 저장함수

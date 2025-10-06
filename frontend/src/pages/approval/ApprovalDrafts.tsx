@@ -1,9 +1,9 @@
 import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
+import { Meta } from "react-head";
 import { Link } from "react-router-dom";
 import ApprovalService from "../../services/ApprovalService";
 import type IApproval from "../../types/IApproval";
-import { Meta } from "react-head";
 
 const ApprovalDrafts = () => {
   const [approvals, setApprovals] = useState<IApproval[]>([]);
@@ -73,7 +73,7 @@ const ApprovalDrafts = () => {
             {approvals.map((data) => (
               <tr key={data.aid} className="hover:bg-gray-50">
                 <td className="px-4 py-2 border-b text-center">
-                  <Link to={`/approval-detail/${data.uuid}`}>{data.title}</Link>
+                  <Link to={`/approval-detail/${data.docId}`}>{data.title}</Link>
                 </td>
                 <td className="px-4 py-2 border-b text-center">{data.approver}</td>
                 <td className="px-4 py-2 border-b text-center">{data.seq}</td>

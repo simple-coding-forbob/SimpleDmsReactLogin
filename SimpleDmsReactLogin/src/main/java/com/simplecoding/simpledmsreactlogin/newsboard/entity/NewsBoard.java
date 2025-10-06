@@ -7,6 +7,12 @@ import lombok.*;
 
 @Entity
 @Table(name = "TB_NEWS_BOARD")
+@SequenceGenerator(
+        name = "SQ_NEWS_BOARD_JPA",
+        sequenceName = "SQ_NEWS_BOARD",
+        initialValue = 1,
+        allocationSize = 1
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,11 +22,11 @@ import lombok.*;
 public class NewsBoard extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_NEWS_BOARD_JPA")
     private Long nid;
     private String subject;
     private String text;
-    private Long viewCount=(long)0;
+    private Long viewCount = 0L;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "email")

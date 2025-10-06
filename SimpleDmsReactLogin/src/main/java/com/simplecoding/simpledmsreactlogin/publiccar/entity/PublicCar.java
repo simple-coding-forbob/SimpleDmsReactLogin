@@ -1,6 +1,5 @@
 package com.simplecoding.simpledmsreactlogin.publiccar.entity;
 
-
 import com.simplecoding.simpledmsreactlogin.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,6 +9,7 @@ import lombok.*;
 @SequenceGenerator(
         name = "SQ_PUBLIC_CAR_JPA",
         sequenceName = "SQ_PUBLIC_CAR",
+        initialValue = 1,      // 필요 시 초기값 설정
         allocationSize = 1
 )
 @Getter

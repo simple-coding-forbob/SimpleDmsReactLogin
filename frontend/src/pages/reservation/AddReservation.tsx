@@ -1,12 +1,12 @@
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-import { Meta } from "react-head";
-import type IReservation from "../../types/IReservation";
-import ReservationService from "../../services/ReservationService";
-import reservationValidation from "../../validation/reservationValidation";
 import { useEffect, useState } from "react";
+import { Meta } from "react-head";
+import { useNavigate } from "react-router-dom";
 import MeetingRoomService from "../../services/MeetingRoomService";
+import ReservationService from "../../services/ReservationService";
 import type IMeetingRoom from "../../types/IMeetingRoom";
+import type IReservation from "../../types/IReservation";
+import reservationValidation from "../../validation/reservationValidation";
 
 function AddReservation() {
   const nav = useNavigate();
@@ -15,11 +15,11 @@ function AddReservation() {
 
     // 회의실 전체조회
   useEffect(() => {
-    findAll();
+    selectAll();
   }, []);
 
-  const findAll = async () => {
-    const response = await MeetingRoomService.findAll();
+  const selectAll = async () => {
+    const response = await MeetingRoomService.selectAll();
     const { result } = response.data;
     setMeetingRooms(result);
     console.log(response.data);

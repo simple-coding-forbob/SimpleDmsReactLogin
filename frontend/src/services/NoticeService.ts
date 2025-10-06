@@ -1,20 +1,19 @@
 // axios 공통함수 : 벡엔드 연동IApiResponse
 
-import type IApiResponse from "../types/IApiResponse";
 import type INotice from "../types/INotice";
 
 import common from "../common/CommonService";
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get<IApiResponse<INotice[]>>("/notice?searchKeyword", {
+  return common.get("/notice", {
     params: { searchKeyword, page, size },
   });
 };
 
 // 상세 조회
 const get = (nid: number) => {
-  return common.get<IApiResponse<INotice>>(`/notice/${nid}`);
+  return common.get(`/notice/${nid}`);
 };
 
 // 저장함수

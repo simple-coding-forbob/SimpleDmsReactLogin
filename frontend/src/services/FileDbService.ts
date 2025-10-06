@@ -1,11 +1,10 @@
 // FiledbService.ts
-import type IApiResponse from "../types/IApiResponse";
-import type IFileDb from "../types/IFileDb";
 import common from "../common/CommonService";
+import type IFileDb from "../types/IFileDb";
 
 // 전체 조회 (like 검색 + 페이징)
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get<IApiResponse<IFileDb[]>>("/fileDb", {
+  return common.get("/fileDb", {
     params: { searchKeyword, page, size },
   });
 };

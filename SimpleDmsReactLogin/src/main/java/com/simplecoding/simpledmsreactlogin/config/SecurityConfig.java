@@ -27,16 +27,6 @@ public class SecurityConfig {
         return new AuthTokenFilter(); // JWT 인증 필터
     }
 
-    // 정적 리소스 인증 제외
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring()
-                .requestMatchers("/api/download/**",
-                        "/images/**",
-                        "/css/**",
-                        "/js/**", "favicon.ico","/v3/api-docs.yaml","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html");
-    }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // CORS, CSRF, 세션 정책 설정
@@ -49,6 +39,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/api/download/**", "/images/**", "/css/**","/js/**", "/favicon.ico").permitAll()
+                .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**","/v3/api-docs.yaml").permitAll()
                 .requestMatchers("/").permitAll()
                 .anyRequest().authenticated());
 

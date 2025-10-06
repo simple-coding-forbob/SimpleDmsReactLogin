@@ -2,9 +2,9 @@
 import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
 import { Meta } from "react-head";
+import { Link } from "react-router-dom";
 import DocumentService from "../../services/DocumentService";
 import type IDocument from "../../types/IDocument";
-import { Link } from "react-router-dom";
 
 const DocumentList = () => {
   const [documents, setDocuments] = useState<IDocument[]>([]);
@@ -27,29 +27,35 @@ const DocumentList = () => {
 
   // 전체 조회
   const selectList = async () => {
-    try {
-      const response = await DocumentService.getAll(
-        searchKeyword,
-        page - 1,
-        pageSize
-      );
-      const { result, totalNumber } = response.data;
-      setDocuments(result);
-      setTotalNumber(totalNumber); // rc-pagination total은 전체 아이템 수
-    } catch (error) {
-      console.error(error);
-    }
+    const response = await DocumentService.getAll(
+      searchKeyword,
+      page - 1,
+      pageSize
+    );
+    const { result, totalNumber } = response.data;
+    setDocuments(result);
+    setTotalNumber(totalNumber); // rc-pagination total은 전체 아이템 수
+  };
+
+  // pdf 다운로드 함수
+  const viewPdf = async (docId: number) => {
+    const response = await DocumentService.viewPdf(docId);
+    // 응답 데이터를 Blob으로 변환
+    const blob = new Blob([response.data], { type: "application/pdf" });
+    const url = window.URL.createObjectURL(blob);
+
+    // 새 탭에서 열기
+    window.open(url, "_blank");
+
+    // 메모리 정리
+    window.URL.revokeObjectURL(url);
   };
 
   // 삭제
-  const remove = async (docId: string) => {
-    try {
-      await DocumentService.remove(docId);
-      alert("삭제되었습니다");
-      selectList();
-    } catch (error) {
-      console.error(error);
-    }
+  const remove = async (docId: number) => {
+    await DocumentService.remove(docId);
+    alert("삭제되었습니다");
+    selectList();
   };
 
   useEffect(() => {
@@ -80,32 +86,31 @@ const DocumentList = () => {
 
       {/* 카드 리스트 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {documents.map((doc) => (
+        {documents.map((data) => (
           <div
-            key={doc.docId}
+            key={data.docId}
             className="border rounded shadow hover:shadow-md overflow-hidden"
           >
             <div className="p-4">
-              <a
-                href={"/document/pdf/"+doc.docId} // 백엔드 다운로드 URL
+              <button
                 className="font-bold text-lg text-blue-600 hover:underline"
-                download // 브라우저가 파일 다운로드 처리(새로 고침 없음)
+                onClick={() => viewPdf(data.docId!)}
               >
-                {doc.title}
-              </a>
-              <p className="text-gray-600">{doc.content}</p>
+                {data.title}
+              </button>
+              <p className="text-gray-600">{data.content}</p>
               <p className="text-sm text-gray-400">
-                작성자 사원번호: {doc.drafter}
+                작성자 사원번호: {data.drafter}
               </p>
               <div className="mt-2 flex space-x-2">
                 <button
                   className="px-2 py-1 bg-red-600 rounded text-white"
-                  onClick={() => remove(doc.docId!)}
+                  onClick={() => remove(data.docId!)}
                 >
                   삭제
                 </button>
                 <Link
-                  to={"/add-approval/"+ doc.docId}
+                  to={"/add-approval/" + data.docId}
                   className="px-2 py-1 bg-green-600 rounded text-white"
                 >
                   결재
