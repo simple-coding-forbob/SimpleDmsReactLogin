@@ -20,8 +20,7 @@ public class NoticeService {
     private final MapStruct mapStruct;
     
     public Page<NoticeDto> selectNoticeList(String searchKeyword, Pageable pageable) {
-        Page<NoticeDto> page= noticeRepository.selectNoticeList(searchKeyword, pageable);
-        return page;
+        return noticeRepository.selectNoticeList(searchKeyword, pageable);
     }
 
     public NoticeDto findById(long nid) {

@@ -300,6 +300,26 @@ export default function Header() {
           </li>
           <li className="group md:relative">
             <Link to="#" className="hover:underline">
+              Template
+            </Link>
+            <ul
+              className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
+            >
+              <li className="m-2">
+                <Link to="/template" className="hover:underline">
+                  Template 조회
+                </Link>
+              </li>
+              <li className="m-2">
+                <Link to="/add-template" className="hover:underline">
+                  Template 추가
+                </Link>
+              </li>
+            </ul>
+          </li>
+          <li className="group md:relative">
+            <Link to="#" className="hover:underline">
               Document
             </Link>
             <ul

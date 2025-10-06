@@ -1,19 +1,18 @@
 ﻿// axios 공통함수 : 벡엔드 연동IApiResponse
-import type IApiResponse from "../types/IApiResponse";
 import type IQna from "../types/IQna";
 
 import common from "../common/CommonService";
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get<IApiResponse<IQna[]>>("/qna?searchKeyword", {
+  return common.get("/qna", {
     params: { searchKeyword, page, size },
   });
 };
 
 // 상세 조회
 const get = (qno: number) => {
-  return common.get<IApiResponse<IQna>>(`/qna/${qno}`);
+  return common.get(`/qna/${qno}`);
 };
 
 // 저장함수

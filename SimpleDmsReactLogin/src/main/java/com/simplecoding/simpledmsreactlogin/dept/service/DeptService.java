@@ -24,8 +24,7 @@ public class DeptService {
     private final ErrorMsg errorMsg;
 
     public Page<DeptDto> selectDeptList(String searchKeyword, Pageable pageable) {
-        Page<DeptDto> page= deptRepository.selectDeptList(searchKeyword, pageable);
-        return page;
+        return deptRepository.selectDeptList(searchKeyword, pageable);
     }
 
     //    저장/수정 : 1) 기본키가(부서번호) 없으면 저장(insert)

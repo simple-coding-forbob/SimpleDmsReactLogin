@@ -1,37 +1,38 @@
 package com.simplecoding.simpledmsreactlogin.common;
 
-import net.sf.jasperreports.engine.JRException;
+import com.simplecoding.simpledmsreactlogin.common.dto.PdfDto;
+import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
+@RequiredArgsConstructor
 public class PdfGen {
 
-    /**
-     * 단일 데이터 객체로 PDF 생성
-     * @param templatePath resources/jasper/... .jasper 파일 경로
-     * @param data 단일 데이터 객체
-     * @param parameters JasperReports 파라미터
-     * @return PDF 바이트 배열
-     * @throws JRException, IOException
-     */
-    public <T> byte[] generatePdf(String templatePath, T data, Map<String, Object> parameters) throws Exception {
-        // 1. JasperReports 템플릿 로딩 (.jasper)
-        InputStream reportStream = new ClassPathResource(templatePath).getInputStream();
+    private final ErrorMsg errorMsg;
 
-        // 2. 단일 객체라도 Collection으로 감싸기
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(List.of(data));
+    public byte[] generatePdf(String templatePath, PdfDto pdfDto) throws Exception {
+        Path path = Paths.get(templatePath);                                                                // 1. JasperReports 템플릿 로딩 (.jasper)
+        if (!Files.exists(path)) {
+            throw new RuntimeException(errorMsg.getMessage("errors.path.not.found"));
+        }
 
-        // 3. PDF 생성
-        JasperPrint jasperPrint = JasperFillManager.fillReport(reportStream, parameters, dataSource);
-        return JasperExportManager.exportReportToPdf(jasperPrint);
+//        TODO: try - with - resources 로 에러나더라도 무조건 자동 close() 함수 실행됨
+        try(InputStream inputStream = new FileInputStream(path.toFile())) {
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(List.of(pdfDto));           // 2. 단일 객체라도 Collection으로 감싸기
+            JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, new HashMap<>(), dataSource);  // 3. PDF 생성
+            return JasperExportManager.exportReportToPdf(jasperPrint);
+        }
     }
 }

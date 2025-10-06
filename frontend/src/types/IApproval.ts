@@ -1,6 +1,6 @@
 ﻿export default interface IApproval {
   aid?: number;
-  uuid: string;
+  docId: number | string;
   title: string;
   approver: number | string;
   seq: number | string;

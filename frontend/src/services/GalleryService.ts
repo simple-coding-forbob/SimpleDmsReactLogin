@@ -1,11 +1,10 @@
 // FiledbService.ts
-import type IApiResponse from "../types/IApiResponse";
-import type IGallery from "../types/IGallery";
 import common from "../common/CommonService";
+import type IGallery from "../types/IGallery";
 
 // 전체 조회 (like 검색 + 페이징)
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get<IApiResponse<IGallery[]>>("/gallery", {
+  return common.get("/gallery", {
     params: { searchKeyword, page, size },
   });
 };

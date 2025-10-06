@@ -1,20 +1,20 @@
 import { useFormik } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 
-import approvalValidation from "../../validation/approvalValidation";
-import type IApproval from "../../types/IApproval";
-import ApprovalService from "../../services/ApprovalService";
-import { Meta } from "react-head";
 import { useEffect, useState } from "react";
-import DocumentService from "../../services/DocumentService";
-import type IDocument from "../../types/IDocument";
+import { Meta } from "react-head";
 import messages from "../../common/messages";
+import ApprovalService from "../../services/ApprovalService";
+import DocumentService from "../../services/DocumentService";
+import type IApproval from "../../types/IApproval";
+import type IDocument from "../../types/IDocument";
+import approvalValidation from "../../validation/approvalValidation";
 
 function AddApproval() {
-  const params = useParams<{ uuid: string }>();
-  const uuid=params.uuid;
+  const params = useParams<{ docId: string }>();
+  const docId=Number(params.docId);
   // TODO: 에러 처리
-  if(!uuid)  throw new Error(messages.uuidNotFound);
+  if(!docId)  throw new Error(messages.uuidNotFound);
 
   const nav = useNavigate();
 
@@ -22,30 +22,25 @@ function AddApproval() {
 
   // 상세조회
   useEffect(() => {
-    if (uuid) get();
-  }, [uuid]);
+    if (docId) get();
+  }, [docId]);
 
   const get = async () => {
-    const response = await DocumentService.get(uuid);
+    const response = await DocumentService.get(docId);
     const { result } = response.data;
     setDocument(result);
     console.log(result);
   };
 
   const save = async (data: IApproval) => {
-    try {
       await ApprovalService.insert(data);
       alert(messages.save);
       nav("/approval-drafts");
-    } catch (error) {
-      console.error(error);
-      alert(messages.contactAdmin);
-    }
   };
 
   const formik = useFormik({
     initialValues: {
-      uuid: document?.uuid?? "",
+      docId: document?.docId?? "",
       title: document?.title?? "",
       approver: "",
       seq: "",

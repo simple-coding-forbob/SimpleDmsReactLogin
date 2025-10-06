@@ -11,6 +11,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TB_RESERVATION")
+@SequenceGenerator(
+        name = "SQ_RESERVATION_JPA",
+        sequenceName = "SQ_RESERVATION",
+        initialValue = 1,
+        allocationSize = 1
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,9 +24,8 @@ import java.time.LocalDateTime;
 @ToString
 @EqualsAndHashCode(of = "rid", callSuper = false)
 public class Reservation extends BaseTimeEntity {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_RESERVATION_JPA")
     private Long rid;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "email")
@@ -31,5 +36,5 @@ public class Reservation extends BaseTimeEntity {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     @Enumerated(EnumType.STRING)
-    private ReservationStatus status=ReservationStatus.R;  // 코드설명, 기본(R:예약)
+    private ReservationStatus status=ReservationStatus.R;
 }

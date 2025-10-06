@@ -1,25 +1,24 @@
 ﻿// axios 공통함수 : 벡엔드 연동IApiResponse
 
-import type IApiResponse from "../types/IApiResponse";
 import type IMeetingRoom from "../types/IMeetingRoom";
 
 import common from "../common/CommonService";
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
-const findAll = () => {
-  return common.get<IApiResponse<IMeetingRoom[]>>("/meeting-room/all");
+const selectAll = () => {
+  return common.get("/meeting-room/all");
 };
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get<IApiResponse<IMeetingRoom[]>>("/meeting-room", {
+  return common.get("/meeting-room", {
     params: { searchKeyword, page, size },
   });
 };
 
 // 상세 조회
 const get = (mid: number) => {
-  return common.get<IApiResponse<IMeetingRoom>>(`/meeting-room/${mid}`);
+  return common.get(`/meeting-room/${mid}`);
 };
 
 // 저장함수
@@ -38,7 +37,7 @@ const remove = (mid: number) => {
 };
 
 const MeetingRoomService = {
-  findAll,
+  selectAll,
   getAll,
   get,
   insert,

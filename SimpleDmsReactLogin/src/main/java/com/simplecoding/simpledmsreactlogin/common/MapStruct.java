@@ -8,6 +8,7 @@ import com.simplecoding.simpledmsreactlogin.auth.dto.MypageDto;
 import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
 import com.simplecoding.simpledmsreactlogin.booking.dto.BookingDto;
 import com.simplecoding.simpledmsreactlogin.booking.entity.Booking;
+import com.simplecoding.simpledmsreactlogin.common.dto.PdfDto;
 import com.simplecoding.simpledmsreactlogin.dept.dto.DeptDto;
 import com.simplecoding.simpledmsreactlogin.dept.entity.Dept;
 import com.simplecoding.simpledmsreactlogin.document.dto.DocumentDto;
@@ -36,6 +37,8 @@ import com.simplecoding.simpledmsreactlogin.qna.dto.QnaDto;
 import com.simplecoding.simpledmsreactlogin.qna.entity.Qna;
 import com.simplecoding.simpledmsreactlogin.reservation.dto.ReservationDto;
 import com.simplecoding.simpledmsreactlogin.reservation.entity.Reservation;
+import com.simplecoding.simpledmsreactlogin.template.dto.TemplateDto;
+import com.simplecoding.simpledmsreactlogin.template.entity.Template;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -150,14 +153,28 @@ public interface MapStruct {
     Booking toEntity(BookingDto bookingDto);
     void updateFromDto(BookingDto bookingDto, @MappingTarget Booking booking);
 
-    // TODO: 17) Document <-> DocumentDto
+    // TODO: 17) Template <-> TemplateDto
+    TemplateDto toDto(Template template);
+    Template toEntity(TemplateDto templateDto);
+
+    // TODO: 18) Document <-> DocumentDto
     @Mapping(source = "emp.eno", target = "drafter")
+    @Mapping(source = "template.tid", target = "tid")
     DocumentDto toDto(Document document);
     @Mapping(source = "drafter", target = "emp.eno")
+    @Mapping(source = "tid", target = "template.tid")
     Document toEntity(DocumentDto documentDto);
     void updateFromDto(DocumentDto documentDto, @MappingTarget Document document);
 
-    // TODO: 18) Approval <-> ApprovalDto
+    // TODO: 19) Document -> PdfDto
+    @Mapping(source = "emp.dept.dname", target = "dname")
+    @Mapping(source = "emp.job", target = "job")
+    @Mapping(source = "emp.ename", target = "ename")
+    @Mapping(source = "emp.eno", target = "drafter")
+    @Mapping(source = "template.fileName", target = "fileName")
+    PdfDto toPdfDto(Document document);
+
+    // TODO: 20) Approval <-> ApprovalDto
     @Mapping(source = "document.docId", target = "docId")
     @Mapping(source = "emp.eno", target = "approver")
     ApprovalDto toDto(Approval approval);

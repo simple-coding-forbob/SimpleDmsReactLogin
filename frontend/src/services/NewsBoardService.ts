@@ -1,19 +1,18 @@
 ﻿// axios 공통함수 : 벡엔드 연동IApiResponse
 
-import type IApiResponse from "../types/IApiResponse";
-import type INewsBoard from "../types/INewsBoard";
 import common from "../common/CommonService";
+import type INewsBoard from "../types/INewsBoard";
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get<IApiResponse<INewsBoard[]>>("/news-board", {
+  return common.get("/news-board", {
     params: { searchKeyword, page, size },
   });
 };
 
 // 상세 조회
 const get = (nid: number) => {
-  return common.get<IApiResponse<INewsBoard>>(`/news-board/${nid}`);
+  return common.get(`/news-board/${nid}`);
 };
 
 // 저장함수

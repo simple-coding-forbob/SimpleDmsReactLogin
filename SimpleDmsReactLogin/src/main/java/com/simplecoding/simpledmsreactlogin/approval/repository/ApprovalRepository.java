@@ -12,6 +12,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ApprovalRepository extends JpaRepository<Approval, Long> {
 
+    @Query("select count(a) " +
+            "from Approval a " +
+            "where a.document.docId=:docId " +
+            "and a.status='P'")
+    long countAlreadyApproval(@Param("docId") Long docId);
+
     @Query("select new com.simplecoding.simpledmsreactlogin.approval.dto.ApprovalDto(" +
             "a.aid, a.document.docId, a.document.title, a.emp.eno, a.seq, a.status, a.approveTime, a.note) " +
             "from Approval a " +

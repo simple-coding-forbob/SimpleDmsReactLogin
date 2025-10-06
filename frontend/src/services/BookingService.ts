@@ -1,25 +1,23 @@
 ﻿// axios 공통함수 : 벡엔드 연동IApiResponse
 
-import type IApiResponse from "../types/IApiResponse";
 import type IBooking from "../types/IBooking";
-import type IBookingStatus from "../types/IBookingStatus";
 
 import common from "../common/CommonService";
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
 const getStatusAll = () => {
-  return common.get<IApiResponse<IBookingStatus[]>>("/booking/status");
+  return common.get("/booking/status");
 };
 
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get<IApiResponse<IBooking[]>>("/booking", {
+  return common.get("/booking", {
     params: { searchKeyword, page, size },
   });
 };
 
 // 상세 조회
 const get = (mid: number) => {
-  return common.get<IApiResponse<IBooking>>(`/booking/${mid}`);
+  return common.get(`/booking/${mid}`);
 };
 
 // 저장함수

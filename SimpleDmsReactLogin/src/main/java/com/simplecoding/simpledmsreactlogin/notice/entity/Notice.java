@@ -1,14 +1,18 @@
 package com.simplecoding.simpledmsreactlogin.notice.entity;
 
-
 import com.simplecoding.simpledmsreactlogin.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "TB_NOTICE")
+@SequenceGenerator(
+        name = "SQ_NOTICE_JPA",
+        sequenceName = "SQ_NOTICE",
+        initialValue = 1,
+        allocationSize = 1
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,8 +22,8 @@ import java.time.LocalDate;
 public class Notice extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long nid;            // 기본키, 시퀀스
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_NOTICE_JPA")
+    private Long nid;            // 기본키
     private String title;
     private String content;
     private String isVisible;    // 기본 N

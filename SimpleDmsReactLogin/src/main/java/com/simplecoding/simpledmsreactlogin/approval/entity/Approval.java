@@ -6,11 +6,16 @@ import com.simplecoding.simpledmsreactlogin.document.entity.Document;
 import com.simplecoding.simpledmsreactlogin.emp.entity.Emp;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TB_APPROVAL")
+@SequenceGenerator(
+        name = "SQ_APPROVAL_JPA",
+        sequenceName = "SQ_APPROVAL",
+        initialValue = 1,
+        allocationSize = 1
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,17 +24,17 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "aid", callSuper = false)
 public class Approval extends BaseTimeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long aid;                                // PK
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_APPROVAL_JPA")
+    private Long aid;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doc_id")
-    private Document document;                       // 문서 UUID (FK → TB_DOCUMENT.UUID)
+    private Document document;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "approver")
-    private Emp emp;                                 // 결재자 사원번호
+    private Emp emp;
     private Integer seq;
     @Enumerated(EnumType.STRING)
-    private ApprovalStatus status=ApprovalStatus.P;  // P:대기, A:승인, R:반려, C:완료
-    private LocalDateTime approveTime;               // 승인/반려 시간 기록
+    private ApprovalStatus status = ApprovalStatus.P;
+    private LocalDateTime approveTime;
     private String note;
 }
