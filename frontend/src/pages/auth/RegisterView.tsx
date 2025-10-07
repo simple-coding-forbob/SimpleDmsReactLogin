@@ -2,11 +2,11 @@
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 
+import { Meta } from "react-head";
 import registerImg from "../../assets/images/puppy-1920_1280_2.webp";
 import AuthService from "../../services/AuthService";
 import type IAuth from "../../types/auth/IAuth";
 import registerValidation from "../../validation/registerValidation";
-import { Meta } from "react-head";
 
 export default function RegisterView() {
   const nav = useNavigate();

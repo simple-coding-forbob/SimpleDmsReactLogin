@@ -12,8 +12,10 @@ import { faqRoutes } from "./faqRoutes";
 import { fileDbRoutes } from "./fileDbRoutes";
 import { freeBoardRoutes } from "./freeBoardRoutes";
 import { galleryRoutes } from "./galleryRoutes";
+import { meetingRoomRoutes } from "./meetingRoomRoutes";
 import { newsBoardRoutes } from "./newsBoardRoutes";
 import { noticeRoutes } from "./noticeRoutes";
+import { publicCarRoutes } from "./publicCarRoutes";
 import { qnaRoutes } from "./qnaRoutes";
 import { reservationRoutes } from "./reservationRoutes";
 import { templateRoutes } from "./templateRoutes";
@@ -45,7 +47,9 @@ const router = createBrowserRouter([
       ...authRoutes,
       ...freeBoardRoutes,
       ...newsBoardRoutes,
+      ...meetingRoomRoutes,
       ...reservationRoutes,
+      ...publicCarRoutes,
       ...bookingRoutes,
       ...templateRoutes,
       ...documentRoutes,
