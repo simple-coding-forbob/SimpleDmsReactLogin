@@ -1,19 +1,22 @@
 package com.simplecoding.simpledmsreactlogin.gallery.controller;
 
-
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
+import com.simplecoding.simpledmsreactlogin.filedb.dto.FileDbDto;
 import com.simplecoding.simpledmsreactlogin.gallery.dto.GalleryDto;
 import com.simplecoding.simpledmsreactlogin.gallery.entity.Gallery;
 import com.simplecoding.simpledmsreactlogin.gallery.service.GalleryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.*;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +31,7 @@ import java.util.List;
 public class GalleryController {
 
     private final GalleryService galleryService;
+    private final CommonUtil commonUtil;
 
     // 전체조회
     @Operation(summary = "갤러리 전체 조회", description = "검색 키워드와 페이징을 이용하여 갤러리 목록을 조회합니다.")
@@ -37,8 +41,6 @@ public class GalleryController {
             @PageableDefault(page = 0, size = 3) Pageable pageable) {
 
         Page<GalleryDto> pages = galleryService.selectGalleryList(searchKeyword, pageable);
-        log.info("Gallery Pages : " + pages);
-
         ApiResponse<List<GalleryDto>> response = new ApiResponse<>(
                 true,
                 "조회 성공",
@@ -49,16 +51,15 @@ public class GalleryController {
         return ResponseEntity.ok(response);
     }
 
-    // 저장 (업로드)
+    // 저장 (선택적 파일 업로드)
     @Operation(summary = "갤러리 등록", description = "새로운 갤러리를 등록합니다.")
     @PostMapping("/gallery")
     public ResponseEntity<Void> insert(
-            @Parameter(description = "갤러리 제목") @RequestParam(defaultValue = "") String galleryTitle,
-            @Parameter(description = "첨부 이미지 파일") @RequestParam(required = false) MultipartFile galleryData) throws Exception {
-
-        GalleryDto galleryDto = new GalleryDto(galleryTitle, galleryData.getOriginalFilename(),galleryData);
+            @Valid @ModelAttribute GalleryDto galleryDto,
+            BindingResult result
+    ) throws Exception {
+        commonUtil.checkBindingResult(result);
         galleryService.save(galleryDto);
-
         return ResponseEntity.ok().build();
     }
 
@@ -76,18 +77,21 @@ public class GalleryController {
     @Operation(summary = "갤러리 이미지 다운로드", description = "UUID로 갤러리 이미지를 다운로드합니다.")
     @GetMapping("/download/gallery/{uuid}")
     public ResponseEntity<byte[]> fileDownload(
-            @Parameter(description = "다운로드할 갤러리 UUID") @PathVariable String uuid) {
+            @Parameter(description = "다운로드할 갤러리 UUID") @PathVariable String uuid) throws Exception {
 
         Gallery gallery = galleryService.findById(uuid);
 
-        // ContentDisposition 사용 (브라우저 호환성 보장)
+        // 서버에 저장된 실제 파일 읽기
+        byte[] file = commonUtil.readFile(uuid);
+
+        // Content-Disposition 헤더 설정 (브라우저 호환)
         ContentDisposition contentDisposition = ContentDisposition.attachment()
-                .filename(gallery.getGalleryFileName(), StandardCharsets.UTF_8) // 업로드 시 저장한 파일명 사용
+                .filename(gallery.getUuid(), StandardCharsets.UTF_8)
                 .build();
 
         return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)                          // 바이너리 파일
-                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString())   // 첨부파일 표시
-                .body(gallery.getGalleryData());                                         // 실제 파일 데이터 전송
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString())
+                .body(file);
     }
 }

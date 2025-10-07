@@ -3,17 +3,20 @@ package com.simplecoding.simpledmsreactlogin.booking.controller;
 import com.simplecoding.simpledmsreactlogin.booking.dto.BookingDto;
 import com.simplecoding.simpledmsreactlogin.booking.service.BookingService;
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.dto.BookingStatusDto;
 import com.simplecoding.simpledmsreactlogin.common.enums.BookingStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -27,6 +30,7 @@ import java.util.List;
 @Tag(name = "BookingController", description = "예약 REST API")
 public class BookingController {
     private final BookingService bookingService;
+    private final CommonUtil commonUtil;
 
     // 전체 조회 + 페이징
     @Operation(summary = "BOOKING 전체 조회", description = "검색 키워드로 BOOKING 목록을 조회합니다.")
@@ -60,7 +64,8 @@ public class BookingController {
     // 추가
     @Operation(summary = "BOOKING 등록", description = "새로운 BOOKING를 등록합니다.")
     @PostMapping("/booking")
-    public ResponseEntity<Void> create(@RequestBody BookingDto bookingDto) {
+    public ResponseEntity<Void> create( @Valid @RequestBody BookingDto bookingDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
         bookingService.save(bookingDto);
         return ResponseEntity.ok().build();
     }
@@ -88,8 +93,9 @@ public class BookingController {
     @PutMapping("/booking/{bid}")
     public ResponseEntity<Void> update(
             @PathVariable long bid,
-            @RequestBody BookingDto bookingDto
+            @Valid  @RequestBody BookingDto bookingDto, BindingResult result
     ) {
+        commonUtil.checkBindingResult(result);
         bookingDto.setBid(bid); // bid를 DTO에 설정
         bookingService.updateFromDto(bookingDto);
         return ResponseEntity.ok().build();

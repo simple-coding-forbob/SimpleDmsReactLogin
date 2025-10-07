@@ -1,5 +1,6 @@
 package com.simplecoding.simpledmsreactlogin.freeboard.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -9,7 +10,9 @@ import lombok.*;
 @ToString
 public class FreeBoardDto {
     private Long fid;
+    @NotBlank
     private String title;
+    @NotBlank
     private String content;
     private Long viewCount=(long)0;
     private String email;

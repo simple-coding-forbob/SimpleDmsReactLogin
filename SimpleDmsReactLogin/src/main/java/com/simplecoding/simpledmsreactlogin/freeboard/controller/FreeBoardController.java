@@ -2,17 +2,20 @@ package com.simplecoding.simpledmsreactlogin.freeboard.controller;
 
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.freeboard.dto.FreeBoardDto;
 import com.simplecoding.simpledmsreactlogin.freeboard.service.FreeBoardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +27,7 @@ import java.util.List;
 @RequestMapping("/api") // 공통 URL /api 적용
 public class FreeBoardController {
     private final FreeBoardService freeBoardService;
+    private final CommonUtil commonUtil;
 
     // 전체 조회 + 페이징
     @Operation(summary = "FREEBOARD 전체 조회", description = "검색 키워드로 FREEBOARD 목록을 조회합니다.")
@@ -57,7 +61,8 @@ public class FreeBoardController {
     // 추가
     @Operation(summary = "FREEBOARD 등록", description = "새로운 FREEBOARD를 등록합니다.")
     @PostMapping("/free-board")
-    public ResponseEntity<Void> create(@RequestBody FreeBoardDto freeBoardDto) {
+    public ResponseEntity<Void> create(@Valid @RequestBody FreeBoardDto freeBoardDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
         freeBoardService.save(freeBoardDto);
         return ResponseEntity.ok().build();
     }

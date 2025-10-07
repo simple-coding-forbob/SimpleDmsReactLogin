@@ -1,7 +1,7 @@
 package com.simplecoding.simpledmsreactlogin.emp.service;
 
 
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 import com.simplecoding.simpledmsreactlogin.emp.dto.EmpDto;
 import com.simplecoding.simpledmsreactlogin.emp.entity.Emp;
@@ -19,7 +19,7 @@ public class EmpService {
     //    DB CRUD 클래스 받기 : JPA 제공 함수 사용 가능
     private final EmpRepository empRepository;
     private final MapStruct mapStruct;
-    private final ErrorMsg errorMsg;
+    private final CommonUtil commonUtil;
 
     public Page<EmpDto> selectEmpList(String searchKeyword, Pageable pageable) {
         Page<EmpDto>  page= empRepository.selectEmpList(searchKeyword, pageable);
@@ -38,7 +38,7 @@ public class EmpService {
     public EmpDto findById(long eno) {
 //        JPA 상세조회 함수 실행
         Emp emp= empRepository.findById(eno)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+                .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
         return mapStruct.toDto(emp);
     }
 

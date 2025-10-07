@@ -1,9 +1,10 @@
 // FiledbList.tsx
 import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
+import { Meta } from "react-head";
+import messages from "../../common/messages";
 import GalleryService from "../../services/GalleryService";
 import type IGallery from "../../types/IGallery";
-import { Meta } from "react-head";
 
 const GalleryList = () => {
   const [gallerys, setGallerys] = useState<IGallery[]>([]);
@@ -39,7 +40,7 @@ const GalleryList = () => {
   // 삭제
   const remove = async (uuid: number) => {
     await GalleryService.remove(uuid);
-    alert("삭제되었습니다");
+    alert(messages.delete);
     selectList();
   };
 
@@ -76,9 +77,8 @@ const GalleryList = () => {
             key={data.uuid}
             className="border rounded shadow hover:shadow-md overflow-hidden"
           >
-            {/* data.fileUrl! : 절대 null 이 아님을 개발자가 보장 */}
             <img
-              src={data.galleryFileUrl ?? ""}
+              src={data.galleryFileUrl}
               loading="lazy"
               alt={data.galleryTitle}
               className="w-full h-48 object-cover"

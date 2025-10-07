@@ -2,7 +2,6 @@ package com.simplecoding.simpledmsreactlogin.filedb.service;
 
 
 import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 import com.simplecoding.simpledmsreactlogin.filedb.dto.FileDbDto;
 import com.simplecoding.simpledmsreactlogin.filedb.entity.FileDb;
@@ -12,7 +11,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.UUID;
 
@@ -32,18 +30,19 @@ public class FileDbService {
     }
 
     //    TODO: 저장: save
-    public void save(FileDbDto fileDbDto) {
+    public void save(FileDbDto fileDbDto) throws Exception {
         FileDb fileDb=mapStruct.toEntity(fileDbDto);
 
-        String uuid=UUID.randomUUID().toString();                 // 1) UUID 만들기(기본키): 자바에서 중복안되게 만들어주는 글자(랜덤)
+        String uuid=UUID.randomUUID().toString();                           // 1) UUID 만들기(기본키): 자바에서 중복안되게 만들어주는 글자(랜덤)
         fileDb.setUuid(uuid);
 
-        String downloadURL=commonUtil.generateUrl("fileDb", uuid); // 2) 다운로드URL 만들기(개발자 알아서)
-        fileDb.setFileUrl(downloadURL);
+        if(fileDbDto.getFileData()!=null) {
+            String downloadURL=commonUtil.generateUrl("fileDb", uuid);  // 2) 업로드 파일이 있을때만 다운로드 URL 만들기
+            fileDb.setFileUrl(downloadURL);
+            commonUtil.saveFile(fileDbDto.getFileData(), uuid);              // 3) 업로드 파일이 있을때만 파일 만들기
+        }
 
-
-        commonUtil.saveFile(fileDbDto.getFile(), uuid);              // 4) 업로드 파일이 있을때만 파일 만들기
-        fileDbRepository.save(fileDb);                               // 5) DB insert(fileDbVO)
+        fileDbRepository.save(fileDb);                                        // 4) DB insert(fileDbVO)
     }
 
     //    상세조회

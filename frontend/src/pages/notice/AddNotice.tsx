@@ -1,16 +1,17 @@
 import { useFormik } from "formik";
+import { Meta } from "react-head";
 import { useNavigate } from "react-router-dom";
+import messages from "../../common/messages";
 import NoticeService from "../../services/NoticeService";
 import type INotice from "../../types/INotice";
 import noticeValidation from "../../validation/noticeValidation";
-import { Meta } from "react-head";
 
 function AddNotice() {
   const nav = useNavigate();
 
   const save = async (data: INotice) => {
     await NoticeService.insert(data);
-    alert("저장되었습니다");
+    alert(messages.save);
     nav("/notice");
   };
 
@@ -19,8 +20,8 @@ function AddNotice() {
       title: "",
       content: "",
       isVisible: "N", // 기본값을 'N'으로 설정
-      startDate: null,
-      endDate: null,
+      startDate: "",
+      endDate: "",
     },
     validationSchema: noticeValidation,
     onSubmit: (data: INotice) => {
@@ -104,7 +105,7 @@ function AddNotice() {
             id="startDate"
             name="startDate"
             className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring focus:ring-blue-500"
-            value={formik.values.startDate ?? ""}
+            value={formik.values.startDate}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
@@ -123,7 +124,7 @@ function AddNotice() {
             id="endDate"
             name="endDate"
             className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring focus:ring-blue-500"
-            value={formik.values.endDate ?? ""}
+            value={formik.values.endDate}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />

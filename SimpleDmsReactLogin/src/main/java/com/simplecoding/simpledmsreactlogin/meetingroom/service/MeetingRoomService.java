@@ -1,6 +1,6 @@
 package com.simplecoding.simpledmsreactlogin.meetingroom.service;
 
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 import com.simplecoding.simpledmsreactlogin.meetingroom.dto.MeetingRoomDto;
 import com.simplecoding.simpledmsreactlogin.meetingroom.entity.MeetingRoom;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class MeetingRoomService {
     private final MeetingRoomRepository meetingRepository;
     private final MapStruct mapStruct;
-    private final ErrorMsg errorMsg;
+    private final CommonUtil commonUtil;
 
 //    TODO: select 박스 태그에서 사용: 전체조회
     public List<MeetingRoomDto> findAll() {
@@ -46,7 +46,7 @@ public class MeetingRoomService {
     public MeetingRoomDto findById(long mid) {
 //        JPA 상세조회 함수 실행
         MeetingRoom meetingRoom = meetingRepository.findById(mid)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+                .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
 
         return mapStruct.toDto(meetingRoom);
     }

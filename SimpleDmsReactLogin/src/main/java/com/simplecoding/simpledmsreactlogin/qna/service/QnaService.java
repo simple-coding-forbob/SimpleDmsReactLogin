@@ -1,7 +1,7 @@
 package com.simplecoding.simpledmsreactlogin.qna.service;
 
 
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 import com.simplecoding.simpledmsreactlogin.qna.dto.QnaDto;
 import com.simplecoding.simpledmsreactlogin.qna.entity.Qna;
@@ -19,7 +19,7 @@ public class QnaService {
     //    DB CRUD 클래스 받기 : JPA 제공 함수 사용 가능
     private final QnaRepository qnaRepository; // DI
     private final MapStruct mapStruct;
-    private final ErrorMsg errorMsg;
+    private final CommonUtil commonUtil;
 
     public Page<QnaDto> selectQnaList(String searchKeyword, Pageable pageable) {
         Page<QnaDto> page= qnaRepository.selectQnaList(searchKeyword, pageable);
@@ -29,7 +29,7 @@ public class QnaService {
     public QnaDto findById(long fno) {
 //        JPA 상세조회 함수 실행
         Qna qna= qnaRepository.findById(fno)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+                .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
         return mapStruct.toDto(qna);
     }
 

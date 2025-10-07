@@ -2,19 +2,23 @@ package com.simplecoding.simpledmsreactlogin.faq.controller;
 
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.faq.dto.FaqDto;
 import com.simplecoding.simpledmsreactlogin.faq.service.FaqService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.Bidi;
 import java.util.List;
 
 @Log4j2
@@ -25,6 +29,7 @@ import java.util.List;
 public class FaqController {
 
     private final FaqService faqService;
+    private final CommonUtil commonUtil;
 
     // 전체 조회 + 페이징
     @Operation(summary = "FAQ 전체 조회", description = "검색 키워드로 FAQ 목록을 조회합니다.")
@@ -58,7 +63,8 @@ public class FaqController {
     // 추가
     @Operation(summary = "FAQ 등록", description = "새로운 FAQ를 등록합니다.")
     @PostMapping("/faq")
-    public ResponseEntity<Void> create(@RequestBody FaqDto faqDto) {
+    public ResponseEntity<Void> create(@Valid @RequestBody FaqDto faqDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
         faqService.save(faqDto);
         return ResponseEntity.ok().build();
     }

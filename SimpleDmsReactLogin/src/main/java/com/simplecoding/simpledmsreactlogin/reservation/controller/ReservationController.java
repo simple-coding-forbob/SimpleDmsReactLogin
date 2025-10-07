@@ -1,6 +1,7 @@
 package com.simplecoding.simpledmsreactlogin.reservation.controller;
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.dto.ReservationStatusDto;
 import com.simplecoding.simpledmsreactlogin.common.enums.ReservationStatus;
 import com.simplecoding.simpledmsreactlogin.reservation.dto.ReservationDto;
@@ -8,12 +9,14 @@ import com.simplecoding.simpledmsreactlogin.reservation.service.ReservationServi
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -26,6 +29,7 @@ import java.util.List;
 @Tag(name = "ReservationController", description = "예약 REST API")
 public class ReservationController {
     private final ReservationService reservationService;
+    private final CommonUtil commonUtil;
 
     // 전체 조회 + 페이징
     @Operation(summary = "RESERVATION 전체 조회", description = "검색 키워드로 RESERVATION 목록을 조회합니다.")
@@ -59,7 +63,8 @@ public class ReservationController {
     // 추가
     @Operation(summary = "RESERVATION 등록", description = "새로운 RESERVATION를 등록합니다.")
     @PostMapping("/reservation")
-    public ResponseEntity<Void> create(@RequestBody ReservationDto reservationDto) {
+    public ResponseEntity<Void> create(@Valid @RequestBody ReservationDto reservationDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
         reservationService.save(reservationDto);
         return ResponseEntity.ok().build();
     }
@@ -87,8 +92,9 @@ public class ReservationController {
     @PutMapping("/reservation/{rid}")
     public ResponseEntity<Void> update(
             @PathVariable long rid,
-            @RequestBody ReservationDto reservationDto
+            @Valid @RequestBody ReservationDto reservationDto, BindingResult result
     ) {
+        commonUtil.checkBindingResult(result);
         reservationDto.setRid(rid); // rid를 DTO에 설정
         reservationService.updateFromDto(reservationDto);
         return ResponseEntity.ok().build();

@@ -1,5 +1,6 @@
 package com.simplecoding.simpledmsreactlogin.newsboard.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -9,7 +10,9 @@ import lombok.*;
 @ToString
 public class NewsBoardDto {
     private Long nid;
+    @NotBlank
     private String subject;
+    @NotBlank
     private String text;
     private Long viewCount=(long)0;
     private String email;

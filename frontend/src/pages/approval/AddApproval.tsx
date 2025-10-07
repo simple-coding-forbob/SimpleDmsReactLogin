@@ -42,6 +42,7 @@ function AddApproval() {
     initialValues: {
       docId: document?.docId?? "",
       title: document?.title?? "",
+      drafter: "",
       approver: "",
       seq: "",
     },

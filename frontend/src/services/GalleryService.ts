@@ -18,8 +18,8 @@ const remove = (uuid: number) => {
 const insert = (data: IGallery) => {
   const formData = new FormData();
   formData.append("galleryTitle", data.galleryTitle);
-  if (data.galleryData) {
-    formData.append("galleryData", data.galleryData);
+  if (data.fileData) {
+    formData.append("fileData", data.fileData);
   }
 
   return common.post("/gallery", formData, {

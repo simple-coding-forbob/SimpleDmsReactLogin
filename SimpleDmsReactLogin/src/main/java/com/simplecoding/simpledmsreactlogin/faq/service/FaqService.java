@@ -1,7 +1,7 @@
 package com.simplecoding.simpledmsreactlogin.faq.service;
 
 
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 import com.simplecoding.simpledmsreactlogin.faq.dto.FaqDto;
 import com.simplecoding.simpledmsreactlogin.faq.entity.Faq;
@@ -19,7 +19,7 @@ public class FaqService {
     //    DB CRUD 클래스 받기 : JPA 제공 함수 사용 가능
     private final FaqRepository faqRepository; // DI
     private final MapStruct mapStruct;
-    private final ErrorMsg errorMsg;
+    private final CommonUtil commonUtil;
 
     public Page<FaqDto> selectFaqList(String searchKeyword, Pageable pageable) {
         Page<FaqDto> page= faqRepository.selectFaqList(searchKeyword, pageable);
@@ -29,7 +29,7 @@ public class FaqService {
     public FaqDto findById(long fno) {
 //        JPA 상세조회 함수 실행
         Faq faq= faqRepository.findById(fno)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+                .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
         return mapStruct.toDto(faq);
     }
 

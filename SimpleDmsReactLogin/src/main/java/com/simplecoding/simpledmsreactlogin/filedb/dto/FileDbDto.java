@@ -17,8 +17,8 @@ public class FileDbDto {
     private String fileTitle;   // 제목
     @NotBlank
     private String fileContent; // 내용
-    private String fileUrl;     // 서버에 저장된 파일 URL
-    private MultipartFile file; // 첨부파일
+    private String fileUrl="https://placehold.co/600x400";     // 서버에 저장된 파일 URL
+    private MultipartFile fileData; // 첨부파일
 
 //    repository 에서 사용
     public FileDbDto(String uuid, String fileTitle, String fileContent, String fileUrl) {

@@ -2,9 +2,8 @@ package com.simplecoding.simpledmsreactlogin.freeboard.service;
 
 
 import com.simplecoding.simpledmsreactlogin.auth.dto.SecurityUserDto;
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
-import com.simplecoding.simpledmsreactlogin.common.SecurityUtil;
 import com.simplecoding.simpledmsreactlogin.freeboard.dto.FreeBoardDto;
 import com.simplecoding.simpledmsreactlogin.freeboard.entity.FreeBoard;
 import com.simplecoding.simpledmsreactlogin.freeboard.repository.FreeBoardRepository;
@@ -21,8 +20,7 @@ public class FreeBoardService {
     //    DB CRUD 클래스 받기 : JPA 제공 함수 사용 가능
     private final FreeBoardRepository freeBoardRepository; // DI
     private final MapStruct mapStruct;
-    private final ErrorMsg errorMsg;
-    private final SecurityUtil securityUtil;
+    private final CommonUtil commonUtil;
 
     public Page<FreeBoardDto> selectFreeBoardList(String searchKeyword, Pageable pageable) {
         Page<FreeBoardDto> page= freeBoardRepository.selectFreeBoardList(searchKeyword, pageable);
@@ -33,7 +31,7 @@ public class FreeBoardService {
     public FreeBoardDto findById(long fid) {
 //        JPA 상세조회 함수 실행
         FreeBoard freeBoard= freeBoardRepository.selectById(fid)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+                .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
         freeBoardRepository.increaseViewCount(fid);
         return mapStruct.toDto(freeBoard);
     }
@@ -44,7 +42,7 @@ public class FreeBoardService {
     public void save(FreeBoardDto freeBoardDto) {
 //        JPA 저장 함수 실행 : return 값 : 저장된 객체
 //      TODO: 1) 시큐리티에서 email 가져오기: 화면에서 전송안함
-        SecurityUserDto securityUserDto =securityUtil.getLoginUser();
+        SecurityUserDto securityUserDto =commonUtil.getLoginUser();
         freeBoardDto.setEmail(securityUserDto.getUsername());
 //      TODO: 2) 저장하기
         FreeBoard freeBoard= mapStruct.toEntity(freeBoardDto);
@@ -57,7 +55,7 @@ public class FreeBoardService {
         FreeBoard freeBoard=freeBoardRepository.findById(freeBoardDto.getFid())
                 .orElseThrow(() -> new RuntimeException("errors.not.found"));
 //      TODO: 1) 시큐리티에서 email 가져오기: 화면에서 전송안함
-        SecurityUserDto securityUserDto =securityUtil.getLoginUser();
+        SecurityUserDto securityUserDto =commonUtil.getLoginUser();
         freeBoardDto.setEmail(securityUserDto.getUsername());
 
         mapStruct.updateFromDto(freeBoardDto, freeBoard);

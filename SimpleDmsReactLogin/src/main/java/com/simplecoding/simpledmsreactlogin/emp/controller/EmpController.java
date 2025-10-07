@@ -1,17 +1,20 @@
 package com.simplecoding.simpledmsreactlogin.emp.controller;
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.emp.dto.EmpDto;
 import com.simplecoding.simpledmsreactlogin.emp.service.EmpService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +27,7 @@ import java.util.List;
 public class EmpController {
 
 	private final EmpService empService;
+    private final CommonUtil commonUtil;
 
 	// 전체 조회
 	@Operation(summary = "사원 전체 조회", description = "검색 키워드로 사원 목록을 조회합니다.")
@@ -47,7 +51,8 @@ public class EmpController {
 	// 저장
 	@Operation(summary = "사원 저장", description = "새로운 사원을 등록합니다.")
 	@PostMapping("/emp")
-	public ResponseEntity<Void> create(@RequestBody EmpDto empDto) {
+	public ResponseEntity<Void> create(@Valid @RequestBody EmpDto empDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
 		empService.save(empDto);
 		return ResponseEntity.ok().build();
 	}
@@ -57,7 +62,8 @@ public class EmpController {
 	@PutMapping("/emp/{eno}")
 	public ResponseEntity<Void> update(
 			@Parameter(description = "수정할 사원 번호") @PathVariable long eno,
-			@RequestBody EmpDto empDto) {
+            @Valid @RequestBody EmpDto empDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
         empDto.setEno(eno);
 		empService.updateFromDto(empDto);
 		return ResponseEntity.ok().build();

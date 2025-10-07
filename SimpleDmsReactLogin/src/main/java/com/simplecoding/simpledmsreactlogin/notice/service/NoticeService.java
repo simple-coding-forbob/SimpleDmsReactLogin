@@ -1,7 +1,7 @@
 package com.simplecoding.simpledmsreactlogin.notice.service;
 
 
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 import com.simplecoding.simpledmsreactlogin.notice.dto.NoticeDto;
 import com.simplecoding.simpledmsreactlogin.notice.entity.Notice;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class NoticeService {
     private final NoticeRepository noticeRepository;
-    private final ErrorMsg errorMsg;
+    private final CommonUtil commonUtil;
     private final MapStruct mapStruct;
     
     public Page<NoticeDto> selectNoticeList(String searchKeyword, Pageable pageable) {
@@ -26,7 +26,7 @@ public class NoticeService {
     public NoticeDto findById(long nid) {
 //        JPA 상세조회 함수 실행
         Notice notice= noticeRepository.findById(nid)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+                .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
         return mapStruct.toDto(notice);
     }
 
