@@ -3,6 +3,6 @@
     title: string;
     content: string;
     isVisible?: string;
-    startDate?: string | null;
-    endDate?: string | null;
+    startDate?: string;
+    endDate?: string;
 }

@@ -1,5 +1,6 @@
 package com.simplecoding.simpledmsreactlogin.gallery.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,23 +12,15 @@ import org.springframework.web.multipart.MultipartFile;
 @EqualsAndHashCode(of = "uuid")
 public class GalleryDto {
     private String uuid;            // 기본키
+    @NotBlank
     private String galleryTitle;   // 제목
-    private String galleryFileName; // 파일명
-    private byte[] galleryData;
-    private String galleryFileUrl;  // 파일 다운로드 url
+    private String galleryFileUrl="https://placehold.co/600x400";  // 파일 다운로드 url
+    private MultipartFile fileData; // 첨부파일
 
     //  TODO: GalleryRepository sql 시 사용
-    public GalleryDto(String uuid, String galleryTitle, String galleryFileName,String galleryFileUrl) {
+    public GalleryDto(String uuid, String galleryTitle, String galleryFileUrl) {
         this.uuid = uuid;
         this.galleryTitle = galleryTitle;
-        this.galleryFileName = galleryFileName;
         this.galleryFileUrl = galleryFileUrl;
-    }
-
-    //  TODO: GalleryController save 시 사용
-    public GalleryDto(String galleryTitle, String galleryFileName,MultipartFile galleryData) throws Exception {
-        this.galleryTitle = galleryTitle;
-        this.galleryFileName = galleryFileName;
-        this.galleryData= (galleryData!=null)? galleryData.getBytes() : null;
     }
 }

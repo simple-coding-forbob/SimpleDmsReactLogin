@@ -1,9 +1,10 @@
 // FiledbList.tsx
 import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
+import { Meta } from "react-head";
+import messages from "../../common/messages";
 import FileDbService from "../../services/FileDbService";
 import type IFileDb from "../../types/IFileDb";
-import { Meta } from "react-head";
 
 const FiledbList = () => {
   const [fileDbs, setFileDbs] = useState<IFileDb[]>([]);
@@ -39,7 +40,7 @@ const FiledbList = () => {
   // 삭제
   const remove = async (uuid: number) => {
     await FileDbService.remove(uuid);
-    alert("삭제되었습니다");
+    alert(messages.delete);
     selectList();
   };
 
@@ -76,9 +77,8 @@ const FiledbList = () => {
             key={data.uuid}
             className="border rounded shadow hover:shadow-md overflow-hidden"
           >
-            {/* data.fileUrl! : 절대 null 이 아님을 개발자가 보장 */}
             <img
-              src={data.fileUrl ?? ""}
+              src={data.fileUrl}
               loading="lazy"
               alt={data.fileTitle}
               className="w-full h-48 object-cover"

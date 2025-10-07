@@ -4,7 +4,7 @@ package com.simplecoding.simpledmsreactlogin.auth.service;
 import com.simplecoding.simpledmsreactlogin.auth.dto.SecurityUserDto;
 import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
 import com.simplecoding.simpledmsreactlogin.auth.repository.MemberRepository;
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,14 +20,14 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
     //    DB Member 레포지토리 DI
     private final MemberRepository memberRepository;
-    private final ErrorMsg errorMsg;
+    private final CommonUtil commonUtil;
 
     //    함수 재정의 : 자동 기능 : alt + insert
     @Override
     public UserDetails loadUserByUsername(String username) {
         Member member
                 = memberRepository.findById(username)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+                .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
 
 //        TODO: 2) 검증객체에 정보 넣기
 //               2-1) 권한을 생성해서 넣기 : GrantedAuthority(스프링시큐리티 권한클래스)

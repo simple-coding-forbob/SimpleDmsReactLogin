@@ -1,7 +1,6 @@
 package com.simplecoding.simpledmsreactlogin.gallery.service;
 
-
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 import com.simplecoding.simpledmsreactlogin.gallery.dto.GalleryDto;
 import com.simplecoding.simpledmsreactlogin.gallery.entity.Gallery;
@@ -11,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.UUID;
 
@@ -20,47 +18,40 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class GalleryService {
 
-    private final GalleryRepository galleryRepository; // JPA DB 객체
+    private final GalleryRepository galleryRepository;
     private final MapStruct mapStruct;
-    private final ErrorMsg errorMsg;
+    private final CommonUtil commonUtil;
 
-    //    like 검색 + 전체조회 + 페이징처리
+    // 검색 + 전체조회 + 페이징
     public Page<GalleryDto> selectGalleryList(String searchKeyword, Pageable pageable) {
-        Page<GalleryDto> page= galleryRepository.selectGalleryList(searchKeyword, pageable);
-        return page;
+        return galleryRepository.selectGalleryList(searchKeyword, pageable);
     }
 
-    //    TODO: 저장/수정 : save
-    public void save(GalleryDto galleryDto) {
-        Gallery gallery=mapStruct.toEntity(galleryDto);
+    // 저장 (파일 첨부 선택 가능)
+    public void save(GalleryDto galleryDto) throws Exception {
+        Gallery gallery = mapStruct.toEntity(galleryDto);
 
-        String newUuid= UUID.randomUUID().toString();
-        String downloadURL=generateDownloadUrl(newUuid);
-        gallery.setUuid(newUuid);
-        gallery.setGalleryFileUrl(downloadURL);
+        String uuid = UUID.randomUUID().toString();
+        gallery.setUuid(uuid);
+
+        if (galleryDto.getFileData() != null) { // 파일 첨부가 있을 때만 처리
+            String downloadURL = commonUtil.generateUrl("gallery", uuid);
+            gallery.setGalleryFileUrl(downloadURL);
+            commonUtil.saveFile(galleryDto.getFileData(), uuid); // 업로드 폴더에 파일 저장
+        }
 
         galleryRepository.save(gallery);
     }
 
-    //	다운로드 URL을 만들어주는 메소드
-    public String generateDownloadUrl(String uuid) {
-        return ServletUriComponentsBuilder
-                .fromCurrentContextPath()    // 기본주소 : http://localhost:8080
-                .path("/api/download/gallery/{uuid}")    // 경로    : /gallery/download
-                .buildAndExpand(uuid)         // 파라메터방식: uuid
-                .toUriString();               // 위에꺼조합:
-        // http://localhost:8080/gallery/download?uuid=uuid값
-    }
-
-    //    상세조회
+    // 상세조회
     public Gallery findById(String uuid) {
         return galleryRepository.findById(uuid)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+                .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
     }
 
-    //    삭제 함수
+    // 삭제 (DB + 파일 삭제)
     public void deleteById(String uuid) {
-        galleryRepository.deleteById(uuid);
+        commonUtil.deleteFile(uuid); // 서버 파일 삭제
+        galleryRepository.deleteById(uuid); // DB 삭제
     }
-
 }

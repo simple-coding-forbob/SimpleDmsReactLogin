@@ -3,16 +3,17 @@ import type { ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import FileDbService from "../../services/FileDbService";
 
+import { Meta } from "react-head";
+import messages from "../../common/messages";
 import type IFileDb from "../../types/IFileDb";
 import fileDbValidation from "../../validation/fileDbValidation";
-import { Meta } from "react-head";
 
 function AddFileDb() {
   const nav = useNavigate();
 
   const insert = async (data: IFileDb) => {
     await FileDbService.insert(data);
-    alert("저장되었습니다");
+    alert(messages.save);
     nav("/fileDb"); // 업로드 성공 시 강제 이동
   };
 

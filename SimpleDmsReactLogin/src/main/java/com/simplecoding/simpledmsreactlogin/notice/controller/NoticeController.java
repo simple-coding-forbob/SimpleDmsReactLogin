@@ -2,17 +2,20 @@ package com.simplecoding.simpledmsreactlogin.notice.controller;
 
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.notice.dto.NoticeDto;
 import com.simplecoding.simpledmsreactlogin.notice.service.NoticeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +27,7 @@ import java.util.List;
 @RequestMapping("/api") // 공통 URL /api 적용
 public class NoticeController {
     private final NoticeService noticeService;
+    private final CommonUtil commonUtil;
 
     // 전체 조회 + 페이징
     @Operation(summary = "NOTICE 전체 조회", description = "검색 키워드로 NOTICE 목록을 조회합니다.")
@@ -57,7 +61,8 @@ public class NoticeController {
     // 추가
     @Operation(summary = "NOTICE 등록", description = "새로운 NOTICE를 등록합니다.")
     @PostMapping("/notice")
-    public ResponseEntity<Void> create(@RequestBody NoticeDto noticeDto) {
+    public ResponseEntity<Void> create(@Valid @RequestBody NoticeDto noticeDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
         noticeService.save(noticeDto);
         return ResponseEntity.ok().build();
     }
@@ -67,8 +72,9 @@ public class NoticeController {
     @PutMapping("/notice/{nid}")
     public ResponseEntity<Void> update(
             @PathVariable long nid,
-            @RequestBody NoticeDto noticeDto
+            @Valid  @RequestBody NoticeDto noticeDto, BindingResult result
     ) {
+        commonUtil.checkBindingResult(result);
         noticeDto.setNid(nid); // nid를 DTO에 설정
         noticeService.updateFromDto(noticeDto);
         return ResponseEntity.ok().build();

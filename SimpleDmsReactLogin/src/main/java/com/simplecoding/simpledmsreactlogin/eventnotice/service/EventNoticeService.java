@@ -1,7 +1,7 @@
 package com.simplecoding.simpledmsreactlogin.eventnotice.service;
 
 
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 import com.simplecoding.simpledmsreactlogin.eventnotice.dto.EventNoticeDto;
 import com.simplecoding.simpledmsreactlogin.eventnotice.entity.EventNotice;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class EventNoticeService {
     private final EventNoticeRepository eventNoticeRepository;
-    private final ErrorMsg errorMsg;
+    private final CommonUtil commonUtil;
     private final MapStruct mapStruct;
 
     public Page<EventNoticeDto> selectEventNoticeList(String searchKeyword, Pageable pageable) {
@@ -27,7 +27,7 @@ public class EventNoticeService {
     public EventNoticeDto findById(long eid) {
 //        JPA 상세조회 함수 실행
         EventNotice eventNotice= eventNoticeRepository.findById(eid)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+                .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
         return mapStruct.toDto(eventNotice);
     }
 

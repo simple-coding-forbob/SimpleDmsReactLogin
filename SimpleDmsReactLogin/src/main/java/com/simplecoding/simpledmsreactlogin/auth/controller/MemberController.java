@@ -5,14 +5,17 @@ import com.simplecoding.simpledmsreactlogin.auth.dto.MemberDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MypageDto;
 import com.simplecoding.simpledmsreactlogin.auth.service.MemberService;
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.jwt.JwtUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 // swagger 주소:
@@ -26,6 +29,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final JwtUtils jwtUtils;
+    private final CommonUtil commonUtil;
 
     //    로그인 함수
     @Operation(summary = "로그인", description = "회원이 로그인합니다.")
@@ -38,7 +42,8 @@ public class MemberController {
 
     @Operation(summary = "회원가입", description = "회원 가입합니다.")
     @PostMapping("/auth/register")
-    public ResponseEntity<Void> save(@Parameter(description = "회웑 가입 정보") @RequestBody MemberDto memberDto) {
+    public ResponseEntity<Void> save(@Parameter(description = "회웑 가입 정보") @Valid @RequestBody MemberDto memberDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
         memberService.save(memberDto);
         return ResponseEntity.ok().build();
     }

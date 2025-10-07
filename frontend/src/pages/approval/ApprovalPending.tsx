@@ -83,6 +83,7 @@ const ApprovalPending = () => {
           <thead className="bg-blue-700 text-white">
             <tr>
               <th className="px-4 py-2 border-b">제목</th>
+              <th className="px-4 py-2 border-b">기안자 사번</th>
               <th className="px-4 py-2 border-b">결재자 사번</th>
               <th className="px-4 py-2 border-b">결재 순번</th>
               <th className="px-4 py-2 border-b">상태</th>
@@ -97,6 +98,9 @@ const ApprovalPending = () => {
               <tr key={data.aid} className="hover:bg-gray-50">
                 <td className="px-4 py-2 border-b text-center">
                   <Link to={`/approval-detail/${data.docId}`}>{data.title}</Link>
+                </td>
+                <td className="px-4 py-2 border-b text-center">
+                  {data.drafter}
                 </td>
                 <td className="px-4 py-2 border-b text-center">
                   {data.approver}

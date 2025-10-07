@@ -2,17 +2,20 @@ package com.simplecoding.simpledmsreactlogin.newsboard.controller;
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
 
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.newsboard.dto.NewsBoardDto;
 import com.simplecoding.simpledmsreactlogin.newsboard.service.NewsBoardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +27,7 @@ import java.util.List;
 @RequestMapping("/api") // 공통 URL /api 적용
 public class NewsController {
     private final NewsBoardService newsBoardService;
+    private final CommonUtil commonUtil;
 
     // 전체 조회 + 페이징
     @Operation(summary = "NEWSBOARD 전체 조회", description = "검색 키워드로 NEWSBOARD 목록을 조회합니다.")
@@ -57,7 +61,8 @@ public class NewsController {
     // 추가
     @Operation(summary = "NEWSBOARD 등록", description = "새로운 FREEBOARD를 등록합니다.")
     @PostMapping("/news-board")
-    public ResponseEntity<Void> create(@RequestBody NewsBoardDto newsBoardDto) {
+    public ResponseEntity<Void> create(@Valid @RequestBody NewsBoardDto newsBoardDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
         newsBoardService.save(newsBoardDto);
         return ResponseEntity.ok().build();
     }
@@ -67,8 +72,9 @@ public class NewsController {
     @PutMapping("/news-board/{nid}")
     public ResponseEntity<Void> update(
             @PathVariable long nid,
-            @RequestBody NewsBoardDto newsBoardDto
+            @Valid @RequestBody NewsBoardDto newsBoardDto, BindingResult result
     ) {
+        commonUtil.checkBindingResult(result);
         newsBoardDto.setNid(nid); // nid를 DTO에 설정
         newsBoardService.updateFromDto(newsBoardDto);
         return ResponseEntity.ok().build();

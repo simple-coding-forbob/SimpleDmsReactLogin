@@ -2,12 +2,10 @@ package com.simplecoding.simpledmsreactlogin.booking.service;
 
 import com.simplecoding.simpledmsreactlogin.auth.dto.SecurityUserDto;
 import com.simplecoding.simpledmsreactlogin.booking.repository.BookingRepository;
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
-import com.simplecoding.simpledmsreactlogin.common.SecurityUtil;
 import com.simplecoding.simpledmsreactlogin.booking.dto.BookingDto;
 import com.simplecoding.simpledmsreactlogin.booking.entity.Booking;
-import com.simplecoding.simpledmsreactlogin.booking.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +18,7 @@ public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final MapStruct mapStruct;
-    private final ErrorMsg errorMsg;
-    private final SecurityUtil securityUtil;
+    private final CommonUtil commonUtil;
 
     public Page<BookingDto> selectByBookingList(String searchKeyword, Pageable pageable) {
         return bookingRepository.selectByBookingList(searchKeyword,pageable);
@@ -31,7 +28,7 @@ public class BookingService {
     public BookingDto selectById(long bid) {
 //        JPA 상세조회 함수 실행
         Booking booking= bookingRepository.selectById(bid)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+                .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
         return mapStruct.toDto(booking);
     }
 
@@ -41,12 +38,12 @@ public class BookingService {
     public void save(BookingDto bookingDto) {
 //        해당 날짜에 예약이 있는지 확인-> 있으면 예외처리
         if(bookingRepository.existsByBooking(bookingDto.getStartTime(), bookingDto.getEndTime(), bookingDto.getPid()) > 0) {
-            throw new RuntimeException(errorMsg.getMessage("errors.booking"));
+            throw new RuntimeException(commonUtil.getMessage("errors.booking"));
         }
 
 //        JPA 저장 함수 실행 : return 값 : 저장된 객체
 //      TODO: 1) 시큐리티에서 email 가져오기: 화면에서 전송안함
-        SecurityUserDto securityUserDto =securityUtil.getLoginUser();
+        SecurityUserDto securityUserDto =commonUtil.getLoginUser();
         bookingDto.setEmail(securityUserDto.getUsername());
 //      TODO: 2) 저장하기
         Booking booking= mapStruct.toEntity(bookingDto);
@@ -59,7 +56,7 @@ public class BookingService {
         Booking booking=bookingRepository.findById(bookingDto.getBid())
                 .orElseThrow(() -> new RuntimeException("errors.not.found"));
 //      TODO: 1) 시큐리티에서 email 가져오기: 화면에서 전송안함
-        SecurityUserDto securityUserDto =securityUtil.getLoginUser();
+        SecurityUserDto securityUserDto =commonUtil.getLoginUser();
         bookingDto.setEmail(securityUserDto.getUsername());
 
         mapStruct.updateFromDto(bookingDto, booking);

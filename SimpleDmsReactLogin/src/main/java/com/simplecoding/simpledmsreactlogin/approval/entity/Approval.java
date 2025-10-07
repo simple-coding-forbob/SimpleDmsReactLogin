@@ -32,7 +32,7 @@ public class Approval extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "approver")
     private Emp emp;
-    private Integer seq;
+    private Long seq;
     @Enumerated(EnumType.STRING)
     private ApprovalStatus status = ApprovalStatus.P;
     private LocalDateTime approveTime;

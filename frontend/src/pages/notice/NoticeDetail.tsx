@@ -1,10 +1,11 @@
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import type INotice from "../../types/INotice";
-import NoticeService from "../../services/NoticeService";
-import noticeValidation from "../../validation/noticeValidation";
 import { Meta } from "react-head";
+import { useNavigate, useParams } from "react-router-dom";
+import messages from "../../common/messages";
+import NoticeService from "../../services/NoticeService";
+import type INotice from "../../types/INotice";
+import noticeValidation from "../../validation/noticeValidation";
 
 function NoticeDetail() {
   const params = useParams<{ nid: string }>();
@@ -28,14 +29,14 @@ function NoticeDetail() {
   // 수정
   const update = async (data: INotice) => {
     await NoticeService.update(nid, data);
-    alert("수정되었습니다");
+    alert(messages.update);
     nav("/notice");
   };
 
   // 삭제
   const remove = async () => {
     await NoticeService.remove(nid);
-    alert("삭제되었습니다");
+    alert(messages.delete);
     nav("/notice");
   };
 
@@ -128,7 +129,7 @@ function NoticeDetail() {
             id="startDate"
             name="startDate"
             className="w-full border border-gray-300 rounded p-2"
-            value={formik.values.startDate ?? ""}
+            value={formik.values.startDate}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
@@ -144,7 +145,7 @@ function NoticeDetail() {
             id="endDate"
             name="endDate"
             className="w-full border border-gray-300 rounded p-2"
-            value={formik.values.endDate ?? ""}
+            value={formik.values.endDate}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />

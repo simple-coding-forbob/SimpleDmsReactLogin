@@ -1,16 +1,17 @@
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-import type IEventNotice from "../../types/IEventNotice";
-import EventNoticeService from "../../services/EventNoticeService";
-import eventNoticeValidation from "../../validation/eventNoticeValidation";
 import { Meta } from "react-head";
+import { useNavigate } from "react-router-dom";
+import messages from "../../common/messages";
+import EventNoticeService from "../../services/EventNoticeService";
+import type IEventNotice from "../../types/IEventNotice";
+import eventNoticeValidation from "../../validation/eventNoticeValidation";
 
 function AddEventNotice() {
   const nav = useNavigate();
 
   const save = async (data: IEventNotice) => {
     await EventNoticeService.insert(data);
-    alert("저장되었습니다");
+    alert(messages.save);
     nav("/event-notice");
   };
 
@@ -19,8 +20,8 @@ function AddEventNotice() {
       subject: "",
       text: "",
       isVisible: "N", // 기본값을 'N'으로 설정
-      startDate: null,
-      endDate: null,
+      startDate: "",
+      endDate: "",
     },
     validationSchema: eventNoticeValidation,
     onSubmit: (data: IEventNotice) => {

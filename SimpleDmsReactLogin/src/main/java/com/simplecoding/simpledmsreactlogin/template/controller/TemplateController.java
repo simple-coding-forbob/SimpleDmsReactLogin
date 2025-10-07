@@ -1,8 +1,7 @@
 package com.simplecoding.simpledmsreactlogin.template.controller;
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
-import com.simplecoding.simpledmsreactlogin.common.ValidationUtil;
-import com.simplecoding.simpledmsreactlogin.document.dto.DocumentDto;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.template.dto.TemplateDto;
 import com.simplecoding.simpledmsreactlogin.template.service.TemplateService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -32,7 +30,7 @@ import java.util.List;
 public class TemplateController {
 
     private final TemplateService templateService;
-    private final ValidationUtil validationUtil;
+    private final CommonUtil commonUtil;
 
     /**
      * 전체조회
@@ -82,7 +80,7 @@ public class TemplateController {
             @Valid @ModelAttribute TemplateDto templateDto,
             BindingResult bindingResult
     ) throws Exception {
-        validationUtil.checkBindingResult(bindingResult);  // 서버 유효성 체크(보안 강화: 프론트 우회등)
+        commonUtil.checkBindingResult(bindingResult);  // 서버 유효성 체크(보안 강화: 프론트 우회등)
         templateService.save(templateDto);
         return ResponseEntity.ok().build();
     }

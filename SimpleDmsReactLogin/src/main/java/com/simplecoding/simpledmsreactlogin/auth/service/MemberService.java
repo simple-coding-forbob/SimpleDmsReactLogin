@@ -6,7 +6,7 @@ import com.simplecoding.simpledmsreactlogin.auth.dto.MemberDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MypageDto;
 import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
 import com.simplecoding.simpledmsreactlogin.auth.repository.MemberRepository;
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 import com.simplecoding.simpledmsreactlogin.common.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final MapStruct mapStruct;
     private final PasswordEncoder passwordEncoder;
-    private final ErrorMsg errorMsg;
+    private final CommonUtil commonUtil;
 
     //    인증/권한 체크 클래스(id/pwd 체크)
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -33,7 +33,7 @@ public class MemberService {
 //    회원가입(insert) : 패스워드(암호화)
     public void save(MemberDto memberDto) {
         if (memberRepository.existsById(memberDto.getEmail())) {
-            throw new RuntimeException(errorMsg.getMessage("errors.register"));
+            throw new RuntimeException(commonUtil.getMessage("errors.register"));
         }
         String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
         // 비밀번호 암호화
@@ -63,7 +63,7 @@ public class MemberService {
     public MypageDto findById(String email) {
         //        JPA 상세조회 함수 실행
         Member member = memberRepository.findById(email)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+                .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
 
         return mapStruct.toDto2(member);
     }

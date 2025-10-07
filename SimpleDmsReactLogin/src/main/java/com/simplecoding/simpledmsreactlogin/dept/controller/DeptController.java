@@ -5,17 +5,21 @@ package com.simplecoding.simpledmsreactlogin.dept.controller;
 
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.dept.dto.DeptDto;
 import com.simplecoding.simpledmsreactlogin.dept.service.DeptService;
+import com.simplecoding.simpledmsreactlogin.gallery.service.GalleryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +36,7 @@ import java.util.List;
 public class DeptController {
 //	서비스 가져오기
 	private final DeptService deptService;
+    private final CommonUtil commonUtil;
 	
 //	전체조회
     @Operation(summary = "부서 전체 조회", description = "검색 키워드로 부서 목록을 조회합니다.")
@@ -50,7 +55,8 @@ public class DeptController {
     // 저장
     @Operation(summary = "부서 저장", description = "새로운 부서를 등록합니다.")
     @PostMapping("/dept")
-    public ResponseEntity<Void> create(@RequestBody DeptDto deptDto) {
+    public ResponseEntity<Void> create(@Valid @RequestBody DeptDto deptDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
         deptService.save(deptDto);
         return ResponseEntity.ok().build();
     }
@@ -61,7 +67,8 @@ public class DeptController {
     @PutMapping("/dept/{dno}")
     public ResponseEntity<Void> update(
             @Parameter(description = "수정할 부서 번호") @PathVariable long dno,
-            @RequestBody DeptDto deptDto) {
+            @Valid @RequestBody DeptDto deptDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
         deptDto.setDno(dno);
         deptService.updateFromDto(deptDto);
         return ResponseEntity.ok().build();

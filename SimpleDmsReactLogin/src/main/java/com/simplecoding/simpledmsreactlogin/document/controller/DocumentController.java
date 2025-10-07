@@ -1,7 +1,7 @@
 package com.simplecoding.simpledmsreactlogin.document.controller;
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
-import com.simplecoding.simpledmsreactlogin.common.ValidationUtil;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.document.dto.DocumentDto;
 import com.simplecoding.simpledmsreactlogin.document.service.DocumentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,7 +30,7 @@ import java.util.List;
 public class DocumentController {
 
     private final DocumentService documentService;
-    private final ValidationUtil validationUtil;
+    private final CommonUtil commonUtil;
 
     // 전체 조회 + 페이징
     @Operation(summary = "Document 전체 조회", description = "검색 키워드로 Document 목록을 조회합니다.")
@@ -56,7 +56,7 @@ public class DocumentController {
             @Valid @RequestBody DocumentDto documentDto,
             BindingResult bindingResult
     ) {
-        validationUtil.checkBindingResult(bindingResult);  // 서버 유효성 체크
+        commonUtil.checkBindingResult(bindingResult);  // 서버 유효성 체크
         documentService.save(documentDto);
         return ResponseEntity.ok().build();
     }

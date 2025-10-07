@@ -2,17 +2,20 @@ package com.simplecoding.simpledmsreactlogin.qna.controller;
 
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.qna.dto.QnaDto;
 import com.simplecoding.simpledmsreactlogin.qna.service.QnaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +28,7 @@ import java.util.List;
 public class QnaController {
 
     private final QnaService qnaService;
+    private final CommonUtil commonUtil;
 
     // 전체 조회 + 페이징
     @Operation(summary = "QNA 전체 조회", description = "검색 키워드로 QNA 목록을 조회합니다.")
@@ -58,7 +62,8 @@ public class QnaController {
     // 추가
     @Operation(summary = "QNA 등록", description = "새로운 QNA를 등록합니다.")
     @PostMapping("/qna")
-    public ResponseEntity<Void> create(@RequestBody QnaDto qnaDto) {
+    public ResponseEntity<Void> create(@Valid @RequestBody QnaDto qnaDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
         qnaService.save(qnaDto);
         return ResponseEntity.ok().build();
     }

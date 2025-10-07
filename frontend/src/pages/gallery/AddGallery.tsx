@@ -1,24 +1,25 @@
 import { useFormik } from "formik";
 import type { ChangeEvent } from "react";
+import { Meta } from "react-head";
 import { useNavigate } from "react-router-dom";
+import messages from "../../common/messages";
 import GalleryService from "../../services/GalleryService";
 import type IGallery from "../../types/IGallery";
 import galleryValidation from "../../validation/galleryValidation";
-import { Meta } from "react-head";
 
 function AddGallery() {
   const nav = useNavigate();
 
   const insert = async (data: IGallery) => {
     await GalleryService.insert(data);
-    alert("저장되었습니다");
+    alert(messages.save);
     nav("/gallery"); // 업로드 성공 시 강제 이동
   };
 
   const formik = useFormik({
     initialValues: {
       galleryTitle: "",
-      galleryData: null as File | null,
+      fileData: null as File | null,
     },
     validationSchema: galleryValidation,
     onSubmit: (values) => {
@@ -26,9 +27,9 @@ function AddGallery() {
     },
   });
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.currentTarget.files?.[0] ?? null;
-    formik.setFieldValue("galleryData", file);
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.currentTarget.files?.[0] ?? null;
+    formik.setFieldValue("fileData", file);
   };
 
   return (
@@ -65,15 +66,15 @@ function AddGallery() {
               파일 선택
               <input
                 type="file"
-                name="galleryData"
+                name="fileData"
                 onChange={handleFileChange}
                 className="hidden"
               />
             </label>
-            <span>{formik.values.galleryData?.name ?? "선택된 파일 없음"}</span>
+            <span>{formik.values.fileData?.name ?? messages.noSelectedFile}</span>
           </div>
-          {formik.errors.galleryData && (
-            <div className="text-red-500 mt-1">{formik.errors.galleryData}</div>
+          {formik.errors.fileData && (
+            <div className="text-red-500 mt-1">{formik.errors.fileData}</div>
           )}
         </div>
 

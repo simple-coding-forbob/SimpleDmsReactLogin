@@ -21,9 +21,6 @@ public class Gallery extends BaseTimeEntity {
 	@Id
 	private String uuid;            // 기본키
 	private String galleryTitle;    // 제목
-    private String galleryFileName; // 파일명
-	@Lob
-	private byte[] galleryData;     // 이미지(blob)
-	private String galleryFileUrl;  // 파일 다운로드 url
+	private String galleryFileUrl="https://placehold.co/600x400";  // 파일 다운로드 url
 }
 

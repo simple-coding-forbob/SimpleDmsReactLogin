@@ -3,5 +3,5 @@ export default interface IFileDb {
   fileTitle: string;
   fileContent: string;
   fileData?: File | null;
-  fileUrl?: string | null;
+  fileUrl?: string;
 }

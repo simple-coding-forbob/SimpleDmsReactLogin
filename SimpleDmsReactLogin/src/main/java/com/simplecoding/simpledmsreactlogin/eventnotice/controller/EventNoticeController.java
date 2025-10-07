@@ -2,17 +2,20 @@ package com.simplecoding.simpledmsreactlogin.eventnotice.controller;
 
 
 import com.simplecoding.simpledmsreactlogin.common.ApiResponse;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.eventnotice.dto.EventNoticeDto;
 import com.simplecoding.simpledmsreactlogin.eventnotice.service.EventNoticeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +27,7 @@ import java.util.List;
 @RequestMapping("/api") // 공통 URL /api 적용
 public class EventNoticeController {
     private final EventNoticeService eventNoticeService;
+    private final CommonUtil commonUtil;
 
     // 전체 조회 + 페이징
     @Operation(summary = "EVENTNOTICE 전체 조회", description = "검색 키워드로 EVENTNOTICE 목록을 조회합니다.")
@@ -57,7 +61,8 @@ public class EventNoticeController {
     // 추가
     @Operation(summary = "EVENTNOTICE 등록", description = "새로운 EVENTNOTICE 등록합니다.")
     @PostMapping("/event-notice")
-    public ResponseEntity<Void> create(@RequestBody EventNoticeDto eventNoticeDto) {
+    public ResponseEntity<Void> create(@Valid @RequestBody EventNoticeDto eventNoticeDto, BindingResult result) {
+        commonUtil.checkBindingResult(result);
         eventNoticeService.save(eventNoticeDto);
         return ResponseEntity.ok().build();
     }

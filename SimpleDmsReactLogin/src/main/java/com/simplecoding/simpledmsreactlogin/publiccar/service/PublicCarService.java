@@ -1,6 +1,6 @@
 package com.simplecoding.simpledmsreactlogin.publiccar.service;
 
-import com.simplecoding.simpledmsreactlogin.common.ErrorMsg;
+import com.simplecoding.simpledmsreactlogin.common.CommonUtil;
 import com.simplecoding.simpledmsreactlogin.common.MapStruct;
 
 import com.simplecoding.simpledmsreactlogin.publiccar.dto.PublicCarDto;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class PublicCarService {
     private final PublicCarRepository publicCarRepository;
     private final MapStruct mapStruct;
-    private final ErrorMsg errorMsg;
+    private final CommonUtil commonUtil;
     
     //    TODO: select 박스 태그에서 사용: 전체조회
     public List<PublicCarDto> findAll() {
@@ -48,7 +48,7 @@ public class PublicCarService {
     public PublicCarDto findById(long pid) {
 //        JPA 상세조회 함수 실행
         PublicCar publicCar = publicCarRepository.findById(pid)
-                .orElseThrow(() -> new RuntimeException(errorMsg.getMessage("errors.not.found")));
+                .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
 
         return mapStruct.toDto(publicCar);
     }
