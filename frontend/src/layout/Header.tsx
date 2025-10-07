@@ -40,7 +40,7 @@ export default function Header() {
                                    md:flex-row md:justify-between md:items-center
                                    ${
                                      isOpen
-                                       ? "max-h-500"
+                                       ? "max-h-1000"
                                        : "max-h-0 overflow-hidden"
                                    }
                                    `}
@@ -260,6 +260,26 @@ export default function Header() {
           </li>
           <li className="group md:relative">
             <Link to="#" className="hover:underline">
+              MeetingRoom
+            </Link>
+            <ul
+              className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
+            >
+              <li className="m-2">
+                <Link to="/meeting-room" className="hover:underline">
+                  MeetingRoom 조회
+                </Link>
+              </li>
+              <li className="m-2">
+                <Link to="/add-meeting-room" className="hover:underline">
+                  MeetingRoom 추가
+                </Link>
+              </li>
+            </ul>
+          </li>
+          <li className="group md:relative">
+            <Link to="#" className="hover:underline">
               Reservation
             </Link>
             <ul
@@ -274,6 +294,26 @@ export default function Header() {
               <li className="m-2">
                 <Link to="/add-reservation" className="hover:underline">
                   Reservation 추가
+                </Link>
+              </li>
+            </ul>
+          </li>
+          <li className="group md:relative">
+            <Link to="#" className="hover:underline">
+              PublicCar
+            </Link>
+            <ul
+              className="md:absolute md:top-full md:left-0 md:opacity-0 md:invisible md:group-hover:opacity-100 
+            md:group-hover:visible md:transition-all md:bg-white md:text-black md:w-42 md:p-2 md:rounded"
+            >
+              <li className="m-2">
+                <Link to="/public-car" className="hover:underline">
+                  PublicCar 조회
+                </Link>
+              </li>
+              <li className="m-2">
+                <Link to="/add-public-car" className="hover:underline">
+                  PublicCar 추가
                 </Link>
               </li>
             </ul>

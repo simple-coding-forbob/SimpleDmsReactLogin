@@ -36,7 +36,7 @@ const ApprovalPending = () => {
   };
 
   // 승인
-  const approval = async (aid: number, data: IApproval) => {
+  const approval = async (aid: number=0, data: IApproval) => { 
     data.status="A";
     await ApprovalService.approval(aid, data);
     alert(messages.update);
@@ -44,7 +44,7 @@ const ApprovalPending = () => {
   };
 
   // 반려
-  const reject = async (aid: number, data: IApproval) => {
+  const reject = async (aid: number=0, data: IApproval) => {
     data.status="R";
     await ApprovalService.reject(aid, data);
     alert(messages.update);
@@ -117,7 +117,7 @@ const ApprovalPending = () => {
                   <div className="px-4 py-2 border-b text-center">
                     <button
                       className="px-2 py-1 bg-green-600 rounded text-white"
-                      onClick={() => approval(data.aid ?? 0, data)}
+                      onClick={() => approval(data.aid, data)}
                     >
                       결재
                     </button>
@@ -127,7 +127,7 @@ const ApprovalPending = () => {
                   <div className="px-4 py-2 border-b text-center">
                     <button
                       className="px-2 py-1 bg-red-600 rounded text-white"
-                      onClick={() => reject(data.aid ?? 0, data)}
+                      onClick={() => reject(data.aid, data)}
                     >
                       반려
                     </button>
