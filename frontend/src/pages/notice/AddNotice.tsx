@@ -3,7 +3,7 @@ import { Meta } from "react-head";
 import { useNavigate } from "react-router-dom";
 import messages from "../../common/messages";
 import NoticeService from "../../services/NoticeService";
-import type INotice from "../../types/INotice";
+import type {INotice} from "../../types/INotice";
 import noticeValidation from "../../validation/noticeValidation";
 
 function AddNotice() {

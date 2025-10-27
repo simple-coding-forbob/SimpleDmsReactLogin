@@ -1,4 +1,4 @@
-﻿export default interface IDept {
+﻿export interface IDept {
     dno?: number;
     dname: string;
     loc: string;

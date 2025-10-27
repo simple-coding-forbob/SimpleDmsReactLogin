@@ -1,4 +1,4 @@
-﻿export default interface IFreeBoard {
+﻿export interface IFreeBoard {
     fid?: number;
     title: string;
     content: string;

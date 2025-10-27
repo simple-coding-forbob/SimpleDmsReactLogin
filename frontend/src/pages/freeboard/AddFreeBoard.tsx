@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import type IFreeBoard from "../../types/IFreeBoard";
+import type {IFreeBoard} from "../../types/IFreeBoard";
 import FreeBoardService from "../../services/FreeBoardService";
 import { useFormik } from "formik";
 import freeBoardValidation from "../../validation/freeBoardValidation";

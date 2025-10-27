@@ -4,7 +4,7 @@ import { Meta } from "react-head";
 import { Link } from "react-router-dom";
 import messages from "../../common/messages";
 import ApprovalService from "../../services/ApprovalService";
-import type IApproval from "../../types/IApproval";
+import type { IApproval } from "../../types/IApproval";
 
 const ApprovalPending = () => {
   const [approvals, setApprovals] = useState<IApproval[]>([]);

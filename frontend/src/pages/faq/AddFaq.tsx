@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 
 import faqValidation from "../../validation/faqValidation";
-import type IFaq from "../../types/IFaq";
+import type {IFaq} from "../../types/IFaq";
 import FaqService from "../../services/FaqService";
 import { Meta } from "react-head";
 

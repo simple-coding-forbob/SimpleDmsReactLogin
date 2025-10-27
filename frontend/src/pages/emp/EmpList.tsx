@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 import Pagination from "rc-pagination";
+import { Meta } from "react-head";
 import { Link } from "react-router-dom";
 import EmpService from "../../services/EmpService";
-import type IEmp from "../../types/IEmp";
-import { Meta } from "react-head";
+import type { IEmp } from "../../types/IEmp";
 
 const EmpList = () => {
   const [emps, setEmp] = useState<IEmp[]>([]);

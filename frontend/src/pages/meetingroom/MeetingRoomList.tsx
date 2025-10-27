@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Meta } from "react-head";
 import { Link } from "react-router-dom";
 import MeetingRoomService from "../../services/MeetingRoomService";
-import type IMeetingRoom from "../../types/IMeetingRoom";
+import type {IMeetingRoom} from "../../types/IMeetingRoom";
 
 const MeetingRoomList = () => {
   const [meetingRooms, setMeetingRooms] = useState<IMeetingRoom[]>([]);

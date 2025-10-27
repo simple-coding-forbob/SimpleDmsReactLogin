@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DeptService from "../../services/DeptService";
 
-import type IDept from "../../types/IDept";
+import type {IDept} from "../../types/IDept";
 import deptValidation from "../../validation/deptValidation";
 import { Meta } from "react-head";
 

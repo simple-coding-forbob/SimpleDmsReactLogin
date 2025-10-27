@@ -6,8 +6,8 @@ import DocumentService from "../../services/DocumentService";
 import { useEffect, useState } from "react";
 import { Meta } from "react-head";
 import TemplateService from "../../services/TemplateService";
-import type IDocument from "../../types/IDocument";
-import type ITemplate from "../../types/ITemplate";
+import type { IDocument } from "../../types/IDocument";
+import type { ITemplate } from "../../types/ITemplate";
 import documentValidation from "../../validation/documentValidation";
 
 function AddDocument() {

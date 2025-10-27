@@ -1,7 +1,7 @@
 import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import type IQna from "../../types/IQna";
+import type {IQna} from "../../types/IQna";
 import QnaService from "../../services/QnaService";
 import { Meta } from "react-head";
 

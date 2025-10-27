@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import EmpService from "../../services/EmpService";
-import type IEmp from "../../types/IEmp";
+import type {IEmp} from "../../types/IEmp";
 import empValidation from "../../validation/empValidation";
 import { Meta } from "react-head";
 

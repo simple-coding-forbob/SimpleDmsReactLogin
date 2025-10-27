@@ -1,4 +1,4 @@
-﻿export default interface INewsBoard {
+﻿export interface INewsBoard {
     nid?: number;
     subject: string;
     text: string;

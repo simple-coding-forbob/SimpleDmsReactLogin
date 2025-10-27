@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Meta } from "react-head";
 import { Link } from "react-router-dom";
 import DocumentService from "../../services/DocumentService";
-import type IDocument from "../../types/IDocument";
+import type { IDocument } from "../../types/IDocument";
 
 const DocumentList = () => {
   const [documents, setDocuments] = useState<IDocument[]>([]);

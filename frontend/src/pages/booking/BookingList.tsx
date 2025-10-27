@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Meta } from "react-head";
 import { Link } from "react-router-dom";
 import BookingService from "../../services/BookingService";
-import type IBooking from "../../types/IBooking";
+import type { IBooking } from "../../types/IBooking";
 
 function BookingList() {
   const [bookings, setBookings] = useState<IBooking[]>([]);

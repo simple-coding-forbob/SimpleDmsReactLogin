@@ -1,4 +1,4 @@
-﻿export default interface IApproval {
+﻿export interface IApproval {
   aid?: number;
   docId: number | string;
   title: string;

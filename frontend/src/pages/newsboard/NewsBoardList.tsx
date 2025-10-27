@@ -2,7 +2,7 @@ import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import NewsBoardService from "../../services/NewsBoardService";
-import type INewsBoard from "../../types/INewsBoard";
+import type {INewsBoard} from "../../types/INewsBoard";
 import { Meta } from "react-head";
 
 function NewsBoardList() {

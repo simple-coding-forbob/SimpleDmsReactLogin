@@ -2,7 +2,7 @@ import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FreeBoardService from "../../services/FreeBoardService";
-import type IFreeBoard from "../../types/IFreeBoard";
+import type {IFreeBoard} from "../../types/IFreeBoard";
 import { Meta } from "react-head";
 
 function FreeBoardList() {
