@@ -1,4 +1,4 @@
-export default interface IAuth {
+export  interface IAuth {
     email: string;
     password: string;
     name?: string;

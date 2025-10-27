@@ -6,8 +6,8 @@ import { Meta } from "react-head";
 import messages from "../../common/messages";
 import ApprovalService from "../../services/ApprovalService";
 import DocumentService from "../../services/DocumentService";
-import type IApproval from "../../types/IApproval";
-import type IDocument from "../../types/IDocument";
+import type { IApproval } from "../../types/IApproval";
+import type { IDocument } from "../../types/IDocument";
 import approvalValidation from "../../validation/approvalValidation";
 
 function AddApproval() {

@@ -5,7 +5,7 @@ import MeetingRoomService from "../../services/MeetingRoomService";
 
 import { Meta } from "react-head";
 import messages from "../../common/messages";
-import type IMeetingRoom from "../../types/IMeetingRoom";
+import type {IMeetingRoom} from "../../types/IMeetingRoom";
 import meetingRoomValidation from "../../validation/meetingRoomValidation";
 
 function MeetingRoomDetail() {

@@ -2,9 +2,9 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import DeptService from "../../services/DeptService";
 
-import type IDept from "../../types/IDept";
-import deptValidation from "../../validation/deptValidation";
 import { Meta } from "react-head";
+import type {IDept} from "../../types/IDept";
+import deptValidation from "../../validation/deptValidation";
 
 function AddDept() {
   const nav = useNavigate();
@@ -49,7 +49,7 @@ function AddDept() {
           />
           {formik.touched.dname && formik.errors.dname && (
             <div className="text-red-500">{formik.errors.dname}</div>
-          )}
+          )} 
         </div>
 
         {/* loc 입력 */}

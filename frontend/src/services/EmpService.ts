@@ -1,28 +1,28 @@
 ﻿// axios 공통함수 : 벡엔드 연동
 
-import common from "../common/CommonService";
-import type IEmp from "../types/IEmp";
+import axiosInstance from "../common/axiosInstance";
+import type { IEmp } from "../types/IEmp";
 
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get("/emp", {
+  return axiosInstance.get("/emp", {
     params: { searchKeyword, page, size },
   });
 };
 
 const get = (eno: number) => {
-  return common.get(`/emp/${eno}`);
+  return axiosInstance.get(`/emp/${eno}`);
 };
 
 const insert = (data: IEmp) => {
-  return common.post("/emp", data);
+  return axiosInstance.post("/emp", data);
 };
 
 const update = (eno: number, data: IEmp) => {
-  return common.put(`/emp/${eno}`, data);
+  return axiosInstance.put(`/emp/${eno}`, data);
 };
 
 const remove = (eno: number) => {
-  return common.delete(`/emp/${eno}`);
+  return axiosInstance.delete(`/emp/${eno}`);
 };
 
 const EmpService = {

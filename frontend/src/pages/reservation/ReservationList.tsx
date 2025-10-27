@@ -2,7 +2,7 @@ import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Meta } from "react-head";
-import type IReservation from "../../types/IReservation";
+import type {IReservation} from "../../types/IReservation";
 import ReservationService from "../../services/ReservationService";
 import { format } from "date-fns";
 

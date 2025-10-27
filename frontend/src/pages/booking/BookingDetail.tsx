@@ -4,9 +4,9 @@ import { Meta } from "react-head";
 import { useNavigate, useParams } from "react-router-dom";
 import BookingService from "../../services/BookingService";
 import PublicCarService from "../../services/PublicCarService";
-import type IBooking from "../../types/IBooking";
-import type IBookingStatus from "../../types/IBookingStatus";
-import type IPublicCar from "../../types/IPublicCar";
+import type { IBooking } from "../../types/IBooking";
+import type { IBookingStatus } from "../../types/IBookingStatus";
+import type { IPublicCar } from "../../types/IPublicCar";
 import bookingValidation from "../../validation/bookingValidation";
 
 function BookingDetail() {

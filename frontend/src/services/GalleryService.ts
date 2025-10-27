@@ -1,17 +1,17 @@
 // FiledbService.ts
-import common from "../common/CommonService";
-import type IGallery from "../types/IGallery";
+import axiosInstance from "../common/axiosInstance";
+import type { IGallery } from "../types/IGallery";
 
 // 전체 조회 (like 검색 + 페이징)
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get("/gallery", {
+  return axiosInstance.get("/gallery", {
     params: { searchKeyword, page, size },
   });
 };
 
 // 삭제
 const remove = (uuid: number) => {
-  return common.delete(`/gallery/${uuid}`);
+  return axiosInstance.delete(`/gallery/${uuid}`);
 };
 
 // 업로드
@@ -22,7 +22,7 @@ const insert = (data: IGallery) => {
     formData.append("fileData", data.fileData);
   }
 
-  return common.post("/gallery", formData, {
+  return axiosInstance.post("/gallery", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 };

@@ -5,7 +5,7 @@ import FileDbService from "../../services/FileDbService";
 
 import { Meta } from "react-head";
 import messages from "../../common/messages";
-import type IFileDb from "../../types/IFileDb";
+import type {IFileDb} from "../../types/IFileDb";
 import fileDbValidation from "../../validation/fileDbValidation";
 
 function AddFileDb() {

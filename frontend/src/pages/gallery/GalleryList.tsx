@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Meta } from "react-head";
 import messages from "../../common/messages";
 import GalleryService from "../../services/GalleryService";
-import type IGallery from "../../types/IGallery";
+import type {IGallery} from "../../types/IGallery";
 
 const GalleryList = () => {
   const [gallerys, setGallerys] = useState<IGallery[]>([]);

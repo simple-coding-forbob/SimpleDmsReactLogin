@@ -1,17 +1,17 @@
 // src/services/auth/AuthService.ts
-import common from "../common/CommonService";
-import type IAuth from "../types/auth/IAuth";
+import axiosInstance from "../common/axiosInstance";
+import type { IAuth } from "../types/auth/IAuth";
 
 const login = (user: IAuth) => {
-  return common.post("/auth/login", user);
+  return axiosInstance.post("/auth/login", user);
 };
 
 const register = (user: IAuth) => {
-  return common.post("/auth/register", user);
+  return axiosInstance.post("/auth/register", user);
 };
 
 const mypage = () => {
-  return common.get("/mypage");
+  return axiosInstance.get("/mypage");
 };
 
 const AuthService = {

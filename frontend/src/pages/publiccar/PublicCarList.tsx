@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Meta } from "react-head";
 import { Link } from "react-router-dom";
 import PublicCarService from "../../services/PublicCarService";
-import type IPublicCar from "../../types/IPublicCar";
+import type {IPublicCar} from "../../types/IPublicCar";
 
 const PublicCarList = () => {
   const [publicCars, setPublicCars] = useState<IPublicCar[]>([]);

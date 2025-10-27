@@ -1,9 +1,9 @@
 import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import type IEventNotice from "../../types/IEventNotice";
-import EventNoticeService from "../../services/EventNoticeService";
 import { Meta } from "react-head";
+import { Link } from "react-router-dom";
+import EventNoticeService from "../../services/EventNoticeService";
+import type { IEventNotice } from "../../types/IEventNotice";
 
 const EventNoticeList = () => {
   const [eventNotices, setEventNotice] = useState<IEventNotice[]>([]);

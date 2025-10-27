@@ -1,7 +1,7 @@
 import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import type IFaq from "../../types/IFaq";
+import type {IFaq} from "../../types/IFaq";
 import FaqService from "../../services/FaqService";
 import { Meta } from "react-head";
 

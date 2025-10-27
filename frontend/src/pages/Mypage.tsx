@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AuthService from "../services/AuthService";
-import type IAuth from "../types/auth/IAuth";
+import type { IAuth } from "../types/auth/IAuth";
 
 function Mypage() {
   const [member, setMember] = useState<IAuth | null>(null);

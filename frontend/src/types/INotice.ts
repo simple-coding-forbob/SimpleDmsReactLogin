@@ -1,4 +1,4 @@
-﻿export default interface INotice {
+﻿export interface INotice {
     nid?: number;
     title: string;
     content: string;

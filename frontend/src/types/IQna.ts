@@ -1,4 +1,4 @@
-export default interface IQna {
+export interface IQna {
     qno?: number;
     questioner: string;
     question: string;

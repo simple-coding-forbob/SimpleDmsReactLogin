@@ -4,8 +4,8 @@ import { Meta } from "react-head";
 import { useNavigate } from "react-router-dom";
 import MeetingRoomService from "../../services/MeetingRoomService";
 import ReservationService from "../../services/ReservationService";
-import type IMeetingRoom from "../../types/IMeetingRoom";
-import type IReservation from "../../types/IReservation";
+import type { IMeetingRoom } from "../../types/IMeetingRoom";
+import type { IReservation } from "../../types/IReservation";
 import reservationValidation from "../../validation/reservationValidation";
 
 function AddReservation() {

@@ -1,7 +1,7 @@
 import Pagination from "rc-pagination";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import type INotice from "../../types/INotice";
+import type {INotice} from "../../types/INotice";
 import NoticeService from "../../services/NoticeService";
 import { Meta } from "react-head";
 

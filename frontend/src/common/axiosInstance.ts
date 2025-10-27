@@ -4,7 +4,7 @@ import messages from "./messages";
 // todo: baseURL: "http://스프링ip:스프링port/공통url"
 // react <-> springboot : json 객체(통신)
 
-const common = axios.create({
+const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_URL,
   headers: {
     "Content-Type": "application/json",
@@ -12,7 +12,7 @@ const common = axios.create({
 });
 
 // 공통 벡엔드 요청(axios) 인터셉터 (옵션)
-common.interceptors.request.use((config) => {
+axiosInstance.interceptors.request.use((config) => {
   const rawJwt = localStorage.getItem("jwt");
 
   if (rawJwt) {
@@ -28,7 +28,7 @@ common.interceptors.request.use((config) => {
 });
 
 // 공통 응답 인터셉터 (옵션)
-common.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error(error);
@@ -39,4 +39,4 @@ common.interceptors.response.use(
   }
 );
 
-export default common;
+export default axiosInstance;

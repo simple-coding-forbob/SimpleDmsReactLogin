@@ -3,7 +3,7 @@ import { Meta } from "react-head";
 import { useNavigate } from "react-router-dom";
 import messages from "../../common/messages";
 import EventNoticeService from "../../services/EventNoticeService";
-import type IEventNotice from "../../types/IEventNotice";
+import type {IEventNotice} from "../../types/IEventNotice";
 import eventNoticeValidation from "../../validation/eventNoticeValidation";
 
 function AddEventNotice() {

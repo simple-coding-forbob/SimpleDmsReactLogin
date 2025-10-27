@@ -1,4 +1,4 @@
-﻿export default interface IBooking {
+﻿export interface IBooking {
     bid?: number;
     email: string;
     pid: number|string;

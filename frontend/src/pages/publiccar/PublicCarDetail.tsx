@@ -5,7 +5,7 @@ import PublicCarService from "../../services/PublicCarService";
 
 import { Meta } from "react-head";
 import messages from "../../common/messages";
-import type IPublicCar from "../../types/IPublicCar";
+import type {IPublicCar} from "../../types/IPublicCar";
 import publicCarValidation from "../../validation/publicCarValidation";
 
 function PublicCarDetail() {

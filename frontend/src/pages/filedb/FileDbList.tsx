@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Meta } from "react-head";
 import messages from "../../common/messages";
 import FileDbService from "../../services/FileDbService";
-import type IFileDb from "../../types/IFileDb";
+import type {IFileDb} from "../../types/IFileDb";
 
 const FiledbList = () => {
   const [fileDbs, setFileDbs] = useState<IFileDb[]>([]);
