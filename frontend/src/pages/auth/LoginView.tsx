@@ -1,17 +1,16 @@
 // src/pages/auth/LoginView.tsx
 import { useFormik } from "formik";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Meta } from "react-head";
 import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/puppy-1920_1280.webp";
-import { authContext } from "../../contexts/authContext";
 import AuthService from "../../services/AuthService";
-import type {IAuth} from "../../types/auth/IAuth";
-import type { AuthContextType } from "../../types/auth/IAuthContexttype";
+import { useAuthStore } from "../../stores/useAuthStore";
+import type { IAuth } from "../../types/auth/IAuth";
 import authValidation from "../../validation/authValidation"; // Yup 스키마
 
 function LoginView() {
-  const { loggedIn, login } = useContext<AuthContextType>(authContext);
+  const { loggedIn, login } = useAuthStore();
   const nav = useNavigate();
 
   // 이미 로그인 상태이면 mypage 로 이동
