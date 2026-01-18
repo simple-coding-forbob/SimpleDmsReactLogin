@@ -1,4 +1,4 @@
-﻿export default interface IEventNotice {
+﻿export interface IEventNotice {
     eid?: number;
     subject: string;
     text: string;

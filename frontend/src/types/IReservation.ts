@@ -1,4 +1,4 @@
-﻿export default interface IReservation {
+﻿export interface IReservation {
     rid?: number;
     email: string;
     mid: number|string;

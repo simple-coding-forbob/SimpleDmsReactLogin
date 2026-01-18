@@ -1,4 +1,4 @@
-﻿export default interface IPublicCar {
+﻿export interface IPublicCar {
     pid?: number;
     carName: string;
     floor: string;

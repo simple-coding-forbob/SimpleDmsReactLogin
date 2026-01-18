@@ -1,4 +1,4 @@
-﻿export default interface IBookingStatus {
+﻿export interface IBookingStatus {
     name: string;
     description: string;
 }

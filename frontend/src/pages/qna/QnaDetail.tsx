@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import type IQna from "../../types/IQna";
+import type {IQna} from "../../types/IQna";
 import QnaService from "../../services/QnaService";
 import qnaValidation from "../../validation/qnaValidation";
 import { Meta } from "react-head";

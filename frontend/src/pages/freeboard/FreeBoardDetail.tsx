@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import FreeBoardService from "../../services/FreeBoardService";
-import type IFreeBoard from "../../types/IFreeBoard";
+import type {IFreeBoard} from "../../types/IFreeBoard";
 import freeBoardValidation from "../../validation/freeBoardValidation";
 import { Meta } from "react-head";
 

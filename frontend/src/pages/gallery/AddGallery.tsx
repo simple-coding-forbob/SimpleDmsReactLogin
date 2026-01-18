@@ -4,7 +4,7 @@ import { Meta } from "react-head";
 import { useNavigate } from "react-router-dom";
 import messages from "../../common/messages";
 import GalleryService from "../../services/GalleryService";
-import type IGallery from "../../types/IGallery";
+import type {IGallery} from "../../types/IGallery";
 import galleryValidation from "../../validation/galleryValidation";
 
 function AddGallery() {

@@ -1,4 +1,4 @@
-﻿export default interface IEmp {
+﻿export interface IEmp {
     eno?: number;
     ename: string;
     job: string;

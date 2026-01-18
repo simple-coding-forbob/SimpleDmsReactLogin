@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import NewsBoardService from "../../services/NewsBoardService";
-import type INewsBoard from "../../types/INewsBoard";
+import type {INewsBoard} from "../../types/INewsBoard";
 import newsBoardValidation from "../../validation/newsBoardValidation";
 import { Meta } from "react-head";
 

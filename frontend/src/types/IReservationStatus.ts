@@ -1,4 +1,4 @@
-﻿export default interface IReservationStatus {
+﻿export interface IReservationStatus {
     name: string;
     description: string;
 }

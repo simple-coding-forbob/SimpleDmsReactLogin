@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import TemplateService from "../../services/TemplateService";
 
 import { Meta } from "react-head";
-import type ITemplate from "../../types/ITemplate";
+import type {ITemplate} from "../../types/ITemplate";
 import templateValidation from "../../validation/templateValidation";
 
 function AddTemplate() {

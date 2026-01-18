@@ -1,17 +1,17 @@
 // FiledbService.ts
-import common from "../common/CommonService";
-import type IFileDb from "../types/IFileDb";
+import axiosInstance from "../common/axiosInstance";
+import type { IFileDb } from "../types/IFileDb";
 
 // 전체 조회 (like 검색 + 페이징)
 const getAll = (searchKeyword: string, page: number, size: number) => {
-  return common.get("/fileDb", {
+  return axiosInstance.get("/fileDb", {
     params: { searchKeyword, page, size },
   });
 };
 
 // 삭제
 const remove = (uuid: number) => {
-  return common.delete(`/fileDb/${uuid}`);
+  return axiosInstance.delete(`/fileDb/${uuid}`);
 };
 
 // 업로드
@@ -23,7 +23,7 @@ const insert = (data: IFileDb) => {
     formData.append("fileData", data.fileData);
   }
 
-  return common.post("/fileDb", formData, {
+  return axiosInstance.post("/fileDb", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 };

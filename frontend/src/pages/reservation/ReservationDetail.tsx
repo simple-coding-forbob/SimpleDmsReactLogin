@@ -1,13 +1,13 @@
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import ReservationService from "../../services/ReservationService";
-import type IReservation from "../../types/IReservation";
-import reservationValidation from "../../validation/reservationValidation";
 import { Meta } from "react-head";
-import type IMeetingRoom from "../../types/IMeetingRoom";
+import { useNavigate, useParams } from "react-router-dom";
 import MeetingRoomService from "../../services/MeetingRoomService";
-import type IReservationStatus from "../../types/IReservationStatus";
+import ReservationService from "../../services/ReservationService";
+import type { IMeetingRoom } from "../../types/IMeetingRoom";
+import type { IReservation } from "../../types/IReservation";
+import type { IReservationStatus } from "../../types/IReservationStatus";
+import reservationValidation from "../../validation/reservationValidation";
 
 function ReservationDetail() {
   const params = useParams<{ rid: string }>();
@@ -20,7 +20,7 @@ function ReservationDetail() {
 
   // 회의실 전체조회
   useEffect(() => {
-    findAll();
+    selectAll();
     getStatusAll();
   }, []);
 
@@ -36,8 +36,8 @@ function ReservationDetail() {
     console.log(response.data);
   };
 
-  const findAll = async () => {
-    const response = await MeetingRoomService.findAll();
+  const selectAll = async () => {
+    const response = await MeetingRoomService.selectAll();
     const { result } = response.data;
     setMeetingRooms(result);
     console.log(response.data);
