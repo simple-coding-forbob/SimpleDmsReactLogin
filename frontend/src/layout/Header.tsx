@@ -1,11 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { authContext } from "../contexts/authContext";
-import type { AuthContextType } from "../types/auth/IAuthContexttype";
+import { useAuthStore } from "../store/useAuthStore";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const { loggedIn, logout } = useContext<AuthContextType>(authContext);
+  const { loggedIn, logout } = useAuthStore();
   const nav = useNavigate();
 
   const logoutMenu = () => {

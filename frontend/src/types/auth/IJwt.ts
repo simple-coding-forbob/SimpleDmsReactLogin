@@ -1,4 +1,4 @@
-export default interface IJwt {
+export interface IJwt {
     accessToken: string;
     tokenType: string;
 }
