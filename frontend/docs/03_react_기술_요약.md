@@ -1,4 +1,5 @@
 # 리액트 기본
+## 리액트 기본 주소: http://localhost:5173
 ## SSR vs CSR
 ## SSR: (Server Side Rendering), 서버에서 html 을 만들어서 웹브라우저로 전송하는 기술
    예) jsp 등

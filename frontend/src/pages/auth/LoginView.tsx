@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/puppy-1920_1280.webp";
 import AuthService from "../../services/AuthService";
 import { useAuthStore } from "../../store/useAuthStore";
-import type IAuth from "../../types/auth/IAuth";
+import type { IAuth } from "../../types/auth/IAuth";
 import authValidation from "../../validation/authValidation"; // Yup 스키마
 
 function LoginView() {
