@@ -1,6 +1,10 @@
 // axios 공통함수 : 벡엔드 연동IApiResponseIEventNotice
 
+<<<<<<< Updated upstream
 import type { IEventNotice } from "../types/IEventNotice";
+=======
+import type {IEventNotice} from "../types/IEventNotice";
+>>>>>>> Stashed changes
 
 import axiosInstance from "../common/axiosInstance";
 

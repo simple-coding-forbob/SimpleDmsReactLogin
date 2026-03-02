@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { Meta } from "react-head";
 import { Link } from "react-router-dom";
 import ApprovalService from "../../services/ApprovalService";
+<<<<<<< Updated upstream
 import type { IApproval } from "../../types/IApproval";
+=======
+import type {IApproval} from "../../types/IApproval";
+>>>>>>> Stashed changes
 
 const ApprovalDrafts = () => {
   const [approvals, setApprovals] = useState<IApproval[]>([]);

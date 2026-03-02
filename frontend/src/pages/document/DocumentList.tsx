@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { Meta } from "react-head";
 import { Link } from "react-router-dom";
 import DocumentService from "../../services/DocumentService";
+<<<<<<< Updated upstream
 import type { IDocument } from "../../types/IDocument";
+=======
+import type {IDocument} from "../../types/IDocument";
+>>>>>>> Stashed changes
 
 const DocumentList = () => {
   const [documents, setDocuments] = useState<IDocument[]>([]);

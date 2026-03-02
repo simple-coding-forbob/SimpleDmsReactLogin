@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 ﻿export interface IApproval {
+=======
+﻿export  interface IApproval {
+>>>>>>> Stashed changes
   aid?: number;
   docId: number | string;
   title: string;

@@ -9,6 +9,7 @@ const axiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+<<<<<<< Updated upstream:frontend/src/common/axiosInstance.ts
 });
 
 // 공통 벡엔드 요청(axios) 인터셉터 (옵션)
@@ -25,16 +26,20 @@ axiosInstance.interceptors.request.use((config) => {
   }
 
   return config;
+=======
+  withCredentials: true, // httpOnly 쿠키 전송
+>>>>>>> Stashed changes:frontend/src/common/CommonService.ts
 });
 
 // 공통 응답 인터셉터 (옵션)
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error(error);
-    const msg = error.response?.data?.message || messages.contactAdmin;
-    alert("[서버 오류] : " + msg);
-
+    const status = error.response?.status;
+    if (status && status !== 401) { // 401은 새로고침 시 자연스러운 로그인 상태 확인 실패
+      const msg = error.response?.data?.message || messages.contactAdmin;
+      alert("[서버 오류] : " + msg);
+    }
     return Promise.reject(error);
   }
 );

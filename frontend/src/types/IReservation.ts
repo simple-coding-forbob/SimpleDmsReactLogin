@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 ﻿export interface IReservation {
+=======
+﻿export  interface IReservation {
+>>>>>>> Stashed changes
     rid?: number;
     email: string;
     mid: number|string;

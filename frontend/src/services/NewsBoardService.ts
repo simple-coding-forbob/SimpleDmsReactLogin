@@ -1,7 +1,12 @@
 ﻿// axios 공통함수 : 벡엔드 연동IApiResponse
 
+<<<<<<< Updated upstream
 import axiosInstance from "../common/axiosInstance";
 import type { INewsBoard } from "../types/INewsBoard";
+=======
+import common from "../common/CommonService";
+import type {INewsBoard} from "../types/INewsBoard";
+>>>>>>> Stashed changes
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))
 const getAll = (searchKeyword: string, page: number, size: number) => {

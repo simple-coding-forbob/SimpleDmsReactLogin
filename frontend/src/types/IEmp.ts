@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 ﻿export interface IEmp {
+=======
+﻿export  interface IEmp {
+>>>>>>> Stashed changes
     eno?: number;
     ename: string;
     job: string;

@@ -25,6 +25,8 @@ public class WebConfig implements WebMvcConfigurer {
                         HttpMethod.PUT.name(),
                         HttpMethod.DELETE.name(),
                         HttpMethod.PATCH.name()
-                );
+                )
+                // 쿠키 전송 허용
+                .allowCredentials(true);
     }
 }

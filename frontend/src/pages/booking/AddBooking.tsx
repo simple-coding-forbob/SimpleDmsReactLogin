@@ -5,8 +5,13 @@ import { useNavigate } from "react-router-dom";
 import BookingService from "../../services/BookingService";
 
 import PublicCarService from "../../services/PublicCarService";
+<<<<<<< Updated upstream
 import type { IBooking } from "../../types/IBooking";
 import type { IPublicCar } from "../../types/IPublicCar";
+=======
+import type {IBooking} from "../../types/IBooking";
+import type {IPublicCar} from "../../types/IPublicCar";
+>>>>>>> Stashed changes
 import bookingValidation from "../../validation/bookingValidation";
 
 function AddBooking() {

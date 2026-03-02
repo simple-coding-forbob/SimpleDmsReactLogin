@@ -1,6 +1,11 @@
 // FiledbService.ts
+<<<<<<< Updated upstream
 import axiosInstance from "../common/axiosInstance";
 import type { IFileDb } from "../types/IFileDb";
+=======
+import common from "../common/CommonService";
+import type {IFileDb} from "../types/IFileDb";
+>>>>>>> Stashed changes
 
 // 전체 조회 (like 검색 + 페이징)
 const getAll = (searchKeyword: string, page: number, size: number) => {

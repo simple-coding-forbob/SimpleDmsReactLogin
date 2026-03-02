@@ -1,5 +1,9 @@
 ﻿// axios 공통함수 : 백엔드 연동
+<<<<<<< Updated upstream
 import type { IApproval } from "../types/IApproval";
+=======
+import type {IApproval} from "../types/IApproval";
+>>>>>>> Stashed changes
 
 import axiosInstance from "../common/axiosInstance";
 

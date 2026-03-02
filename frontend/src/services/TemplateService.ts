@@ -1,6 +1,11 @@
 // DocumentService.ts
+<<<<<<< Updated upstream
 import axiosInstance from "../common/axiosInstance";
 import type { ITemplate } from "../types/ITemplate";
+=======
+import common from "../common/CommonService";
+import type {ITemplate} from "../types/ITemplate";
+>>>>>>> Stashed changes
 
 // 전체 조회 (검색 + 페이징)
 const selectAll = () => {

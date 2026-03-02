@@ -1,6 +1,10 @@
 ﻿// axios 공통함수 : 벡엔드 연동IApiResponse
 
+<<<<<<< Updated upstream
 import axiosInstance from "../common/axiosInstance";
+=======
+import common from "../common/CommonService";
+>>>>>>> Stashed changes
 import type { IDept } from "../types/IDept";
 
 // 전체 조회 + like 검색(paging 기능 : page(현재페이지), size(1페이지당개수))

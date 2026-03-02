@@ -4,7 +4,12 @@ import Pagination from "rc-pagination";
 import { Meta } from "react-head";
 import { Link } from "react-router-dom";
 import EmpService from "../../services/EmpService";
+<<<<<<< Updated upstream
 import type { IEmp } from "../../types/IEmp";
+=======
+import type {IEmp} from "../../types/IEmp";
+import { Meta } from "react-head";
+>>>>>>> Stashed changes
 
 const EmpList = () => {
   const [emps, setEmp] = useState<IEmp[]>([]);

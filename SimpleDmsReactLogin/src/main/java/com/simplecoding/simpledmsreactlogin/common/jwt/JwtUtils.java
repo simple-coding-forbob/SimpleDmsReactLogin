@@ -2,13 +2,16 @@ package com.simplecoding.simpledmsreactlogin.common.jwt;
 
 import com.simplecoding.simpledmsreactlogin.auth.dto.SecurityUserDto;
 import io.jsonwebtoken.*;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * JWT 토큰 생성 및 검증 유틸리티
@@ -74,6 +77,22 @@ public class JwtUtils {
             log.error("JWT 클레임이 비어 있음: {}", e.getMessage());
         }
         return false;
+    }
+
+    /**
+     * 요청 쿠키에서 httpOnly JWT 추출
+     * @param request HttpServletRequest
+     * @return JWT 문자열 또는 null
+     */
+    public Optional<String> getJwtFromCookies(HttpServletRequest request) {
+        if (request.getCookies() == null) return null;
+
+        Optional<String> jwtOpt = Arrays.stream(request.getCookies())
+                .filter(c -> "jwt".equals(c.getName())) // 쿠키 이름
+                .map(Cookie::getValue)
+                .findFirst();
+
+        return jwtOpt;
     }
 
     /**

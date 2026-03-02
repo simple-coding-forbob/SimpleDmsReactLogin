@@ -1,6 +1,10 @@
 ﻿// axios 공통함수 : 벡엔드 연동IApiResponse
 
+<<<<<<< Updated upstream
 import type { IBooking } from "../types/IBooking";
+=======
+import type {IBooking} from "../types/IBooking";
+>>>>>>> Stashed changes
 
 import axiosInstance from "../common/axiosInstance";
 

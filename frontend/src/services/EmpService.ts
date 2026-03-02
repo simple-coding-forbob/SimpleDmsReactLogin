@@ -1,7 +1,12 @@
 ﻿// axios 공통함수 : 벡엔드 연동
 
+<<<<<<< Updated upstream
 import axiosInstance from "../common/axiosInstance";
 import type { IEmp } from "../types/IEmp";
+=======
+import common from "../common/CommonService";
+import type {IEmp} from "../types/IEmp";
+>>>>>>> Stashed changes
 
 const getAll = (searchKeyword: string, page: number, size: number) => {
   return axiosInstance.get("/emp", {

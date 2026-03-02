@@ -3,6 +3,7 @@ package com.simplecoding.simpledmsreactlogin.common.jwt;
 import com.simplecoding.simpledmsreactlogin.auth.service.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * JWT 기반 인증 필터
@@ -42,14 +45,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         try {
-            // 1) 요청 헤더에서 JWT 추출
-            String jwt = jwtUtils.parseJwt(request);
+            // 1) 요청 헤더의 쿠키에서 jwt 추출
+            Optional<String> jwt = jwtUtils.getJwtFromCookies(request);
 
             // 2) JWT가 존재하고 유효하면
-            if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+            if (jwt.isPresent() && jwtUtils.validateJwtToken(jwt.get())) {
 
                 // 3) JWT에서 사용자 이메일 추출
-                String email = jwtUtils.getUserNameFromJwt(jwt);
+                String email = jwtUtils.getUserNameFromJwt(jwt.get());
 
                 // 4) DB에서 사용자 상세 정보 조회
                 UserDetails userDetails = userDetailsService.loadUserByUsername(email);

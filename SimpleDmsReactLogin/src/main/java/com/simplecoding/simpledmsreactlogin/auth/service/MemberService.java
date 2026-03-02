@@ -1,7 +1,6 @@
 package com.simplecoding.simpledmsreactlogin.auth.service;
 
 
-import com.simplecoding.simpledmsreactlogin.auth.dto.JwtDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MemberDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MypageDto;
 import com.simplecoding.simpledmsreactlogin.auth.entity.Member;
@@ -43,7 +42,7 @@ public class MemberService {
     }
 
 //    TODO: 로그인 , DTO 필요(택배상자)
-    public JwtDto login(MemberDto memberDto) {
+    public String  login(MemberDto memberDto) {
 //        (1) id/pwd 인증(확인) : 통과
 //        TODO: (참고) .authenticate() => UserDetailsServiceImple 상세조회 함수가 실행됨
 //              (참고) Authentication 객체 == 인증된객체 (유저)
@@ -53,14 +52,10 @@ public class MemberService {
                         memberDto.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication); //        (2) 통과된 유저들 => 필통(홀더)에 보관 : 인증완료
-        String accessToken = jwtUtils.generateJwtToken(authentication);       //        (3) 웹토큰 발급(벡엔드) : 카드패스(호텔카드키)
-        JwtDto jwtDto = new JwtDto(
-                accessToken                // 웹토큰
-        );
-        return jwtDto;                                                   //        (5) 택배상자(DTO)에 담기 : 1) 웹토큰, 2) 유저정보
+        return jwtUtils.generateJwtToken(authentication);                     //        (3) 웹토큰 발급(벡엔드) : 카드패스(호텔카드키)
     }
 
-    public MypageDto findById(String email) {
+    public MypageDto getMypage(String email) {
         //        JPA 상세조회 함수 실행
         Member member = memberRepository.findById(email)
                 .orElseThrow(() -> new RuntimeException(commonUtil.getMessage("errors.not.found")));
