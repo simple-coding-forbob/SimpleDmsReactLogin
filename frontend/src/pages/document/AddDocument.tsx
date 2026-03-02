@@ -6,8 +6,13 @@ import DocumentService from "../../services/DocumentService";
 import { useEffect, useState } from "react";
 import { Meta } from "react-head";
 import TemplateService from "../../services/TemplateService";
+<<<<<<< Updated upstream
 import type { IDocument } from "../../types/IDocument";
 import type { ITemplate } from "../../types/ITemplate";
+=======
+import type {IDocument} from "../../types/IDocument";
+import type ITemplate from "../../types/ITemplate";
+>>>>>>> Stashed changes
 import documentValidation from "../../validation/documentValidation";
 
 function AddDocument() {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import AuthService from "../services/AuthService";
 import { useAuthStore } from "../store/useAuthStore";
 
 export default function Header() {
@@ -7,7 +8,8 @@ export default function Header() {
   const { loggedIn, logout } = useAuthStore();
   const nav = useNavigate();
 
-  const logoutMenu = () => {
+  const logoutMenu = async () => {
+    await AuthService.logout();
     logout();
     nav("/login");
   };

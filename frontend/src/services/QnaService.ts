@@ -1,5 +1,9 @@
 ﻿// axios 공통함수 : 벡엔드 연동IApiResponse
+<<<<<<< Updated upstream
 import type { IQna } from "../types/IQna";
+=======
+import type {IQna} from "../types/IQna";
+>>>>>>> Stashed changes
 
 import axiosInstance from "../common/axiosInstance";
 

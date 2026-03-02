@@ -2,6 +2,11 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import DeptService from "../../services/DeptService";
 
+<<<<<<< Updated upstream
+=======
+import type {IDept} from "../../types/IDept";
+import deptValidation from "../../validation/deptValidation";
+>>>>>>> Stashed changes
 import { Meta } from "react-head";
 import type {IDept} from "../../types/IDept";
 import deptValidation from "../../validation/deptValidation";

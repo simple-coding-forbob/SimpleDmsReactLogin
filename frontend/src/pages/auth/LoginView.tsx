@@ -1,6 +1,5 @@
 // src/pages/auth/LoginView.tsx
 import { useFormik } from "formik";
-import { useEffect } from "react";
 import { Meta } from "react-head";
 import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/puppy-1920_1280.webp";
@@ -10,18 +9,13 @@ import type { IAuth } from "../../types/auth/IAuth";
 import authValidation from "../../validation/authValidation"; // Yup 스키마
 
 function LoginView() {
-  const { loggedIn, login } = useAuthStore();
+  const { login } = useAuthStore();
   const nav = useNavigate();
-
-  // 이미 로그인 상태이면 mypage 로 이동
-  useEffect(() => {
-    if (loggedIn) nav("/mypage");
-  }, [loggedIn, nav]);
 
   const handleLogin = async (data: IAuth) => {
     const response = await AuthService.login(data);
     console.log(response.data);
-    login(response.data); // Context 상태 업데이트
+    login(); // Context 상태 업데이트
     nav("/mypage");
   };
 

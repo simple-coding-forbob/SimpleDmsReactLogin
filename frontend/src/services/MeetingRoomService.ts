@@ -1,6 +1,10 @@
 ﻿// axios 공통함수 : 벡엔드 연동IApiResponse
 
+<<<<<<< Updated upstream
 import type { IMeetingRoom } from "../types/IMeetingRoom";
+=======
+import type {IMeetingRoom} from "../types/IMeetingRoom";
+>>>>>>> Stashed changes
 
 import axiosInstance from "../common/axiosInstance";
 

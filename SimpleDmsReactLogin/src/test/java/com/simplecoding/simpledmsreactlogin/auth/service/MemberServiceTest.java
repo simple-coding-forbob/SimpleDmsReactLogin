@@ -1,6 +1,5 @@
 package com.simplecoding.simpledmsreactlogin.auth.service;
 
-import com.simplecoding.simpledmsreactlogin.auth.dto.JwtDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MemberDto;
 import com.simplecoding.simpledmsreactlogin.auth.dto.MypageDto;
 import lombok.extern.log4j.Log4j2;
@@ -36,18 +35,18 @@ class MemberServiceTest {
         memberDto.setPassword("123456");
 
 //        2) 실행:
-        JwtDto jwtDto= memberService.login(memberDto);
+        String  jwt= memberService.login(memberDto);
 //        3) 검증:
-        log.info("jwt:{}",jwtDto);
+        log.info("jwt:{}",jwt);
     }
 
     @Test
-    void findByEmail() {
+    void getMypage() {
 //        1) 조건:
         String email="forbob@naver.com";
 
 //        2) 실행:
-        MypageDto mypageDto= memberService.findById(email);
+        MypageDto mypageDto= memberService.getMypage(email);
 //        3) 검증:
         log.info("mypageDto:{}",mypageDto);
     }

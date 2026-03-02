@@ -1,7 +1,6 @@
-import type { IJwt } from "./IJwt";
 
 export interface IAuthState {
-  loggedIn: boolean;
-  login: (jwt: IJwt) => void;
+  loggedIn: boolean|null;
+  login: () => void;
   logout: () => void;
 }

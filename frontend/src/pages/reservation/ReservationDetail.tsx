@@ -36,7 +36,11 @@ function ReservationDetail() {
     console.log(response.data);
   };
 
+<<<<<<< Updated upstream
   const selectAll = async () => {
+=======
+  const findAll = async () => {
+>>>>>>> Stashed changes
     const response = await MeetingRoomService.selectAll();
     const { result } = response.data;
     setMeetingRooms(result);

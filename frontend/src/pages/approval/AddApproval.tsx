@@ -6,9 +6,15 @@ import { Meta } from "react-head";
 import messages from "../../common/messages";
 import ApprovalService from "../../services/ApprovalService";
 import DocumentService from "../../services/DocumentService";
+<<<<<<< Updated upstream
 import type { IApproval } from "../../types/IApproval";
 import type { IDocument } from "../../types/IDocument";
+=======
+
+>>>>>>> Stashed changes
 import approvalValidation from "../../validation/approvalValidation";
+import type { IDocument } from "../../types/IDocument";
+import type { IApproval } from "../../types/IApproval";
 
 function AddApproval() {
   const params = useParams<{ docId: string }>();

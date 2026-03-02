@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { Meta } from "react-head";
 import messages from "../../common/messages";
 import TemplateService from "../../services/TemplateService";
+<<<<<<< Updated upstream
 import type { ITemplate } from "../../types/ITemplate";
+=======
+import type {ITemplate} from "../../types/ITemplate";
+>>>>>>> Stashed changes
 
 const TemplateList = () => {
   const [templates, setTemplates] = useState<ITemplate[]>([]);

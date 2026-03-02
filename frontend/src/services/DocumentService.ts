@@ -1,6 +1,11 @@
 // DocumentService.ts
+<<<<<<< Updated upstream
 import axiosInstance from "../common/axiosInstance";
 import type { IDocument } from "../types/IDocument";
+=======
+import common from "../common/CommonService";
+import type {IDocument} from "../types/IDocument";
+>>>>>>> Stashed changes
 
 // 전체 조회 (검색 + 페이징)
 const getAll = (searchKeyword: string, page: number, size: number) => {
