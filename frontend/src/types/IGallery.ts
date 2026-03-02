@@ -1,0 +1,6 @@
+export  interface IGallery {
+  uuid?: number;
+  galleryTitle: string;
+  fileData?: File | null;
+  galleryFileUrl?: string;
+}
